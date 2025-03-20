@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "cultivation_mastery_forge:item/spiritual_mirror"
-  }
-}

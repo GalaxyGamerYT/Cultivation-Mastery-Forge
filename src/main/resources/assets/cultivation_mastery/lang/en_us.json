@@ -1,0 +1,17 @@
+{
+  "item.cultivation_mastery.spiritual_mirror": "§6Spiritual Mirror",
+  "item.cultivation_mastery.spiritual_mirror.tooltip": "Deep inside, you feel an uncontrollable pull to §5Right Click§f this artifact!!!",
+
+  "item.cultivation_mastery.low_spirit_stone": "Low Spirit Stone",
+  "item.cultivation_mastery.medium_spirit_stone": "Medium Spirit Stone",
+  "item.cultivation_mastery.high_spirit_stone": "High Spirit Stone",
+
+  "block.cultivation_mastery.low_spirit_stone_ore": "Low Spirit Stone Ore",
+  "block.cultivation_mastery.deepslate_low_spirit_stone_ore": "Deeplsate Low Spirit Stone Ore",
+  "block.cultivation_mastery.medium_spirit_stone_ore": "Medium Spirit Stone Ore",
+  "block.cultivation_mastery.deepslate_medium_spirit_stone_ore": "Deeplsate Medium Spirit Stone Ore",
+  "block.cultivation_mastery.high_spirit_stone_ore": "High Spirit Stone Ore",
+  "block.cultivation_mastery.deepslate_high_spirit_stone_ore": "Deeplsate High Spirit Stone Ore",
+
+  "creativetab.cultivation_mastery_tab": "Cultivation Mastery"
+}

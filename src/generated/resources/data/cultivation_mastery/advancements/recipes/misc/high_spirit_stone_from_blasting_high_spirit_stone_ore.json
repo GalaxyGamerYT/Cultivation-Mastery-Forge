@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_high_spirit_stone_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cultivation_mastery:high_spirit_stone_ore"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "cultivation_mastery:high_spirit_stone_from_blasting_high_spirit_stone_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_high_spirit_stone_ore",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cultivation_mastery:high_spirit_stone_from_blasting_high_spirit_stone_ore"
+    ]
+  },
+  "sends_telemetry_event": false
+}

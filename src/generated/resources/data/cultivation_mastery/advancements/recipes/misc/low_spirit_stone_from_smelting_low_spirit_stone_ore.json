@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_low_spirit_stone_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cultivation_mastery:low_spirit_stone_ore"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "cultivation_mastery:low_spirit_stone_from_smelting_low_spirit_stone_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_low_spirit_stone_ore",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cultivation_mastery:low_spirit_stone_from_smelting_low_spirit_stone_ore"
+    ]
+  },
+  "sends_telemetry_event": false
+}
