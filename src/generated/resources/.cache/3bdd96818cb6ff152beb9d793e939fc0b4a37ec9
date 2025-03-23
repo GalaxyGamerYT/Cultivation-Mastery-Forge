@@ -1,1 +1,8 @@
-// 1.20.1	2025-03-20T17:32:18.7730434	Tags for minecraft:item mod id cultivation_mastery
+// 1.20.1	2025-03-23T02:09:42.0078207	Tags for minecraft:item mod id cultivation_mastery
+7a691097b479c421db4b9299f9f507c779c8b886 data/cultivation_mastery/tags/items/high_spirit_stone_ores.json
+416f1f5f10a44d50d25a7e78d543dac433e88734 data/cultivation_mastery/tags/items/low_spirit_stone_ores.json
+832c67c33fd3ebaeedfef07afe7a6ceb71fd29f1 data/cultivation_mastery/tags/items/medium_spirit_stone_ores.json
+a67ac36129890c68363121c408aa5d1f1a35fb3a data/forge/tags/items/ores.json
+5dea51bfa01f4ddfef4b300f6d10c2531dd1af93 data/forge/tags/items/ores_in_ground/deepslate.json
+988dca70e3f7dd569c3cb0317a0a41d739dbcf2d data/forge/tags/items/ores_in_ground/stone.json
+a67ac36129890c68363121c408aa5d1f1a35fb3a data/forge/tags/items/ore_rates/singular.json

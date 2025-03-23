@@ -1,13 +1,18 @@
 package galaxygameryt.cultivation_mastery.item.custom;
 
+import galaxygameryt.cultivation_mastery.screen.CustomMenu;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -19,10 +24,19 @@ public class SpiritualMirrorItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-        pPlayer.sendSystemMessage(Component.literal("Used Item!!!"));
-        return InteractionResultHolder.success(itemstack);
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        ItemStack item = player.getItemInHand(hand);
+//        player.openMenu(new CustomMenuProvider());
+        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            // Open the GUI
+            NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
+                    (containerId, playerInventory, playerEntity) -> new CustomMenu(containerId, playerInventory),
+                    Component.translatable("menu.title.cultivation_mastery.custom_menu")
+            ));
+        }
+        player.sendSystemMessage(Component.literal("Used Item!!!"));
+
+        return InteractionResultHolder.success(item);
     }
 
     @Override

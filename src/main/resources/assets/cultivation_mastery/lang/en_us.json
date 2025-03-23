@@ -13,5 +13,8 @@
   "block.cultivation_mastery.high_spirit_stone_ore": "High Spirit Stone Ore",
   "block.cultivation_mastery.deepslate_high_spirit_stone_ore": "Deeplsate High Spirit Stone Ore",
 
-  "creativetab.cultivation_mastery_tab": "Cultivation Mastery"
+  "creativetab.cultivation_mastery_tab": "Cultivation Mastery",
+
+  "screen.cultivation_mastery.custom_gui": "Custom GUI!!!",
+  "menu.title.cultivation_mastery.custom_menu": "Custom MENU"
 }
