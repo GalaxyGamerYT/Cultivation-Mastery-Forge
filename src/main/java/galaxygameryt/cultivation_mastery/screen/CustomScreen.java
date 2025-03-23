@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 
 public class CustomScreen extends AbstractContainerScreen<CustomMenu> {
     private static final ResourceLocation TEXTURE =
@@ -34,7 +33,7 @@ public class CustomScreen extends AbstractContainerScreen<CustomMenu> {
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY);
 
-        pGuiGraphics.drawString(this.font, "The start of your cultivation journey!!!", 0, 100, 0x404040);
+        pGuiGraphics.drawString(this.font, "The start of your cultivation journey!!!", 0, 100, 0x00000);
     }
 
     @Override

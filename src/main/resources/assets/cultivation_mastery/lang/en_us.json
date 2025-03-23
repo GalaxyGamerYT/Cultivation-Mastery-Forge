@@ -16,5 +16,8 @@
   "creativetab.cultivation_mastery_tab": "Cultivation Mastery",
 
   "screen.cultivation_mastery.custom_gui": "Custom GUI!!!",
-  "menu.title.cultivation_mastery.custom_menu": "Custom MENU"
+  "menu.title.cultivation_mastery.custom_menu": "Custom MENU",
+
+  "key.category.cultivation_mastery.cultivation": "Cultivation Mastery (Cultivation)",
+  "key.cultivation_mastery.meditate": "Meditate"
 }
