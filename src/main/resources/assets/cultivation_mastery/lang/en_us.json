@@ -19,5 +19,10 @@
   "menu.title.cultivation_mastery.custom_menu": "Custom MENU",
 
   "key.category.cultivation_mastery.cultivation": "Cultivation Mastery (Cultivation)",
-  "key.cultivation_mastery.meditate": "Meditate"
+  "key.category.cultivation_mastery.debug": "Cultivation Mastery (Debug)",
+  "key.cultivation_mastery.meditate": "Meditate",
+  "key.cultivation_mastery.cultivation_gui": "Cultivation GUI",
+
+  "message.cultivation_mastery.meditate": "Meditating!",
+  "message.cultivation_mastery.not_meditate": "Not Meditating!"
 }
