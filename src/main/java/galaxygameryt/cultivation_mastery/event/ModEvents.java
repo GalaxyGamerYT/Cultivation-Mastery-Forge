@@ -14,6 +14,7 @@ import galaxygameryt.cultivation_mastery.capabilites.qi_increase.PlayerQiIncreas
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.CultivationSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.QiDataSyncS2CPacket;
+import galaxygameryt.cultivation_mastery.util.PlayerData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -32,15 +33,7 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = CultivationMastery.MOD_ID)
 public class ModEvents {
-    private class PlayerData {
-        int tickCounter = 0;
-        int max_qi = 100;
-        float qi_increase = 0.1f;
-        boolean cultivation = false;
-        boolean meditating = false;
-    }
-
-    private static final HashMap<UUID, PlayerData> playerdata = new HashMap<>();
+    private static final HashMap<UUID, PlayerData> playerDataMap = new HashMap<>();
 
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
@@ -130,48 +123,58 @@ public class ModEvents {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        CultivationMastery.LOGGER.debug("Phase: {}", event.phase);
+        CultivationMastery.LOGGER.debug("Side: {}", event.side);
+        CultivationMastery.LOGGER.debug("Type: {}", event.type);
         if(event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
             // Ticks on the server
             Player player = event.player;
 
             UUID playerId = player.getUUID();
-            playerdata.putIfAbsent(playerId, new PlayerData());
+            playerDataMap.putIfAbsent(playerId, new PlayerData(playerId));
 
-            PlayerData playerData = playerdata.get(playerId);
-            playerData.tickCounter++;
+            PlayerData playerData = playerDataMap.get(playerId);
+            playerData.incrementTickCounter();
+            CultivationMastery.LOGGER.debug(String.valueOf(playerData.getTickCounter()));
+            CultivationMastery.LOGGER.debug(String.valueOf(playerDataMap.get(playerId).getTickCounter()));
 
             syncS2C((ServerPlayer) player);
 
-            // Gets the cultivation boolean of the player
-            player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
-                playerData.cultivation = cultivation.getCultivation();
-            });
-            if(playerData.cultivation) {
+            // The game runs at 20 t/s
+            // Once every 5 seconds / 100 ticks
+            if(playerData.getTickCounter() >= 100) {
+                playerData.setTickCounter(0);
 
-                // Gets the max qi of the player
-                player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(max_qi -> {
-                    playerData.max_qi = max_qi.getMaxQi();
+                // Gets the cultivation boolean of the player
+                player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
+                    playerData.setCultivation(cultivation.getCultivation());
                 });
+                if(playerData.getCultivation()) {
 
-                // Gets the qi increase of the player
-                player.getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).ifPresent(qi_increase -> {
-                    playerData.qi_increase = qi_increase.getQi_increase();
-                });
+                    // Gets the max qi of the player
+                    player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(max_qi -> {
+                        playerData.setMax_qi(max_qi.getMaxQi());
+                    });
 
-                // Gets the meditating boolean of the player
-                player.getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).ifPresent(meditating -> {
-                    playerData.meditating = meditating.getMeditating();
-                });
+                    // Gets the qi increase of the player
+                    player.getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).ifPresent(qi_increase -> {
+                        playerData.setQi_increase(qi_increase.getQi_increase());
+                    });
 
-                // Adds to the player's qi
-                player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
-                    // The game runs at 20 t/s
-                    // Once every 5 seconds / 100 ticks
-                    if(playerData.tickCounter >= 100 && playerData.meditating) { // Once every 5 seconds / 100 ticks
-                        playerData.tickCounter = 0;
-                        qi.addQi(playerData.qi_increase, playerData.max_qi);
-                    }
-                });
+                    // Gets the meditating boolean of the player
+                    player.getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).ifPresent(meditating -> {
+                        playerData.setMeditating(meditating.getMeditating());
+                    });
+
+                    // Adds to the player's qi
+                    player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
+                        if(playerData.getMeditating()) {
+                            qi.addQi(playerData.getQi_increase(), playerData.getMax_qi());
+                            playerData.setQi(qi.getQi());
+                        }
+                    });
+                }
+                playerDataMap.put(playerId, playerData);
             }
         }
     }
