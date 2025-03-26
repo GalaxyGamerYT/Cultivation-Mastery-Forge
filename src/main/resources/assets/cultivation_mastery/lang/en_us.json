@@ -15,6 +15,9 @@
 
   "block.cultivation_mastery.oak_training_post": "Oak Training Post",
 
+  "block.cultivation_mastery.training_post.tooltip.1": "Punch to train your body in Martial Arts Cultivation",
+  "block.cultivation_mastery.training_post.tooltip.2": "Shift Right Click to break",
+
   "creativetab.cultivation_mastery_tab": "Cultivation Mastery",
 
   "screen.cultivation_mastery.custom_gui": "Custom GUI!!!",

@@ -42,6 +42,20 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.add(ModBlocks.OAK_TRAINING_POST.get(),
                 block -> createDoorLikeDrops(ModBlocks.OAK_TRAINING_POST.get()));
+        this.add(ModBlocks.ACACIA_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.ACACIA_TRAINING_POST.get()));
+        this.add(ModBlocks.CHERRY_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.CHERRY_TRAINING_POST.get()));
+        this.add(ModBlocks.MANGROVE_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.MANGROVE_TRAINING_POST.get()));
+        this.add(ModBlocks.JUNGLE_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.JUNGLE_TRAINING_POST.get()));
+        this.add(ModBlocks.BIRCH_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.BIRCH_TRAINING_POST.get()));
+        this.add(ModBlocks.DARK_OAK_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.DARK_OAK_TRAINING_POST.get()));
+        this.add(ModBlocks.SPRUCE_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.SPRUCE_TRAINING_POST.get()));
     }
 
     protected LootTable.Builder createDoorLikeDrops(Block pDoorBlock) {

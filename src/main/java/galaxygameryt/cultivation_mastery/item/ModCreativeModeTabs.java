@@ -32,6 +32,13 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get().asItem());
 
                         pOutput.accept(ModBlocks.OAK_TRAINING_POST.get().asItem());
+                        pOutput.accept(ModBlocks.SPRUCE_TRAINING_POST.get().asItem());
+                        pOutput.accept(ModBlocks.ACACIA_TRAINING_POST.get().asItem());
+                        pOutput.accept(ModBlocks.CHERRY_TRAINING_POST.get().asItem());
+                        pOutput.accept(ModBlocks.MANGROVE_TRAINING_POST.get().asItem());
+                        pOutput.accept(ModBlocks.DARK_OAK_TRAINING_POST.get().asItem());
+                        pOutput.accept(ModBlocks.JUNGLE_TRAINING_POST.get().asItem());
+                        pOutput.accept(ModBlocks.BIRCH_TRAINING_POST.get().asItem());
                     })
                     .build());
     public static void register(IEventBus eventBus) {

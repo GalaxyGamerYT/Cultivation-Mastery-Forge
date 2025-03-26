@@ -30,6 +30,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get());
 
         trainingPostBlock(ModBlocks.OAK_TRAINING_POST.get());
+        trainingPostBlock(ModBlocks.JUNGLE_TRAINING_POST.get());
+        trainingPostBlock(ModBlocks.MANGROVE_TRAINING_POST.get());
+        trainingPostBlock(ModBlocks.CHERRY_TRAINING_POST.get());
+        trainingPostBlock(ModBlocks.SPRUCE_TRAINING_POST.get());
+        trainingPostBlock(ModBlocks.DARK_OAK_TRAINING_POST.get());
+        trainingPostBlock(ModBlocks.BIRCH_TRAINING_POST.get());
+        trainingPostBlock(ModBlocks.ACACIA_TRAINING_POST.get());
     }
 
     private void trainingPostBlock(Block block) {
