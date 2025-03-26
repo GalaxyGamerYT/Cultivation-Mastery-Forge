@@ -175,8 +175,6 @@ dependencies {
     implementation fg.deobf("curse.maven:Controlling-${cm_controlling_version}:${cm_controlling_file}")
     implementation fg.deobf("curse.maven:Searchables-${cm_searchables_version}:${cm_searchables_file}")
     implementation fg.deobf("curse.maven:patchouli-${cm_patchouli_version}:${cm_patchouli_file}")
-    implementation fg.deobf("curse.maven:just-enough-resources-jer-${cm_jer_version}:${cm_jer_file}")
-    implementation fg.deobf("curse.maven:just-enough-professions-jep-${cm_jep_version}:${cm_jep_file}")
 
     // Mod Dependencies
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")

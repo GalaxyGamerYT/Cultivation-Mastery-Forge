@@ -7,6 +7,8 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
@@ -37,6 +39,13 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 block -> createCopperLikeOreDrops(ModBlocks.HIGH_SPIRIT_STONE_ORE.get(), ModItems.HIGH_SPIRIT_STONE.get()));
         this.add(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get(),
                 block -> createCopperLikeOreDrops(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get(), ModItems.HIGH_SPIRIT_STONE.get()));
+
+        this.add(ModBlocks.OAK_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.OAK_TRAINING_POST.get()));
+    }
+
+    protected LootTable.Builder createDoorLikeDrops(Block pDoorBlock) {
+        return this.createSinglePropConditionTable(pDoorBlock, DoorBlock.HALF, DoubleBlockHalf.LOWER);
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {

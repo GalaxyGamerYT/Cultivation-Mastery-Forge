@@ -3,9 +3,16 @@ package galaxygameryt.cultivation_mastery.datagen;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -15,15 +22,115 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        blockWithItem(ModBlocks.LOW_SPIRIT_STONE_ORE);
-        blockWithItem(ModBlocks.DEEPSLATE_LOW_SPIRIT_STONE_ORE);
-        blockWithItem(ModBlocks.MEDIUM_SPIRIT_STONE_ORE);
-        blockWithItem(ModBlocks.DEEPSLATE_MEDIUM_SPIRIT_STONE_ORE);
-        blockWithItem(ModBlocks.HIGH_SPIRIT_STONE_ORE);
-        blockWithItem(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE);
+        blockWithItem(ModBlocks.LOW_SPIRIT_STONE_ORE.get());
+        blockWithItem(ModBlocks.DEEPSLATE_LOW_SPIRIT_STONE_ORE.get());
+        blockWithItem(ModBlocks.MEDIUM_SPIRIT_STONE_ORE.get());
+        blockWithItem(ModBlocks.DEEPSLATE_MEDIUM_SPIRIT_STONE_ORE.get());
+        blockWithItem(ModBlocks.HIGH_SPIRIT_STONE_ORE.get());
+        blockWithItem(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get());
+
+        trainingPostBlock(ModBlocks.OAK_TRAINING_POST.get());
     }
 
-    private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
-        simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
+    private void trainingPostBlock(Block block) {
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            boolean lower = state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
+
+            ModelFile model = new ModelFile(ResourceLocation.fromNamespaceAndPath(
+                    CultivationMastery.MOD_ID,
+                    "training_posts/block/"+ForgeRegistries.BLOCKS.getKey(block).getPath()+"_"+(
+                    lower ? "bottom" : "top")
+            )) {
+                @Override
+                protected boolean exists() {
+                    return true;
+                }
+            };
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+        });
+        simpleBlockItem(block, new ModelFile(ResourceLocation.fromNamespaceAndPath(
+                CultivationMastery.MOD_ID,
+                "training_posts/item/"+ForgeRegistries.BLOCKS.getKey(block).getPath()
+        )) {
+            @Override
+            protected boolean exists() {
+                return true;
+            }
+        });
+    }
+
+    private void blockWithItem(Block block) {
+        simpleBlockWithItem(block, cubeAll(block));
+    }
+
+    private void blockItem(Block block) {
+        simpleBlockItem(block, new ModelFile(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "block/" +
+                ForgeRegistries.BLOCKS.getKey(block).getPath())) {
+            @Override
+            protected boolean exists() {
+                return true;
+            }
+        });
+    }
+
+    private void blockItem(Block block, String appendix) {
+        simpleBlockItem(block, new ModelFile(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "block/" +
+                ForgeRegistries.BLOCKS.getKey(block).getPath() + appendix)) {
+            @Override
+            protected boolean exists() {
+                return true;
+            }
+        });
+    }
+
+    private void doubleBlockWithItem(Block block) {
+        doubleBlock(block);
+        blockItem(block);
+    }
+
+    private void doubleBlock(Block block) {
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            boolean lower = state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
+
+            ModelFile model = new ModelFile(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
+                    "block/" + ForgeRegistries.BLOCKS.getKey(block).getPath() + "_" + (
+                            lower ? "lower" : "upper"
+                    )
+            )) {
+                @Override
+                protected boolean exists() {
+                    return true;
+                }
+            };
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+        });
+    }
+
+    private void doubleBlockWithPath(Block block, String path) {
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            boolean lower = state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
+
+            ModelFile model = new ModelFile(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
+                    "block/" + path + "/" + ForgeRegistries.BLOCKS.getKey(block).getPath() + "_" + (
+                            lower ? "lower" : "upper"
+                    )
+            )) {
+                @Override
+                protected boolean exists() {
+                    return true;
+                }
+            };
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+        });
+
     }
 }

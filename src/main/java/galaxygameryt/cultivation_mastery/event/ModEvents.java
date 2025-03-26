@@ -122,10 +122,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        CultivationMastery.LOGGER.debug("Phase: {}", event.phase);
-        CultivationMastery.LOGGER.debug("Side: {}", event.side);
-        CultivationMastery.LOGGER.debug("Type: {}", event.type);
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if(event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
             // Ticks on the server
             Player player = event.player;
@@ -135,8 +132,6 @@ public class ModEvents {
 
             PlayerData playerData = playerDataMap.get(playerId);
             playerData.incrementTickCounter();
-            CultivationMastery.LOGGER.debug(String.valueOf(playerData.getTickCounter()));
-            CultivationMastery.LOGGER.debug(String.valueOf(playerDataMap.get(playerId).getTickCounter()));
 
             syncS2C((ServerPlayer) player);
 

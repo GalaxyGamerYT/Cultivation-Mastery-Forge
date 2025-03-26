@@ -30,6 +30,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.DEEPSLATE_MEDIUM_SPIRIT_STONE_ORE.get().asItem());
                         pOutput.accept(ModBlocks.HIGH_SPIRIT_STONE_ORE.get().asItem());
                         pOutput.accept(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get().asItem());
+
+                        pOutput.accept(ModBlocks.OAK_TRAINING_POST.get().asItem());
                     })
                     .build());
     public static void register(IEventBus eventBus) {
