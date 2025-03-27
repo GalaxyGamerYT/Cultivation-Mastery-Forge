@@ -1,7 +1,6 @@
 package galaxygameryt.cultivation_mastery.item.custom;
 
 import galaxygameryt.cultivation_mastery.screen.CustomMenu;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SpiritualMirrorItem extends Item {
-
     public SpiritualMirrorItem(Properties pProperties) {
         super(pProperties);
     }
@@ -26,7 +24,6 @@ public class SpiritualMirrorItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack item = player.getItemInHand(hand);
-//        player.openMenu(new CustomMenuProvider());
         if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
             // Open the GUI
             NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(

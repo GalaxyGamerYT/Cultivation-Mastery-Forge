@@ -6,6 +6,7 @@ import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.CultivationC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPacket;
 import galaxygameryt.cultivation_mastery.screen.CustomScreen;
+import galaxygameryt.cultivation_mastery.screen.BackpackScreen;
 import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -38,6 +39,7 @@ public class ClientEvents {
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             MenuScreens.register(ModMenuTypes.CUSTOM_MENU.get(), CustomScreen::new);
+            MenuScreens.register(ModMenuTypes.BACKPACK_MENU.get(), BackpackScreen::new);
         }
 
         @SubscribeEvent

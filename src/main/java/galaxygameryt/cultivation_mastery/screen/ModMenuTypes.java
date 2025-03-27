@@ -17,8 +17,14 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<CustomMenu>> CUSTOM_MENU = registerMenuType("custom_menu", CustomMenu::new);
 
+    public static final RegistryObject<MenuType<BackpackMenu>> BACKPACK_MENU = registerFactoryMenuType("backpack_menu", BackpackMenu::new);
+
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, MenuType.MenuSupplier<T> supplier) {
         return MENUS.register(name, () -> new MenuType(supplier, FeatureFlags.DEFAULT_FLAGS));
+    }
+
+    private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerFactoryMenuType(String name, IContainerFactory<T> factory) {
+        return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
 
     public static void register(IEventBus eventBus) {

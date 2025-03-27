@@ -25,6 +25,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.LOW_SPIRIT_STONE.get());
         simpleItem(ModItems.MEDIUM_SPIRIT_STONE.get());
         simpleItem(ModItems.HIGH_SPIRIT_STONE.get());
+
+        simpleItem(ModItems.BACKPACK.get());
     }
 
     private ItemModelBuilder simpleItem(Item item) {

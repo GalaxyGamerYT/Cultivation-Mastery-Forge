@@ -1,8 +1,13 @@
 package galaxygameryt.cultivation_mastery.block.custom;
 
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -25,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -41,7 +48,8 @@ public class TrainingPostBlock extends Block {
             Block.box(4, 4, 4, 12, 16, 12),
             Block.box(4, 16, 4, 12, 16, 12)
     ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
-
+//    getDestroyProgress
+//    attack
 
     public float trainingMultiplier;
 
@@ -58,6 +66,32 @@ public class TrainingPostBlock extends Block {
         pTooltip.add(Component.translatable("block.cultivation_mastery.training_post.tooltip.1"));
         pTooltip.add(Component.translatable("block.cultivation_mastery.training_post.tooltip.2"));
         pTooltip.add(Component.literal(String.format(" - +%.2f to Body Tempering",trainingMultiplier)));
+    }
+
+    @Override
+    public @NotNull InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if(pLevel.isClientSide()) {
+            if(pPlayer.isShiftKeyDown() && pPlayer.getMainHandItem().isEmpty()) {
+                pLevel.destroyBlock(pPos, true);
+            } else {
+                pPlayer.sendSystemMessage(Component.literal("Shift Right Click to break or punch with an empty hand to train")
+                        .withStyle(ChatFormatting.RED));
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void attack(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
+        super.attack(pState, pLevel, pPos, pPlayer);
+        if (pLevel.isClientSide()) {
+            Random rand = new Random();
+            float data = rand.nextFloat(0.2f, 0.5f) * trainingMultiplier;
+            // Increase Body Cultivation
+            pPlayer.sendSystemMessage(Component.literal("Punched Training Post"));
+            pLevel.playSound(pPlayer, pPos, SoundEvents.WOOD_BREAK, SoundSource.PLAYERS,
+                    0.5f, pLevel.random.nextFloat() * 0.1F + 0.9F);
+        }
     }
 
     @Override

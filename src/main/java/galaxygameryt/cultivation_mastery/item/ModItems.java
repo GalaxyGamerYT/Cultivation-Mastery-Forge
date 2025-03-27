@@ -1,6 +1,7 @@
 package galaxygameryt.cultivation_mastery.item;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.item.custom.BackpackItem;
 import galaxygameryt.cultivation_mastery.item.custom.SpiritualMirrorItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,6 +16,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("spiritual_mirror",
             () -> new SpiritualMirrorItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> BACKPACK = ITEMS.register("backpack",
+            () -> new BackpackItem(new Item.Properties()));
 
 
     public static final RegistryObject<Item> LOW_SPIRIT_STONE = ITEMS.register("low_spirit_stone",

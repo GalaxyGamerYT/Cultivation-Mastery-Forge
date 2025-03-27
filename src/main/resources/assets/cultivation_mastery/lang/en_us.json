@@ -1,6 +1,10 @@
 {
+  "menu.title.cultivation_mastery.guide_menu": "Guide Menu",
+
   "item.cultivation_mastery.spiritual_mirror": "§6Spiritual Mirror",
   "item.cultivation_mastery.spiritual_mirror.tooltip": "Deep inside, you feel an uncontrollable pull to §5Right Click§f this artifact!!!",
+
+  "item.cultivation_mastery.backpack": "Backpack",
 
   "item.cultivation_mastery.low_spirit_stone": "Low Spirit Stone",
   "item.cultivation_mastery.medium_spirit_stone": "Medium Spirit Stone",
@@ -14,8 +18,15 @@
   "block.cultivation_mastery.deepslate_high_spirit_stone_ore": "Deeplsate High Spirit Stone Ore",
 
   "block.cultivation_mastery.oak_training_post": "Oak Training Post",
+  "block.cultivation_mastery.spruce_training_post": "Spruce Training Post",
+  "block.cultivation_mastery.cherry_training_post": "Cherry Training Post",
+  "block.cultivation_mastery.dark_oak_training_post": "Dark Oak Training Post",
+  "block.cultivation_mastery.jungle_training_post": "Jungle Training Post",
+  "block.cultivation_mastery.birch_training_post": "Birch Training Post",
+  "block.cultivation_mastery.mangrove_training_post": "Mangrove Training Post",
+  "block.cultivation_mastery.acacia_training_post": "Acacia Training Post",
 
-  "block.cultivation_mastery.training_post.tooltip.1": "Punch to train your body in Martial Arts Cultivation",
+  "block.cultivation_mastery.training_post.tooltip.1": "Punch to train your body in Martial Arts",
   "block.cultivation_mastery.training_post.tooltip.2": "Shift Right Click to break",
 
   "creativetab.cultivation_mastery_tab": "Cultivation Mastery",

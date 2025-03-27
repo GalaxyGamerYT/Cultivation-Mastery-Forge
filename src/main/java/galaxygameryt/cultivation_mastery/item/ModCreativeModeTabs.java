@@ -19,6 +19,7 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.cultivation_mastery_tab"))
                     .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModItems.SPIRITUAL_MIRROR.get());
+                        pOutput.accept(ModItems.BACKPACK.get());
 
                         pOutput.accept(ModItems.LOW_SPIRIT_STONE.get());
                         pOutput.accept(ModItems.MEDIUM_SPIRIT_STONE.get());
