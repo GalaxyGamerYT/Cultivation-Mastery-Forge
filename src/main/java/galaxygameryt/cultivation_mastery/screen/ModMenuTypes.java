@@ -2,7 +2,6 @@ package galaxygameryt.cultivation_mastery.screen;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.screen.custom.BackpackMenu;
-import galaxygameryt.cultivation_mastery.screen.custom.CustomMenu;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -16,8 +15,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, CultivationMastery.MOD_ID);
-
-    public static final RegistryObject<MenuType<CustomMenu>> CUSTOM_MENU = registerMenuType("custom_menu", CustomMenu::new);
 
     public static final RegistryObject<MenuType<BackpackMenu>> BACKPACK_MENU = registerFactoryMenuType("backpack_menu", BackpackMenu::new);
 

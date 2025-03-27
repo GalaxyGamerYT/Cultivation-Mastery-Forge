@@ -1,6 +1,7 @@
 package galaxygameryt.cultivation_mastery.item.custom;
 
-import galaxygameryt.cultivation_mastery.screen.custom.CustomMenu;
+import galaxygameryt.cultivation_mastery.screen.custom.CustomScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -24,12 +25,9 @@ public class SpiritualMirrorItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack item = player.getItemInHand(hand);
-        if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (world.isClientSide) {
             // Open the GUI
-            NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
-                    (containerId, playerInventory, playerEntity) -> new CustomMenu(containerId, playerInventory),
-                    Component.translatable("menu.title.cultivation_mastery.custom_menu")
-            ));
+            Minecraft.getInstance().setScreen(new CustomScreen());
         }
         player.sendSystemMessage(Component.literal("Used Item!!!"));
 

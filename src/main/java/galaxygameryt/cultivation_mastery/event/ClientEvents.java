@@ -38,7 +38,6 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            MenuScreens.register(ModMenuTypes.CUSTOM_MENU.get(), CustomScreen::new);
             MenuScreens.register(ModMenuTypes.BACKPACK_MENU.get(), BackpackScreen::new);
         }
 
