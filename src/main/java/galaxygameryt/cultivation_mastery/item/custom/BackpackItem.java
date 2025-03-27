@@ -1,6 +1,6 @@
 package galaxygameryt.cultivation_mastery.item.custom;
 
-import galaxygameryt.cultivation_mastery.screen.BackpackMenu;
+import galaxygameryt.cultivation_mastery.screen.custom.BackpackMenu;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;

@@ -134,16 +134,6 @@ repositories {
         }
     }
     maven { url 'https://maven.blamejared.com' }
-    maven {
-        // location of the maven that hosts JEI files before January 2023
-        name = "Progwml6's maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
 }
 
 dependencies {
@@ -169,18 +159,19 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    // Dev Dependencies
-    implementation fg.deobf("curse.maven:jei-${cm_jei_version}:${cm_jei_file}")
-    implementation fg.deobf("curse.maven:spark-${cm_spark_version}:${cm_spark_file}")
-    implementation fg.deobf("curse.maven:Controlling-${cm_controlling_version}:${cm_controlling_file}")
-    implementation fg.deobf("curse.maven:Searchables-${cm_searchables_version}:${cm_searchables_file}")
-    implementation fg.deobf("curse.maven:patchouli-${cm_patchouli_version}:${cm_patchouli_file}")
-
     // Mod Dependencies
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+
+    // Dev Dependencies
+//    implementation fg.deobf("curse.maven:jei-${cm_jei_version}:${cm_jei_file}")
+    implementation fg.deobf("curse.maven:spark-${cm_spark_version}:${cm_spark_file}")
+    implementation fg.deobf("curse.maven:Controlling-${cm_controlling_version}:${cm_controlling_file}")
+    implementation fg.deobf("curse.maven:Searchables-${cm_searchables_version}:${cm_searchables_file}")
+//    implementation fg.deobf("curse.maven:patchouli-${cm_patchouli_version}:${cm_patchouli_file}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

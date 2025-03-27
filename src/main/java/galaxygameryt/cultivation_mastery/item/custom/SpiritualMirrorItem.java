@@ -1,6 +1,6 @@
 package galaxygameryt.cultivation_mastery.item.custom;
 
-import galaxygameryt.cultivation_mastery.screen.CustomMenu;
+import galaxygameryt.cultivation_mastery.screen.custom.CustomMenu;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

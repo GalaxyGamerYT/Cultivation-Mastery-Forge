@@ -10,6 +10,7 @@ public class PlayerData {
     private boolean cultivation = false;
     private boolean meditating = false;
     private float qi = 0;
+    private float body = 0;
 
     public PlayerData(UUID playerUUID) {
         this.playerUUID = playerUUID;
@@ -73,5 +74,13 @@ public class PlayerData {
 
     public void setQi(float qi) {
         this.qi = qi;
+    }
+
+    public float getBody() {
+        return body;
+    }
+
+    public void setBody(float body) {
+        this.body = body;
     }
 }

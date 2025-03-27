@@ -18,9 +18,6 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class CultivationC2SPacket {
-    private static final String MESSAGE_MEDITATE = "message.cultivation_mastery.meditate";
-    private static final String MESSAGE_NOT_MEDITATE = "message.cultivation_mastery.not_meditate";
-
     public CultivationC2SPacket() {
 
     }

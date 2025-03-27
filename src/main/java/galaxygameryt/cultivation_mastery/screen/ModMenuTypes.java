@@ -1,6 +1,8 @@
 package galaxygameryt.cultivation_mastery.screen;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.screen.custom.BackpackMenu;
+import galaxygameryt.cultivation_mastery.screen.custom.CustomMenu;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;

@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.screen;
+package galaxygameryt.cultivation_mastery.screen.custom;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

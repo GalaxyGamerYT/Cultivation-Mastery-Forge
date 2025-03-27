@@ -17,8 +17,8 @@ public class ModItems {
     public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("spiritual_mirror",
             () -> new SpiritualMirrorItem(new Item.Properties()));
 
-    public static final RegistryObject<Item> BACKPACK = ITEMS.register("backpack",
-            () -> new BackpackItem(new Item.Properties()));
+//    public static final RegistryObject<Item> BACKPACK = ITEMS.register("backpack",
+//            () -> new BackpackItem(new Item.Properties()));
 
 
     public static final RegistryObject<Item> LOW_SPIRIT_STONE = ITEMS.register("low_spirit_stone",

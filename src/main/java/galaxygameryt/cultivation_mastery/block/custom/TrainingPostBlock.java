@@ -1,9 +1,11 @@
 package galaxygameryt.cultivation_mastery.block.custom;
 
 import com.google.common.collect.ImmutableMap;
+import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,11 +73,13 @@ public class TrainingPostBlock extends Block {
 
     @Override
     public @NotNull InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pLevel.isClientSide()) {
-            if(pPlayer.isShiftKeyDown() && pPlayer.getMainHandItem().isEmpty()) {
+        if(!pLevel.isClientSide() && pPlayer instanceof ServerPlayer player) {
+            if(pPlayer.isCrouching() && player.getMainHandItem().isEmpty()) {
                 pLevel.destroyBlock(pPos, true);
+                boolean lower = pState.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
+                pLevel.destroyBlock(lower ? pPos.above() : pPos.below(), false);
             } else {
-                pPlayer.sendSystemMessage(Component.literal("Shift Right Click to break or punch with an empty hand to train")
+                player.sendSystemMessage(Component.literal("Shift Right Click to break or punch with an empty hand to train")
                         .withStyle(ChatFormatting.RED));
             }
         }
@@ -84,14 +89,21 @@ public class TrainingPostBlock extends Block {
     @Override
     public void attack(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
         super.attack(pState, pLevel, pPos, pPlayer);
-        if (pLevel.isClientSide()) {
-            Random rand = new Random();
-            float data = rand.nextFloat(0.2f, 0.5f) * trainingMultiplier;
-            // Increase Body Cultivation
-            pPlayer.sendSystemMessage(Component.literal("Punched Training Post"));
-            pLevel.playSound(pPlayer, pPos, SoundEvents.WOOD_BREAK, SoundSource.PLAYERS,
+        if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer player) {
+            addData(player);
+
+            player.sendSystemMessage(Component.literal("Punched Training Post"));
+            pLevel.playSound(player, pPos, SoundEvents.WOOD_BREAK, SoundSource.PLAYERS,
                     0.5f, pLevel.random.nextFloat() * 0.1F + 0.9F);
         }
+    }
+
+    public void addData(Player player) {
+        Random rand = new Random();
+        float data = rand.nextFloat(0.2f, 0.5f) * trainingMultiplier;
+        player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
+            body.addBody(data);
+        });
     }
 
     @Override

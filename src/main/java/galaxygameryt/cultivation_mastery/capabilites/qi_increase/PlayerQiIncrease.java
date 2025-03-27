@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 
 public class PlayerQiIncrease {
     private float qi_increase = 0.1f;
+    private static final int min_qi_increase = 0;
 
     public float getQi_increase() {
         return qi_increase;
@@ -14,7 +15,7 @@ public class PlayerQiIncrease {
     }
 
     public void subQiIncrease(float sub) {
-        setQi_increase(Math.max(qi_increase - sub, 0));
+        setQi_increase(Math.max(qi_increase - sub, min_qi_increase));
     }
 
     public void setQi_increase(float num) {

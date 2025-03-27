@@ -1,6 +1,7 @@
-package galaxygameryt.cultivation_mastery.screen;
+package galaxygameryt.cultivation_mastery.screen.custom;
 
 import galaxygameryt.cultivation_mastery.item.custom.BackpackItem;
+import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;

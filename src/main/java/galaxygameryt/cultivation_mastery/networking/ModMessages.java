@@ -4,6 +4,7 @@ import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.CultivationC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.ExampleC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPacket;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.BodyDataSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.CultivationSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.QiDataSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -57,6 +58,11 @@ public class ModMessages {
                 .decoder(CultivationSyncS2CPacket::new)
                 .encoder(CultivationSyncS2CPacket::toBytes)
                 .consumerMainThread(CultivationSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(BodyDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BodyDataSyncS2CPacket::new)
+                .encoder(BodyDataSyncS2CPacket::toBytes)
+                .consumerMainThread(BodyDataSyncS2CPacket::handle)
                 .add();
     }
 

@@ -1,6 +1,8 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBody;
+import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
 import galaxygameryt.cultivation_mastery.capabilites.cultivation.PlayerCultivation;
 import galaxygameryt.cultivation_mastery.capabilites.cultivation.PlayerCultivationProvider;
 import galaxygameryt.cultivation_mastery.capabilites.max_qi.PlayerMaxQi;
@@ -12,6 +14,7 @@ import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQiProvider;
 import galaxygameryt.cultivation_mastery.capabilites.qi_increase.PlayerQiIncrease;
 import galaxygameryt.cultivation_mastery.capabilites.qi_increase.PlayerQiIncreaseProvider;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.BodyDataSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.CultivationSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.QiDataSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.util.PlayerData;
@@ -60,6 +63,10 @@ public class ModEvents {
             if(!event.getObject().getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).isPresent()) {
                 event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "meditating"), new PlayerMeditatingProvider());
             }
+            // Body
+            if(!event.getObject().getCapability(PlayerBodyProvider.PLAYER_BODY).isPresent()) {
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "body"), new PlayerBodyProvider());
+            }
         }
     }
 
@@ -87,6 +94,12 @@ public class ModEvents {
                     newStore.copyFrom(oldStore);
                 });
             });
+            // Body
+            player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(oldStore -> {
+                player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(newStore -> {
+                    newStore.copyFrom(oldStore);
+                });
+            });
         }
     }
 
@@ -109,6 +122,10 @@ public class ModEvents {
         player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
             ModMessages.sendToPlayer(new CultivationSyncS2CPacket(cultivation.getCultivation()), player);
         });
+        // Body
+        player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
+            ModMessages.sendToPlayer(new BodyDataSyncS2CPacket(body.getBody()), player);
+        });
     }
 
     @SubscribeEvent
@@ -119,6 +136,7 @@ public class ModEvents {
         event.register(PlayerMaxQi.class);
         event.register(PlayerQiIncrease.class);
         event.register(PlayerMeditating.class);
+        event.register(PlayerBody.class);
     }
 
     @SubscribeEvent
@@ -135,42 +153,42 @@ public class ModEvents {
 
             syncS2C((ServerPlayer) player);
 
+            // Gets the cultivation boolean of the player
+            player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
+                playerData.setCultivation(cultivation.getCultivation());
+            });
+            // Gets the max qi of the player
+            player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(max_qi -> {
+                playerData.setMax_qi(max_qi.getMaxQi());
+            });
+            // Gets the qi increase of the player
+            player.getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).ifPresent(qi_increase -> {
+                playerData.setQi_increase(qi_increase.getQi_increase());
+            });
+            // Gets the meditating boolean of the player
+            player.getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).ifPresent(meditating -> {
+                playerData.setMeditating(meditating.getMeditating());
+            });
+            // Gets the body cultivation of the player
+            player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
+                playerData.setBody(body.getBody());
+            });
+
             // The game runs at 20 t/s
             // Once every 5 seconds / 100 ticks
-            if(playerData.getTickCounter() >= 100) {
+            if(playerData.getCultivation() && playerData.getMeditating() && playerData.getBody() >= 7 && playerData.getTickCounter() >= 100) {
                 playerData.setTickCounter(0);
 
-                // Gets the cultivation boolean of the player
-                player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
-                    playerData.setCultivation(cultivation.getCultivation());
+
+                // Adds to the player's qi
+                player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
+                    if(playerData.getMeditating()) {
+                        qi.addQi(playerData.getQi_increase(), playerData.getMax_qi());
+                        playerData.setQi(qi.getQi());
+                    }
                 });
-                if(playerData.getCultivation()) {
-
-                    // Gets the max qi of the player
-                    player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(max_qi -> {
-                        playerData.setMax_qi(max_qi.getMaxQi());
-                    });
-
-                    // Gets the qi increase of the player
-                    player.getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).ifPresent(qi_increase -> {
-                        playerData.setQi_increase(qi_increase.getQi_increase());
-                    });
-
-                    // Gets the meditating boolean of the player
-                    player.getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).ifPresent(meditating -> {
-                        playerData.setMeditating(meditating.getMeditating());
-                    });
-
-                    // Adds to the player's qi
-                    player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
-                        if(playerData.getMeditating()) {
-                            qi.addQi(playerData.getQi_increase(), playerData.getMax_qi());
-                            playerData.setQi(qi.getQi());
-                        }
-                    });
-                }
-                playerDataMap.put(playerId, playerData);
             }
+            playerDataMap.put(playerId, playerData);
         }
     }
 }
