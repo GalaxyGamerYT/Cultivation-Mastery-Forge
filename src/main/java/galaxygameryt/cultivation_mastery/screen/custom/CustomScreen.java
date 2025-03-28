@@ -36,12 +36,12 @@ public class CustomScreen extends Screen {
     @Override
     public void tick() {
         sync();
-
     }
 
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         sync();
+        PlayerData playerData = playerDataMap.get(player.getUUID());
 
         var background = new Object() {
             final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
@@ -57,11 +57,17 @@ public class CustomScreen extends Screen {
 
 
         final int gap = 5;
+        final int label_height = 10;
+        final int label_colour = 0x00404040;
+
+        final int label_x = background.left+gap;
+        final int label1_y = background.top+gap;
+        final int label2_y = (label1_y+label_height)+gap;
 
         pGuiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height);
 
-        pGuiGraphics.drawString(this.font, "The start of your cultivation journey!!!", background.left+gap, background.top+gap, 0x00000);
-        pGuiGraphics.drawString(this.font, String.format("Body: %.2f", ), background.left+gap, background.top+gap, 0x00000);
+        pGuiGraphics.drawString(this.font, "The start of your cultivation journey!!!", label_x, label1_y, label_colour, false);
+        pGuiGraphics.drawString(this.font, String.format("Body: %.2f", playerData.getBody()), label_x, label2_y, label_colour, false);
     }
 
 

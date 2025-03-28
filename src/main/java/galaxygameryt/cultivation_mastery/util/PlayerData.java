@@ -11,6 +11,7 @@ public class PlayerData {
     private boolean meditating = false;
     private float qi = 0;
     private float body = 0;
+    private float realm = 0;
 
     public PlayerData(UUID playerUUID) {
         this.playerUUID = playerUUID;
@@ -84,5 +85,11 @@ public class PlayerData {
         this.body = body;
     }
 
+    public float getRealm() {
+        return realm;
+    }
 
+    public void setRealm(float realm) {
+        this.realm = realm;
+    }
 }

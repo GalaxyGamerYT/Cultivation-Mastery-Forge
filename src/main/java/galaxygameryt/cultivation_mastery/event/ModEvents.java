@@ -13,10 +13,13 @@ import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQi;
 import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQiProvider;
 import galaxygameryt.cultivation_mastery.capabilites.qi_increase.PlayerQiIncrease;
 import galaxygameryt.cultivation_mastery.capabilites.qi_increase.PlayerQiIncreaseProvider;
+import galaxygameryt.cultivation_mastery.capabilites.realm.PlayerRealm;
+import galaxygameryt.cultivation_mastery.capabilites.realm.PlayerRealmProvider;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.BodyDataSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.CultivationSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.QiDataSyncS2CPacket;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.RealmDataSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.util.PlayerData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -67,6 +70,10 @@ public class ModEvents {
             if(!event.getObject().getCapability(PlayerBodyProvider.PLAYER_BODY).isPresent()) {
                 event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "body"), new PlayerBodyProvider());
             }
+            // Realm
+            if(!event.getObject().getCapability(PlayerRealmProvider.PLAYER_REALM).isPresent()) {
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "realm"), new PlayerRealmProvider());
+            }
         }
     }
 
@@ -100,6 +107,12 @@ public class ModEvents {
                     newStore.copyFrom(oldStore);
                 });
             });
+            // Realm
+            player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(oldStore -> {
+                player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(newStore -> {
+                    newStore.copyFrom(oldStore);
+                });
+            });
         }
     }
 
@@ -126,6 +139,10 @@ public class ModEvents {
         player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
             ModMessages.sendToPlayer(new BodyDataSyncS2CPacket(body.getBody()), player);
         });
+        // Realm
+        player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(realm -> {
+            ModMessages.sendToPlayer(new RealmDataSyncS2CPacket(realm.getRealm()), player);
+        });
     }
 
     @SubscribeEvent
@@ -137,17 +154,10 @@ public class ModEvents {
         event.register(PlayerQiIncrease.class);
         event.register(PlayerMeditating.class);
         event.register(PlayerBody.class);
+        event.register(PlayerRealm.class);
     }
 
-    public static void updatePlayerData(Player player) {
-        UUID playerId = player.getUUID();
-        playerDataMap.putIfAbsent(playerId, new PlayerData(playerId));
-
-        PlayerData playerData = playerDataMap.get(playerId);
-        playerData.incrementTickCounter();
-
-        syncS2C((ServerPlayer) player);
-
+    public static void capabilities2PlayerData(Player player, PlayerData playerData) {
         // Gets the cultivation boolean of the player
         player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
             playerData.setCultivation(cultivation.getCultivation());
@@ -172,11 +182,15 @@ public class ModEvents {
         player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
             playerData.setQi(qi.getQi());
         });
+        // Gets the Realm value of the player
+        player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(realm -> {
+            playerData.setRealm(realm.getRealm());
+        });
 
-        playerDataMap.put(playerId, playerData);
+        playerDataMap.put(player.getUUID(), playerData);
     }
 
-    public static void getPlayerData(Player player, UUID playerId) {
+    public static void playerData2Capabilities(Player player, PlayerData playerData) {
         // Gets the cultivation boolean of the player
         player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
             cultivation.setCultivation(playerData.getCultivation());
@@ -201,6 +215,10 @@ public class ModEvents {
         player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
             qi.setQi(playerData.getQi());
         });
+        // Gets the Realm value of the player
+        player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(realm -> {
+            realm.setRealm(playerData.getRealm());
+        });
     }
 
     @SubscribeEvent
@@ -216,7 +234,7 @@ public class ModEvents {
 
             syncS2C((ServerPlayer) player);
 
-            updatePlayerData(player);
+            capabilities2PlayerData(player, playerData);
 
             // The game runs at 20 t/s
             // Once every 5 seconds / 100 ticks
@@ -232,7 +250,7 @@ public class ModEvents {
                     }
                 });
             }
-            getPlayerData(player);
+            playerData2Capabilities(player, playerData);
             playerDataMap.put(player.getUUID(), playerDataMap.get(player.getUUID()));
         }
     }

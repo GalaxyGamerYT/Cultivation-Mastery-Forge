@@ -7,6 +7,7 @@ import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPack
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.BodyDataSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.CultivationSyncS2CPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.QiDataSyncS2CPacket;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.RealmDataSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -63,6 +64,11 @@ public class ModMessages {
                 .decoder(BodyDataSyncS2CPacket::new)
                 .encoder(BodyDataSyncS2CPacket::toBytes)
                 .consumerMainThread(BodyDataSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(RealmDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RealmDataSyncS2CPacket::new)
+                .encoder(RealmDataSyncS2CPacket::toBytes)
+                .consumerMainThread(RealmDataSyncS2CPacket::handle)
                 .add();
     }
 
