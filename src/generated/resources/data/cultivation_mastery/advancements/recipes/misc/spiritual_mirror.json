@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_low_spirit_stone": {
+    "has_spritual_stone": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "cultivation_mastery:low_spirit_stone"
-            ]
+            "tag": "cultivation_mastery:spiritual_stones"
           }
         ]
       },
@@ -22,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_low_spirit_stone",
+      "has_spritual_stone",
       "has_the_recipe"
     ]
   ],

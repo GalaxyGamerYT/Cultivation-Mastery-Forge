@@ -4,10 +4,7 @@ import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.CultivationC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.ExampleC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPacket;
-import galaxygameryt.cultivation_mastery.networking.packet.S2C.BodyDataSyncS2CPacket;
-import galaxygameryt.cultivation_mastery.networking.packet.S2C.CultivationSyncS2CPacket;
-import galaxygameryt.cultivation_mastery.networking.packet.S2C.QiDataSyncS2CPacket;
-import galaxygameryt.cultivation_mastery.networking.packet.S2C.RealmDataSyncS2CPacket;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -33,6 +30,7 @@ public class ModMessages {
 
         INSTANCE = net;
 
+        // C2S - To The Server!
         net.messageBuilder(ExampleC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ExampleC2SPacket::new)
                 .encoder(ExampleC2SPacket::toBytes)
@@ -50,6 +48,7 @@ public class ModMessages {
                 .consumerMainThread(CultivationC2SPacket::handle)
                 .add();
 
+        // S2C - To The Client!
         net.messageBuilder(QiDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(QiDataSyncS2CPacket::new)
                 .encoder(QiDataSyncS2CPacket::toBytes)
@@ -69,6 +68,11 @@ public class ModMessages {
                 .decoder(RealmDataSyncS2CPacket::new)
                 .encoder(RealmDataSyncS2CPacket::toBytes)
                 .consumerMainThread(RealmDataSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(MaxQiDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MaxQiDataSyncS2CPacket::new)
+                .encoder(MaxQiDataSyncS2CPacket::toBytes)
+                .consumerMainThread(MaxQiDataSyncS2CPacket::handle)
                 .add();
     }
 

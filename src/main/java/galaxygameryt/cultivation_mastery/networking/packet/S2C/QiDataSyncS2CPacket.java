@@ -1,9 +1,12 @@
 package galaxygameryt.cultivation_mastery.networking.packet.S2C;
 
-import galaxygameryt.cultivation_mastery.client.data.ClientQiData;
+import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class QiDataSyncS2CPacket {
@@ -25,7 +28,14 @@ public class QiDataSyncS2CPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            ClientQiData.set(qi);
+            Player player = context.getSender();
+            UUID playerId = player.getUUID();
+
+            ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(playerId);
+            if(qi != clientPlayerData.getQi()) {
+                clientPlayerData.setQi(qi);
+                CultivationMastery.CLIENT_PLAYER_DATA_MAP.put(playerId, clientPlayerData);
+            }
         });
         return true;
     }

@@ -1,8 +1,9 @@
-package galaxygameryt.cultivation_mastery.configs;
+package galaxygameryt.cultivation_mastery.config;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -15,8 +16,8 @@ import java.util.stream.Collectors;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Forge's config APIs
-@Mod.EventBusSubscriber(modid = CultivationMastery.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class CommonConfig
+@Mod.EventBusSubscriber(modid = CultivationMastery.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.DEDICATED_SERVER)
+public class ServerConfig
 {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
@@ -35,7 +36,7 @@ public class CommonConfig
     // a list of strings that are treated as resource locations for items
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), CommonConfig::validateItemName);
+            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), ServerConfig::validateItemName);
 
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 

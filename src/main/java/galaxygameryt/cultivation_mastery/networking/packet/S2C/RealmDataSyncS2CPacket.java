@@ -1,10 +1,12 @@
 package galaxygameryt.cultivation_mastery.networking.packet.S2C;
 
-import galaxygameryt.cultivation_mastery.client.data.ClientBodyData;
-import galaxygameryt.cultivation_mastery.client.data.ClientRealmData;
+import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class RealmDataSyncS2CPacket {
@@ -26,7 +28,14 @@ public class RealmDataSyncS2CPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            ClientRealmData.set(realm);
+            Player player = context.getSender();
+            UUID playerId = player.getUUID();
+
+            ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(playerId);
+            if(realm != clientPlayerData.getRealm()) {
+                clientPlayerData.setRealm(realm);
+                CultivationMastery.CLIENT_PLAYER_DATA_MAP.put(playerId, clientPlayerData);
+            }
         });
         return true;
     }

@@ -25,6 +25,10 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, CultivationMastery.MOD_ID);
 
+    public static final RegistryObject<Block> SPIRITUAL_IRON_BLOCK = registerBlock("spiritual_iron_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(7.5F, 8.5F)));
+
     public static final RegistryObject<Block> LOW_SPIRIT_STONE_ORE = registerBlock("low_spirit_stone_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(2,5)));
@@ -44,38 +48,33 @@ public class ModBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
                     .strength(5f).requiresCorrectToolForDrops(), UniformInt.of(6,9)));
 
-    public static final RegistryObject<Block> ACACIA_TRAINING_POST = registerBlock("acacia_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
-    public static final RegistryObject<Block> BIRCH_TRAINING_POST = registerBlock("birch_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
-    public static final RegistryObject<Block> CHERRY_TRAINING_POST = registerBlock("cherry_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
-    public static final RegistryObject<Block> DARK_OAK_TRAINING_POST = registerBlock("dark_oak_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
-    public static final RegistryObject<Block> JUNGLE_TRAINING_POST = registerBlock("jungle_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
-    public static final RegistryObject<Block> MANGROVE_TRAINING_POST = registerBlock("mangrove_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.MANGROVE_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
-    public static final RegistryObject<Block> OAK_TRAINING_POST = registerBlock("oak_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
-    public static final RegistryObject<Block> SPRUCE_TRAINING_POST = registerBlock("spruce_training_post",
-            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
-                    .sound(SoundType.WOOD)
-                    .strength(-2.0f, 2.0f), 0.1f));
+    public static final RegistryObject<Block> ACACIA_TRAINING_POST = registerBasicTrainingPostBlock("acacia_training_post",
+            Blocks.ACACIA_PLANKS);
+    public static final RegistryObject<Block> BIRCH_TRAINING_POST = registerBasicTrainingPostBlock("birch_training_post",
+            Blocks.BIRCH_PLANKS);
+    public static final RegistryObject<Block> CHERRY_TRAINING_POST = registerBasicTrainingPostBlock("cherry_training_post",
+            Blocks.CHERRY_PLANKS);
+    public static final RegistryObject<Block> DARK_OAK_TRAINING_POST = registerBasicTrainingPostBlock("dark_oak_training_post",
+            Blocks.DARK_OAK_PLANKS);
+    public static final RegistryObject<Block> JUNGLE_TRAINING_POST = registerBasicTrainingPostBlock("jungle_training_post",
+            Blocks.JUNGLE_PLANKS);
+    public static final RegistryObject<Block> MANGROVE_TRAINING_POST = registerBasicTrainingPostBlock("mangrove_training_post",
+            Blocks.MANGROVE_PLANKS);
+    public static final RegistryObject<Block> OAK_TRAINING_POST = registerBasicTrainingPostBlock("oak_training_post",
+            Blocks.OAK_PLANKS);
+    public static final RegistryObject<Block> SPRUCE_TRAINING_POST = registerBasicTrainingPostBlock("spruce_training_post",
+            Blocks.SPRUCE_PLANKS);
+
+    public static final RegistryObject<Block> SPIRITUAL_IRON_TRAINING_POST = registerBlock("spiritual_iron_training_post",
+            () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(-2.0F, 6.0F), 0.25f, 0.1f));
+
+
+
+    private static RegistryObject<Block> registerBasicTrainingPostBlock(String name, Block propertiesCopyFromBlock) {
+        return registerBlock(name, () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(propertiesCopyFromBlock)
+                .strength(-2.0f, 3.0f), 0.1f, 0.01f));
+    }
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

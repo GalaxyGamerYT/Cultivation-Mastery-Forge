@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -27,9 +28,9 @@ public class ClientEvents {
 //                Minecraft.getInstance().player.sendSystemMessage(Component.literal("Meditating!"));
                 ModMessages.sendToServer(new MeditatingC2SPacket());
             }
-            if (KeyBinding.CULTIVATION_GUI_KEY.consumeClick()) {
-                ModMessages.sendToServer(new CultivationC2SPacket());
-            }
+//            if (KeyBinding.CULTIVATION_GUI_KEY.consumeClick()) {
+//                ModMessages.sendToServer(new CultivationC2SPacket());
+//            }
         }
     }
 
@@ -44,7 +45,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(KeyBinding.MEDITATE_KEY);
-            event.register(KeyBinding.CULTIVATION_GUI_KEY);
+//            event.register(KeyBinding.CULTIVATION_GUI_KEY);
         }
 
         @SubscribeEvent

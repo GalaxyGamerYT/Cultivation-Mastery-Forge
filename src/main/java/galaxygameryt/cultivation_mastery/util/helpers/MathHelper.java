@@ -1,6 +1,4 @@
-package galaxygameryt.cultivation_mastery.util;
-
-import java.math.BigDecimal;
+package galaxygameryt.cultivation_mastery.util.helpers;
 
 public class MathHelper {
     public static float roundFloat(float value, int scale) {

@@ -9,14 +9,6 @@ public class PlayerMaxQi {
         return max_qi;
     }
 
-    public void addMaxQi(int add) {
-        setMaxQi(max_qi + add);
-    }
-
-    public void subMaxQi(int sub) {
-        setMaxQi(Math.max(max_qi - sub, 1));
-    }
-
     public void setMaxQi(int num) {
         this.max_qi = num;
     }

@@ -1,0 +1,9 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "cultivation_mastery:training_posts/training_post_top",
+  "textures": {
+    "pillar_top": "cultivation_mastery:block/spiritual_iron_block",
+    "pillar": "cultivation_mastery:block/spiritual_iron_block",
+    "particle": "cultivation_mastery:block/spiritual_iron_block"
+  }
+}

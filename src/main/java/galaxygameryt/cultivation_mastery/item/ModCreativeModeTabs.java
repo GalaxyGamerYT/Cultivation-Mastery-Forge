@@ -16,10 +16,11 @@ public class ModCreativeModeTabs {
 
     public static final RegistryObject<CreativeModeTab> CULTIVATION_MASTERY_TAB = CREATIVE_MODE_TABS.register("cultivation_mastery_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.SPIRITUAL_MIRROR.get()))
-                    .title(Component.translatable("creativetab.cultivation_mastery_tab"))
+                    .title(Component.translatable("creativetab.cultivation_mastery.cultivation_mastery_tab"))
                     .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModItems.SPIRITUAL_MIRROR.get());
 //                        pOutput.accept(ModItems.BACKPACK.get());
+                        pOutput.accept(ModItems.SPIRITUAL_IRON_INGOT.get());
 
                         pOutput.accept(ModItems.LOW_SPIRIT_STONE.get());
                         pOutput.accept(ModItems.MEDIUM_SPIRIT_STONE.get());
@@ -32,6 +33,14 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.HIGH_SPIRIT_STONE_ORE.get().asItem());
                         pOutput.accept(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get().asItem());
 
+                        pOutput.accept(ModBlocks.SPIRITUAL_IRON_BLOCK.get().asItem());
+                    })
+                    .build());
+
+    public static final RegistryObject<CreativeModeTab> TRAINING_POST_TAB = CREATIVE_MODE_TABS.register("training_post_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.OAK_TRAINING_POST.get()))
+                    .title(Component.translatable("creativetab.cultivation_mastery.training_post_tab"))
+                    .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModBlocks.OAK_TRAINING_POST.get().asItem());
                         pOutput.accept(ModBlocks.SPRUCE_TRAINING_POST.get().asItem());
                         pOutput.accept(ModBlocks.ACACIA_TRAINING_POST.get().asItem());
@@ -40,8 +49,11 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.DARK_OAK_TRAINING_POST.get().asItem());
                         pOutput.accept(ModBlocks.JUNGLE_TRAINING_POST.get().asItem());
                         pOutput.accept(ModBlocks.BIRCH_TRAINING_POST.get().asItem());
+
+                        pOutput.accept(ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get().asItem());
                     })
                     .build());
+
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
     }

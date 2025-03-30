@@ -12,7 +12,7 @@ public class KeyBinding {
 
     // Keys
     public static final String KEY_MEDITATE = "key.cultivation_mastery.meditate";
-    public static final String KEY_CULTIVATION_GUI = "key.cultivation_mastery.cultivation_gui";
+//    public static final String KEY_CULTIVATION_GUI = "key.cultivation_mastery.cultivation_gui";
 
     // Key Mappings
 
@@ -21,8 +21,8 @@ public class KeyBinding {
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_M, KEY_CATEGORY_CULTIVATION);
 
     // DEBUG
-    public static final KeyMapping CULTIVATION_GUI_KEY = new KeyMapping(KEY_CULTIVATION_GUI, KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, KEY_CATEGORY_DEBUG);
+//    public static final KeyMapping CULTIVATION_GUI_KEY = new KeyMapping(KEY_CULTIVATION_GUI, KeyConflictContext.IN_GAME,
+//            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, KEY_CATEGORY_DEBUG);
 
 
 }

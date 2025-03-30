@@ -86,5 +86,16 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                         ModBlocks.HIGH_SPIRIT_STONE_ORE.get(),
                         ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get()
                 );
+        this.tag(ModTags.Blocks.WOOD_TRAINING_POSTS)
+                .add(
+                        ModBlocks.JUNGLE_TRAINING_POST.get(),
+                        ModBlocks.MANGROVE_TRAINING_POST.get(),
+                        ModBlocks.ACACIA_TRAINING_POST.get(),
+                        ModBlocks.CHERRY_TRAINING_POST.get(),
+                        ModBlocks.BIRCH_TRAINING_POST.get(),
+                        ModBlocks.OAK_TRAINING_POST.get(),
+                        ModBlocks.DARK_OAK_TRAINING_POST.get(),
+                        ModBlocks.SPRUCE_TRAINING_POST.get()
+                );
     }
 }

@@ -1,7 +1,8 @@
 package galaxygameryt.cultivation_mastery.block.custom;
 
-import com.google.common.collect.ImmutableMap;
-import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
+import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.data.PlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -17,7 +18,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +35,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class TrainingPostBlock extends Block {
@@ -54,12 +53,14 @@ public class TrainingPostBlock extends Block {
 //    getDestroyProgress
 //    attack
 
-    public float trainingMultiplier;
+    public float BodyMultiplier;
+    public float QiMultiplier;
 
-    public TrainingPostBlock(Properties pProperties, float trainingMultiplier) {
+    public TrainingPostBlock(Properties pProperties, float trainingMultiplier, float qiMultiplier) {
         super(pProperties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(HALF, DoubleBlockHalf.LOWER));
-        this.trainingMultiplier = trainingMultiplier;
+        this.BodyMultiplier = trainingMultiplier;
+        this.QiMultiplier = qiMultiplier;
     }
 
     @Override
@@ -68,7 +69,8 @@ public class TrainingPostBlock extends Block {
 
         pTooltip.add(Component.translatable("block.cultivation_mastery.training_post.tooltip.1"));
         pTooltip.add(Component.translatable("block.cultivation_mastery.training_post.tooltip.2"));
-        pTooltip.add(Component.literal(String.format(" - +%.2f to Body Tempering",trainingMultiplier)));
+        pTooltip.add(Component.literal(String.format(" - +%.2f to Body Tempering", BodyMultiplier)));
+        pTooltip.add(Component.literal(String.format(" - +%.2f to Qi Absorbing", QiMultiplier)));
     }
 
     @Override
@@ -100,10 +102,15 @@ public class TrainingPostBlock extends Block {
 
     public void addData(Player player) {
         Random rand = new Random();
-        float data = rand.nextFloat(0.2f, 0.5f) * trainingMultiplier;
-        player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
-            body.addBody(data);
-        });
+        PlayerData playerData = CultivationMastery.PLAYER_DATA_MAP.get(player.getUUID());
+
+        float bodyData = rand.nextFloat(0.2f, 0.5f) * BodyMultiplier;
+        playerData.addBody(bodyData);
+
+        float qiData = rand.nextFloat(0.2f, 0.5f) * QiMultiplier;
+        playerData.addQi(qiData);
+
+        CultivationMastery.PLAYER_DATA_MAP.put(player.getUUID(), playerData);
     }
 
     @Override

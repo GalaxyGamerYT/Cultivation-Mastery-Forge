@@ -29,6 +29,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.HIGH_SPIRIT_STONE_ORE.get());
         blockWithItem(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get());
 
+        blockWithItem(ModBlocks.SPIRITUAL_IRON_BLOCK.get());
+
         trainingPostBlock(ModBlocks.OAK_TRAINING_POST.get());
         trainingPostBlock(ModBlocks.JUNGLE_TRAINING_POST.get());
         trainingPostBlock(ModBlocks.MANGROVE_TRAINING_POST.get());
@@ -37,6 +39,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         trainingPostBlock(ModBlocks.DARK_OAK_TRAINING_POST.get());
         trainingPostBlock(ModBlocks.BIRCH_TRAINING_POST.get());
         trainingPostBlock(ModBlocks.ACACIA_TRAINING_POST.get());
+
+        // Spiritual Iron Training Post
+        trainingPostBlock(ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get());
     }
 
     private void trainingPostBlock(Block block) {

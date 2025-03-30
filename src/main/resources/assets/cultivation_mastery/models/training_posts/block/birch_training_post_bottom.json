@@ -2,9 +2,9 @@
   "credit": "Made with Blockbench",
   "parent": "cultivation_mastery:training_posts/training_post_bottom",
   "textures": {
-    "3": "minecraft:block/birch_log_top",
-    "7": "minecraft:block/birch_log",
-    "8": "minecraft:block/birch_planks",
+    "pillar_top": "minecraft:block/birch_log_top",
+    "pillar": "minecraft:block/birch_log",
+    "base": "minecraft:block/birch_planks",
     "particle": "minecraft:block/birch_log"
   }
 }

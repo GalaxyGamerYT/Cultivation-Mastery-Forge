@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "cultivation_mastery:spiritual_iron_block"
+    },
+    "T": {
+      "tag": "cultivation_mastery:wood_training_posts"
+    },
+    "W": {
+      "item": "minecraft:oak_planks"
+    }
+  },
+  "pattern": [
+    " B ",
+    " B ",
+    "WTW"
+  ],
+  "result": {
+    "item": "cultivation_mastery:spiritual_iron_training_post"
+  },
+  "show_notification": true
+}

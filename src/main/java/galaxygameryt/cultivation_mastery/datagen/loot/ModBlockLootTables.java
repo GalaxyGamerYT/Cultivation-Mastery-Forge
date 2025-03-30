@@ -27,6 +27,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     protected void generate() {
 //        this.dropSelf(Modblocks.SAPHIRE_BLOCK).get();
 
+        this.dropSelf(ModBlocks.SPIRITUAL_IRON_BLOCK.get());
+
         this.add(ModBlocks.LOW_SPIRIT_STONE_ORE.get(),
                 block -> createCopperLikeOreDrops(ModBlocks.LOW_SPIRIT_STONE_ORE.get(), ModItems.LOW_SPIRIT_STONE.get()));
         this.add(ModBlocks.DEEPSLATE_LOW_SPIRIT_STONE_ORE.get(),
@@ -56,6 +58,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 block -> createDoorLikeDrops(ModBlocks.DARK_OAK_TRAINING_POST.get()));
         this.add(ModBlocks.SPRUCE_TRAINING_POST.get(),
                 block -> createDoorLikeDrops(ModBlocks.SPRUCE_TRAINING_POST.get()));
+
+        this.add(ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get(),
+                block -> createDoorLikeDrops(ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get()));
     }
 
     protected LootTable.Builder createDoorLikeDrops(Block pDoorBlock) {

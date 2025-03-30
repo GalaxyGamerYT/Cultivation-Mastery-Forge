@@ -10,12 +10,12 @@
 			"from": [0, 0, 0],
 			"to": [16, 2, 16],
 			"faces": {
-				"north": {"uv": [0, 0, 16, 2], "texture": "#8"},
-				"east": {"uv": [0, 0, 2, 16], "rotation": 270, "texture": "#8"},
-				"south": {"uv": [0, 0, 16, 2], "texture": "#8"},
-				"west": {"uv": [0, 0, 2, 16], "rotation": 90, "texture": "#8"},
-				"up": {"uv": [16, 16, 0, 0], "texture": "#8"},
-				"down": {"uv": [16, 0, 0, 16], "texture": "#8"}
+				"north": {"uv": [0, 0, 16, 2], "texture": "#base"},
+				"east": {"uv": [0, 0, 2, 16], "rotation": 270, "texture": "#base"},
+				"south": {"uv": [0, 0, 16, 2], "texture": "#base"},
+				"west": {"uv": [0, 0, 2, 16], "rotation": 90, "texture": "#base"},
+				"up": {"uv": [16, 16, 0, 0], "texture": "#base"},
+				"down": {"uv": [16, 0, 0, 16], "texture": "#base"}
 			}
 		},
 		{
@@ -23,11 +23,11 @@
 			"from": [2, 2, 2],
 			"to": [14, 4, 14],
 			"faces": {
-				"north": {"uv": [0, 0, 16, 2], "texture": "#8"},
-				"east": {"uv": [0, 2, 2, 14], "rotation": 270, "texture": "#8"},
-				"south": {"uv": [0, 12, 16, 14], "texture": "#8"},
-				"west": {"uv": [0, 2, 2, 14], "rotation": 90, "texture": "#8"},
-				"up": {"uv": [16, 14, 0, 2], "texture": "#8"}
+				"north": {"uv": [0, 0, 16, 2], "texture": "#base"},
+				"east": {"uv": [0, 2, 2, 14], "rotation": 270, "texture": "#base"},
+				"south": {"uv": [0, 12, 16, 14], "texture": "#base"},
+				"west": {"uv": [0, 2, 2, 14], "rotation": 90, "texture": "#base"},
+				"up": {"uv": [16, 14, 0, 2], "texture": "#base"}
 			}
 		},
 		{
@@ -35,10 +35,10 @@
 			"from": [4, 4, 4],
 			"to": [12, 16, 12],
 			"faces": {
-				"north": {"uv": [0, 0, 16, 14], "texture": "#7"},
-				"east": {"uv": [0, 0, 16, 14], "texture": "#7"},
-				"south": {"uv": [0, 0, 16, 14], "texture": "#7"},
-				"west": {"uv": [0, 0, 16, 14], "texture": "#7"}
+				"north": {"uv": [0, 0, 16, 14], "texture": "#pillar"},
+				"east": {"uv": [0, 0, 16, 14], "texture": "#pillar"},
+				"south": {"uv": [0, 0, 16, 14], "texture": "#pillar"},
+				"west": {"uv": [0, 0, 16, 14], "texture": "#pillar"}
 			}
 		},
 		{
@@ -46,7 +46,7 @@
 			"from": [4, 16, 4],
 			"to": [12, 16, 12],
 			"faces": {
-				"up": {"uv": [0, 0, 16, 16], "texture": "#3"}
+				"up": {"uv": [0, 0, 16, 16], "texture": "#pillar_top"}
 			}
 		}
 	],

@@ -4,6 +4,8 @@
 
   "item.cultivation_mastery.backpack": "Backpack",
 
+  "item.cultivation_mastery.spiritual_iron_ingot": "Spiritual Iron Ingot",
+
   "item.cultivation_mastery.low_spirit_stone": "Low Spirit Stone",
   "item.cultivation_mastery.medium_spirit_stone": "Medium Spirit Stone",
   "item.cultivation_mastery.high_spirit_stone": "High Spirit Stone",
@@ -15,6 +17,8 @@
   "block.cultivation_mastery.high_spirit_stone_ore": "High Spirit Stone Ore",
   "block.cultivation_mastery.deepslate_high_spirit_stone_ore": "Deeplsate High Spirit Stone Ore",
 
+  "block.cultivation_mastery.spiritual_iron_block": "Spiritual Iron Block",
+
   "block.cultivation_mastery.oak_training_post": "Oak Training Post",
   "block.cultivation_mastery.spruce_training_post": "Spruce Training Post",
   "block.cultivation_mastery.cherry_training_post": "Cherry Training Post",
@@ -24,10 +28,13 @@
   "block.cultivation_mastery.mangrove_training_post": "Mangrove Training Post",
   "block.cultivation_mastery.acacia_training_post": "Acacia Training Post",
 
+  "block.cultivation_mastery.spiritual_iron_training_post": "Spiritual Iron Training Post",
+
   "block.cultivation_mastery.training_post.tooltip.1": "Punch to train your body in Martial Arts",
   "block.cultivation_mastery.training_post.tooltip.2": "Shift Right Click to break",
 
-  "creativetab.cultivation_mastery_tab": "Cultivation Mastery",
+  "creativetab.cultivation_mastery.cultivation_mastery_tab": "Cultivation Mastery",
+  "creativetab.cultivation_mastery.training_post_tab": "Training Posts",
 
   "screen.cultivation_mastery.custom_gui": "Custom GUI!!!",
   "menu.title.cultivation_mastery.custom_menu": "Custom MENU",

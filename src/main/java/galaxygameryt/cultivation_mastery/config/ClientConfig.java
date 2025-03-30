@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.configs;
+package galaxygameryt.cultivation_mastery.config;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;

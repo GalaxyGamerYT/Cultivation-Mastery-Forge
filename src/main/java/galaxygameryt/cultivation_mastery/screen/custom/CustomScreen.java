@@ -1,23 +1,17 @@
 package galaxygameryt.cultivation_mastery.screen.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.event.ModEvents;
-import galaxygameryt.cultivation_mastery.util.PlayerData;
+import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class CustomScreen extends Screen {
-    private static HashMap<UUID, PlayerData> playerDataMap = new HashMap<>();
-    Player player = Minecraft.getInstance().player;
+    private ClientPlayerData clientPlayerData;
+    private Player player;
 
     public CustomScreen() {
         super(Component.translatable("menu.title.cultivation_mastery.custom_menu"));
@@ -25,7 +19,7 @@ public class CustomScreen extends Screen {
 
     private void sync() {
         this.player = Minecraft.getInstance().player;
-        CustomScreen.playerDataMap = ModEvents.playerDataMap;
+        this.clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(this.player.getUUID());
     }
 
     @Override
@@ -41,7 +35,6 @@ public class CustomScreen extends Screen {
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         sync();
-        PlayerData playerData = playerDataMap.get(player.getUUID());
 
         var background = new Object() {
             final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
@@ -67,7 +60,7 @@ public class CustomScreen extends Screen {
         pGuiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height);
 
         pGuiGraphics.drawString(this.font, "The start of your cultivation journey!!!", label_x, label1_y, label_colour, false);
-        pGuiGraphics.drawString(this.font, String.format("Body: %.2f", playerData.getBody()), label_x, label2_y, label_colour, false);
+        pGuiGraphics.drawString(this.font, String.format("Body: %.2f", clientPlayerData.getBody()), label_x, label2_y, label_colour, false);
     }
 
 
