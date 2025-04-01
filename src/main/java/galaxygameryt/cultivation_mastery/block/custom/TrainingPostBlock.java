@@ -1,8 +1,9 @@
 package galaxygameryt.cultivation_mastery.block.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
-import galaxygameryt.cultivation_mastery.util.data.PlayerData;
+import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
+import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQiProvider;
+import galaxygameryt.cultivation_mastery.util.data.ServerPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -94,7 +95,6 @@ public class TrainingPostBlock extends Block {
         if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer player) {
             addData(player);
 
-            player.sendSystemMessage(Component.literal("Punched Training Post"));
             pLevel.playSound(player, pPos, SoundEvents.WOOD_BREAK, SoundSource.PLAYERS,
                     0.5f, pLevel.random.nextFloat() * 0.1F + 0.9F);
         }
@@ -102,15 +102,21 @@ public class TrainingPostBlock extends Block {
 
     public void addData(Player player) {
         Random rand = new Random();
-        PlayerData playerData = CultivationMastery.PLAYER_DATA_MAP.get(player.getUUID());
+        ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
 
         float bodyData = rand.nextFloat(0.2f, 0.5f) * BodyMultiplier;
         playerData.addBody(bodyData);
+        player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(capability -> {
+            capability.setBody(playerData.getBody());
+        });
 
         float qiData = rand.nextFloat(0.2f, 0.5f) * QiMultiplier;
         playerData.addQi(qiData);
+        player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(capability -> {
+            capability.setQi(playerData.getQi());
+        });
 
-        CultivationMastery.PLAYER_DATA_MAP.put(player.getUUID(), playerData);
+        CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
     }
 
     @Override

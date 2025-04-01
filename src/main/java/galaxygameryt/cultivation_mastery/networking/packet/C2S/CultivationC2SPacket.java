@@ -10,13 +10,18 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class CultivationC2SPacket {
-    public CultivationC2SPacket() {
+    boolean cultivation;
+
+    public CultivationC2SPacket(boolean cultivation) {
+        this.cultivation = cultivation;
     }
 
     public CultivationC2SPacket(FriendlyByteBuf buf) {
+        this.cultivation = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
+        buf.writeBoolean(cultivation);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -24,11 +29,10 @@ public class CultivationC2SPacket {
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE SERVER!
             ServerPlayer player = context.getSender();
-            ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(player.getUUID());
 
             // Toggle cultivation boolean
             player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
-                cultivation.setCultivation(clientPlayerData.getCultivation());
+                cultivation.setCultivation(this.cultivation);
             });
         });
         return true;

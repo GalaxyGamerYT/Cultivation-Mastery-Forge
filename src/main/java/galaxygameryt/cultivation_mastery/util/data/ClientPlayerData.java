@@ -1,157 +1,23 @@
 package galaxygameryt.cultivation_mastery.util.data;
 
-import java.time.LocalDateTime;
+import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.util.objects.MajorRealmObjectType;
+import galaxygameryt.cultivation_mastery.util.objects.MinorRealmObjectType;
+
 import java.util.UUID;
 
-public class ClientPlayerData {
-    // Specialised
-    private UUID playerUUID;
-    private LocalDateTime lastUpdated = LocalDateTime.now();
-
-    // Boolean Data
-    private boolean cultivation = false;
-    private boolean meditating = false;
-
-    // Data
-    private int maxQi = 100;
-    private float qiIncrease = 0.1f;
-    private float qi = 0;
-    private float body = 0;
-    private float realm = 0;
-
+public class ClientPlayerData extends PlayerData{
     public ClientPlayerData(UUID playerUUID) {
-        this.playerUUID = playerUUID;
+        super(playerUUID);
     }
 
-    // Specialised
-    // UUID
-    public UUID getPlayerUUID() {
-        return playerUUID;
-    }
+    public String getRealmDisplay() {
+        int majorRealmValue = (int) Math.floor(realm);
+        int minorRealmValue = (int) Math.floor((realm*10)-(majorRealmValue*10));
 
-    public void setPlayerUUID(UUID playerUUID) {
-        this.playerUUID = playerUUID;
-    }
+        MajorRealmObjectType majorRealm = CultivationMastery.REALMS[majorRealmValue];
+        MinorRealmObjectType minorRealm = majorRealm.minorRealms[minorRealmValue];
 
-    // Local Date Time
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    public void updateLastUpdated() {
-        setLastUpdated(LocalDateTime.now());
-    }
-
-    // Boolean Data
-    // Cultivation
-    public boolean getCultivation() {
-        return cultivation;
-    }
-
-    public void setCultivation(boolean cultivation) {
-        this.cultivation = cultivation;
-    }
-
-    // Meditating
-    public boolean getMeditating() {
-        return meditating;
-    }
-
-    public void setMeditating(boolean meditating) {
-        this.meditating = meditating;
-    }
-
-    // Data
-    // Max Qi
-    public int getMaxQi() {
-        return maxQi;
-    }
-
-    public void setMaxQi(int maxQi) {
-        this.maxQi = maxQi;
-    }
-
-    public void addMaxQi(int add) {
-        setMaxQi(maxQi + add);
-    }
-
-    public void subMaxQi(int sub) {
-        setMaxQi(Math.max(maxQi - sub, 1));
-    }
-
-    // Qi Increase
-    public float getQiIncrease() {
-        return qiIncrease;
-    }
-
-    public void setQiIncrease(float qiIncrease) {
-        this.qiIncrease = qiIncrease;
-    }
-
-    public void addQiIncrease(float add) {
-        setQiIncrease(qiIncrease + add);
-    }
-
-    public void subQiIncrease(float sub) {
-        setQiIncrease(Math.max(qiIncrease - sub, 0));
-    }
-
-    // Qi
-    public float getQi() {
-        return qi;
-    }
-
-    public void setQi(float qi) {
-        this.qi = qi;
-    }
-
-    public void addQi(float add, int max_qi) {
-        setQi(Math.min(qi + add, max_qi));
-    }
-
-    public void increase_qi() {
-        addQi(getQiIncrease(), getMaxQi());
-    }
-
-    public void subQi(float sub) {
-        setQi(Math.max(qi - sub, 0));
-    }
-
-    // Body
-    public float getBody() {
-        return body;
-    }
-
-    public void setBody(float body) {
-        this.body = body;
-    }
-
-    public void addBody(float add) {
-        setBody(Math.min(body + add, 10));
-    }
-
-    public void subBody(float sub) {
-        setBody(Math.max(body - sub, 0));
-    }
-
-    // Realm
-    public float getRealm() {
-        return realm;
-    }
-
-    public void setRealm(float realm) {
-        this.realm = realm;
-    }
-
-    public void addRealm(float add) {
-        setRealm(Math.min(realm + add, 10));
-    }
-
-    public void subRealm(float sub) {
-        setRealm(Math.max(realm - sub, 0));
+        return String.format("%s %s %s", minorRealm.prefix, majorRealm.name, minorRealm.suffix);
     }
 }

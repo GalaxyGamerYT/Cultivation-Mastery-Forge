@@ -19,16 +19,18 @@ public class MeditatingC2SPacket {
     private static final String MESSAGE_MEDITATE = "message.cultivation_mastery.meditate";
     private static final String MESSAGE_NOT_MEDITATE = "message.cultivation_mastery.not_meditate";
 
-    public MeditatingC2SPacket() {
+    boolean meditating;
 
+    public MeditatingC2SPacket(boolean meditating) {
+        this.meditating = meditating;
     }
 
     public MeditatingC2SPacket(FriendlyByteBuf buf) {
-
+        this.meditating = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-
+        buf.writeBoolean(meditating);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -40,22 +42,18 @@ public class MeditatingC2SPacket {
 
             // Toggle meditating boolean
             player.getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).ifPresent(meditating -> {
-                boolean state = meditating.getMeditating();
-                if(!state) {
+                if(this.meditating) {
                     // Meditating
                     meditating.setMeditating(true);
                     player.sendSystemMessage(Component.translatable(MESSAGE_MEDITATE).withStyle(ChatFormatting.GOLD));
                     level.playSound(player, player.getOnPos(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS,
                             0.5F, level.random.nextFloat() * 0.1F + 0.9F);
-                } else if (state) {
+                } else if (!this.meditating) {
                     // Not Meditating
                     meditating.setMeditating(false);
                     player.sendSystemMessage(Component.translatable(MESSAGE_NOT_MEDITATE).withStyle(ChatFormatting.GOLD));
                     level.playSound(player, player.getOnPos(), SoundEvents.BEACON_DEACTIVATE, SoundSource.PLAYERS,
                             0.5F, level.random.nextFloat() * 0.1F + 0.9F);
-                    player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
-                        ModMessages.sendToPlayer(new QiDataSyncS2CPacket(qi.getQi()), player);
-                    });
                 }
             });
         });

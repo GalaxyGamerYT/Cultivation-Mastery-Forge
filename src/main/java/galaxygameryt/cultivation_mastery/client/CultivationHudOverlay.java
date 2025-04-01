@@ -96,10 +96,10 @@ public class CultivationHudOverlay {
                         100, 50);
 
                 if (body_label.visible) {
-                    guiGraphics.drawString(gui.getFont(), "Body:  %.2f" + body + " " + quantifier, body_label.left, body_label.top, label_colour);
+                    guiGraphics.drawString(gui.getFont(), String.format("Body: %.2f", body), body_label.left, body_label.top, label_colour);
                 }
                 if (qi_label.visible) {
-                    guiGraphics.drawString(gui.getFont(), "QI:  %.2f" + qi + " " + quantifier, qi_label.left, qi_label.top, label_colour);
+                    guiGraphics.drawString(gui.getFont(), String.format("Qi: %.2f%s",qi, quantifier), qi_label.left, qi_label.top, label_colour);
                 }
             }
         }

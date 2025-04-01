@@ -1,24 +1,28 @@
 package galaxygameryt.cultivation_mastery.util.data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class PlayerData {
+    // Constants
+    public static final int MAX_BODY = 100;
+    public static final int MAX_REALM = 11;
+
     // Specialised
-    private UUID playerUUID;
-    private LocalDateTime lastUpdated = LocalDateTime.now();
-    private int tickCounter = 0;
+    public UUID playerUUID;
 
     // Boolean Data
-    private boolean cultivation = false;
-    private boolean meditating = false;
+    public boolean cultivation = false;
+    public boolean meditating = false;
+    public boolean breakthrough = false;
 
     // Data
-    private int maxQi = 100;
-    private float qiIncrease = 0.1f;
-    private float qi = 0;
-    private float body = 0;
-    private float realm = 0;
+    public int maxQi = 100;
+    public float qiIncrease = 0.1f;
+    public float qi = 0;
+    public float body = 0;
+    public float realm = 0;
 
     public PlayerData(UUID playerUUID) {
         this.playerUUID = playerUUID;
@@ -32,32 +36,6 @@ public class PlayerData {
 
     public void setPlayerUUID(UUID playerUUID) {
         this.playerUUID = playerUUID;
-    }
-
-    // Local Date Time
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    public void updateLastUpdated() {
-        setLastUpdated(LocalDateTime.now());
-    }
-
-    // Tick Counter
-    public int getTickCounter() {
-        return tickCounter;
-    }
-
-    public void setTickCounter(int tickCounter) {
-        this.tickCounter = tickCounter;
-    }
-
-    public void incrementTickCounter() {
-        this.tickCounter++;
     }
 
     // Boolean Data
@@ -77,6 +55,15 @@ public class PlayerData {
 
     public void setMeditating(boolean meditating) {
         this.meditating = meditating;
+    }
+
+    // Breakthrough
+    public boolean getBreakthrough() {
+        return breakthrough;
+    }
+
+    public void setBreakthrough(boolean breakthrough) {
+        this.breakthrough = breakthrough;
     }
 
     // Data
@@ -124,11 +111,11 @@ public class PlayerData {
     }
 
     public void addQi(float add) {
-        setQi(Math.min(qi + add, this.maxQi));
+        setQi(Math.min(qi + add, maxQi));
     }
 
     public void increase_qi() {
-        addQi(getQiIncrease());
+        addQi(qiIncrease);
     }
 
     public void subQi(float sub) {
@@ -145,7 +132,7 @@ public class PlayerData {
     }
 
     public void addBody(float add) {
-        setBody(Math.min(body + add, 10));
+        setBody(Math.min(body + add, MAX_BODY));
     }
 
     public void subBody(float sub) {
@@ -162,7 +149,7 @@ public class PlayerData {
     }
 
     public void addRealm(float add) {
-        setRealm(Math.min(realm + add, 10));
+        setRealm(Math.min(realm + add, MAX_REALM));
     }
 
     public void subRealm(float sub) {

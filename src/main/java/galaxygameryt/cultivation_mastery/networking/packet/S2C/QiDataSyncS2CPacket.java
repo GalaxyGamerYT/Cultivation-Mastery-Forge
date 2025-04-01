@@ -31,6 +31,8 @@ public class QiDataSyncS2CPacket {
             Player player = context.getSender();
             UUID playerId = player.getUUID();
 
+            CultivationMastery.CLIENT_PLAYER_DATA_MAP.putIfAbsent(playerId, new ClientPlayerData(playerId));
+
             ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(playerId);
             if(qi != clientPlayerData.getQi()) {
                 clientPlayerData.setQi(qi);
