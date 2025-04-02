@@ -1,16 +1,11 @@
-package galaxygameryt.cultivation_mastery.util.data;
+package galaxygameryt.cultivation_mastery.util.player_data;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class PlayerData {
     // Constants
-    public static final int MAX_BODY = 100;
-    public static final int MAX_REALM = 11;
-
-    // Specialised
-    public UUID playerUUID;
+    public final int MAX_BODY = 100;
+    public final int MAX_REALM = 11;
 
     // Boolean Data
     public boolean cultivation = false;
@@ -24,18 +19,8 @@ public class PlayerData {
     public float body = 0;
     public float realm = 0;
 
-    public PlayerData(UUID playerUUID) {
-        this.playerUUID = playerUUID;
-    }
+    public PlayerData() {
 
-    // Specialised
-    // UUID
-    public UUID getPlayerUUID() {
-        return playerUUID;
-    }
-
-    public void setPlayerUUID(UUID playerUUID) {
-        this.playerUUID = playerUUID;
     }
 
     // Boolean Data

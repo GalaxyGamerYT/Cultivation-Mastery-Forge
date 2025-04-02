@@ -8,10 +8,9 @@ import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPack
 import galaxygameryt.cultivation_mastery.screen.custom.BackpackScreen;
 import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
-import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -31,28 +30,14 @@ public class ClientEvents {
         public static void onKeyInput(InputEvent.Key event) {
             Player player = Minecraft.getInstance().player;
             if (player != null) {
-                ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(player.getUUID());
                 if (KeyBinding.MEDITATE_KEY.consumeClick()) {
-                    boolean meditating = clientPlayerData.getMeditating();
+                    boolean meditating = CultivationMastery.CLIENT_PLAYER_DATA.getMeditating();
                     ModMessages.sendToServer(new MeditatingC2SPacket(!meditating));
                 }
                 if (KeyBinding.BREAKTHROUGH_KEY.consumeClick()) {
                     ModMessages.sendToServer(new BreakthroughC2SPacket());
                 }
             }
-        }
-
-        @SubscribeEvent
-        public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
-            if(event.getLevel().isClientSide) {
-                if(event.getEntity() instanceof Player player) {
-                    // Entity is a player!
-                    if (player.getUUID() == Minecraft.getInstance().player.getUUID()) {
-                        UUID playerId = player.getUUID();
-                        CultivationMastery.CLIENT_PLAYER_DATA_MAP.putIfAbsent(playerId, new ClientPlayerData(playerId));
-                    }
-                }
-                }
         }
     }
 

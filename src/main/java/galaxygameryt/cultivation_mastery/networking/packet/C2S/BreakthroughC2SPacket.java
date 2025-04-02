@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.networking.packet.C2S;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.data.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

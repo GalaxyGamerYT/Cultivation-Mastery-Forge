@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.networking.packet.S2C;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
@@ -28,15 +28,9 @@ public class CultivationSyncS2CPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            Player player = context.getSender();
-            UUID playerId = player.getUUID();
 
-            CultivationMastery.CLIENT_PLAYER_DATA_MAP.putIfAbsent(playerId, new ClientPlayerData(playerId));
-
-            ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(playerId);
-            if(cultivation != clientPlayerData.getCultivation()) {
-                clientPlayerData.setCultivation(cultivation);
-                CultivationMastery.CLIENT_PLAYER_DATA_MAP.put(playerId, clientPlayerData);
+            if(cultivation != CultivationMastery.CLIENT_PLAYER_DATA.getCultivation()) {
+                CultivationMastery.CLIENT_PLAYER_DATA.setCultivation(cultivation);
             }
         });
         return true;

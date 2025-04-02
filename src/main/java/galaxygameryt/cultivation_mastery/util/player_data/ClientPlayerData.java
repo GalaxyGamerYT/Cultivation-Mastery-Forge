@@ -1,14 +1,15 @@
-package galaxygameryt.cultivation_mastery.util.data;
+package galaxygameryt.cultivation_mastery.util.player_data;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.util.objects.MajorRealmObjectType;
 import galaxygameryt.cultivation_mastery.util.objects.MinorRealmObjectType;
+import net.minecraft.client.Minecraft;
 
 import java.util.UUID;
 
 public class ClientPlayerData extends PlayerData{
-    public ClientPlayerData(UUID playerUUID) {
-        super(playerUUID);
+    public ClientPlayerData() {
+
     }
 
     public String getRealmDisplay() {

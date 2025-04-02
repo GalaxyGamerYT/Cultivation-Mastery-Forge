@@ -1,9 +1,8 @@
 package galaxygameryt.cultivation_mastery.screen.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -11,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public class SpiritualMirrorScreen extends Screen {
-    private ClientPlayerData clientPlayerData;
     private Player player;
 
     public SpiritualMirrorScreen() {
@@ -20,7 +18,6 @@ public class SpiritualMirrorScreen extends Screen {
 
     private void sync() {
         this.player = Minecraft.getInstance().player;
-        this.clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(this.player.getUUID());
     }
 
     @Override
@@ -63,9 +60,9 @@ public class SpiritualMirrorScreen extends Screen {
 
 //        pGuiGraphics.drawString(this.font, "The start of your cultivation journey!!!", label_x, label1_y, label_colour, false);
         drawCenteredString(pGuiGraphics, String.format("%s's Cultivation Stats", player.getDisplayName().getString()), background.left+(background.width/2), label1_y, label_colour, false);
-        pGuiGraphics.drawString(this.font, String.format("Realm: %s", clientPlayerData.getRealmDisplay()), label_x, label2_y, label_colour, false);
-        pGuiGraphics.drawString(this.font, String.format("Body: %.2f", clientPlayerData.getBody()), label_x, label3_y, label_colour, false);
-        pGuiGraphics.drawString(this.font, String.format("Qi: %.2f", clientPlayerData.getQi()), label_x, label4_y, label_colour, false);
+        pGuiGraphics.drawString(this.font, String.format("Realm: %s", CultivationMastery.CLIENT_PLAYER_DATA.getRealmDisplay()), label_x, label2_y, label_colour, false);
+        pGuiGraphics.drawString(this.font, String.format("Body: %.2f", CultivationMastery.CLIENT_PLAYER_DATA.getBody()), label_x, label3_y, label_colour, false);
+        pGuiGraphics.drawString(this.font, String.format("Qi: %.2f", CultivationMastery.CLIENT_PLAYER_DATA.getQi()), label_x, label4_y, label_colour, false);
     }
 
     private void drawCenteredString(GuiGraphics guiGraphics, String text, int pX, int pY, int pColor, boolean dropShadow) {

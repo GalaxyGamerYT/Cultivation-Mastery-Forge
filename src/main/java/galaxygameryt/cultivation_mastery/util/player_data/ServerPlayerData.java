@@ -1,20 +1,29 @@
-package galaxygameryt.cultivation_mastery.util.data;
+package galaxygameryt.cultivation_mastery.util.player_data;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ServerPlayerData extends PlayerData{
     // Specialised
+    public UUID playerUUID;
     private int tickCounter = 0;
 
     // Boolean Data
     private boolean breakthrough = false;
 
     public ServerPlayerData(UUID playerUUID) {
-        super(playerUUID);
+
     }
 
     // Specialised
+    // UUID
+    public UUID getPlayerUUID() {
+        return playerUUID;
+    }
+
+    public void setPlayerUUID(UUID playerUUID) {
+        this.playerUUID = playerUUID;
+    }
+
     // Tick Counter
     public int getTickCounter() {
         return tickCounter;

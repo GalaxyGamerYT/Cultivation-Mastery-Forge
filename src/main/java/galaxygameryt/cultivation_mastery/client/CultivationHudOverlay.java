@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.client;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -11,12 +11,11 @@ public class CultivationHudOverlay {
     public static final IGuiOverlay HUD_CULTIVATION = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Player player = Minecraft.getInstance().player;
         if(player!=null) {
-            ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(player.getUUID());
 
-            boolean cultivating = clientPlayerData.getCultivation();
-            float qi = clientPlayerData.getQi();
-            float body = clientPlayerData.getBody();
-            float realm = clientPlayerData.getRealm();
+            boolean cultivating = CultivationMastery.CLIENT_PLAYER_DATA.getCultivation();
+            float qi = CultivationMastery.CLIENT_PLAYER_DATA.getQi();
+            float body = CultivationMastery.CLIENT_PLAYER_DATA.getBody();
+            float realm = CultivationMastery.CLIENT_PLAYER_DATA.getRealm();
 
             String quantifier = "";
             if (qi >= 1000000) {

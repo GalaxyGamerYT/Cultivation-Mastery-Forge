@@ -6,10 +6,11 @@ import galaxygameryt.cultivation_mastery.item.ModCreativeModeTabs;
 import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
-import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
-import galaxygameryt.cultivation_mastery.util.data.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
 import galaxygameryt.cultivation_mastery.util.objects.MajorRealmObjectType;
 import galaxygameryt.cultivation_mastery.util.objects.MinorRealmObjectType;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,7 +32,7 @@ public class CultivationMastery
     public static final Logger LOGGER = LogUtils.getLogger();
     // Player Data
     public static final HashMap<UUID, ServerPlayerData> SERVER_PLAYER_DATA_MAP = new HashMap<>();
-    public static final HashMap<UUID, ClientPlayerData> CLIENT_PLAYER_DATA_MAP = new HashMap<>();
+    public static final ClientPlayerData CLIENT_PLAYER_DATA = new ClientPlayerData();
 
     public static final MajorRealmObjectType[] REALMS = CultivationMastery.setCultivationRealms();
 

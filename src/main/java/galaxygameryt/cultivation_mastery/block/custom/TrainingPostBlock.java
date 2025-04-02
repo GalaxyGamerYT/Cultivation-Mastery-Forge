@@ -3,7 +3,7 @@ package galaxygameryt.cultivation_mastery.block.custom;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
 import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQiProvider;
-import galaxygameryt.cultivation_mastery.util.data.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

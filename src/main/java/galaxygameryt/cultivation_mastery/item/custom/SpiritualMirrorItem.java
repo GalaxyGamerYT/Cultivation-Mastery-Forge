@@ -4,7 +4,7 @@ import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.CultivationC2SPacket;
 import galaxygameryt.cultivation_mastery.screen.custom.SpiritualMirrorScreen;
-import galaxygameryt.cultivation_mastery.util.data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -29,10 +29,9 @@ public class SpiritualMirrorItem extends Item {
         if (world.isClientSide) {
             // Open the GUI
             Minecraft.getInstance().setScreen(new SpiritualMirrorScreen());
-            ClientPlayerData clientPlayerData = CultivationMastery.CLIENT_PLAYER_DATA_MAP.get(player.getUUID());
-            if(!clientPlayerData.getCultivation()) {
-                clientPlayerData.setCultivation(true);
-                ModMessages.sendToServer(new CultivationC2SPacket(clientPlayerData.getCultivation()));
+            if(!CultivationMastery.CLIENT_PLAYER_DATA.getCultivation()) {
+                CultivationMastery.CLIENT_PLAYER_DATA.setCultivation(true);
+                ModMessages.sendToServer(new CultivationC2SPacket(CultivationMastery.CLIENT_PLAYER_DATA.getCultivation()));
             }
         }
         return InteractionResultHolder.success(item);
