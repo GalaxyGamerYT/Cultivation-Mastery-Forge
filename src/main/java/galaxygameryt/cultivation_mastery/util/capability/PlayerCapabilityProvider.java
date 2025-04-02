@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.capabilites.meditating;
+package galaxygameryt.cultivation_mastery.util.capability;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -11,22 +11,22 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerMeditatingProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<PlayerMeditating> PLAYER_MEDITATING = CapabilityManager.get(new CapabilityToken<PlayerMeditating>() { });
+public class PlayerCapabilityProvider  implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+    public static Capability<PlayerCapability> PLAYER_CAPABILITY = CapabilityManager.get( new CapabilityToken<PlayerCapability>() { });
 
-    private PlayerMeditating meditating = null;
-    private final LazyOptional<PlayerMeditating> optional = LazyOptional.of(this::createPlayerMeditating);
+    private PlayerCapability capability = null;
+    private final LazyOptional<PlayerCapability> optional = LazyOptional.of(this::createPlayerCapability);
 
-    private PlayerMeditating createPlayerMeditating() {
-        if(this.meditating == null) {
-            this.meditating = new PlayerMeditating();
+    private PlayerCapability createPlayerCapability() {
+        if(this.capability == null) {
+            this.capability = new PlayerCapability();
         }
-        return this.meditating;
+        return this.capability;
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == PLAYER_MEDITATING) {
+        if(cap == PLAYER_CAPABILITY) {
             return optional.cast();
         }
         return LazyOptional.empty();
@@ -35,12 +35,12 @@ public class PlayerMeditatingProvider implements ICapabilityProvider, INBTSerial
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createPlayerMeditating().saveNBTData(nbt);
+        createPlayerCapability().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createPlayerMeditating().loadNBTData(nbt);
+        createPlayerCapability().loadNBTData(nbt);
     }
 }

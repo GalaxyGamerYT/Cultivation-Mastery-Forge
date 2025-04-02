@@ -5,12 +5,7 @@ import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
-import galaxygameryt.cultivation_mastery.capabilites.cultivation.PlayerCultivationProvider;
-import galaxygameryt.cultivation_mastery.capabilites.max_qi.PlayerMaxQiProvider;
-import galaxygameryt.cultivation_mastery.capabilites.meditating.PlayerMeditatingProvider;
-import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQiProvider;
-import galaxygameryt.cultivation_mastery.capabilites.realm.PlayerRealmProvider;
+import galaxygameryt.cultivation_mastery.util.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -19,10 +14,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
 public class CultivationStatsCommand {
+    private static final String PLAYER_ERROR_MESSAGE = "You must specify a player for this command!";
+
+//    Get Commands
     public static int getSelf(CommandContext<CommandSourceStack> context) {
         Player player = context.getSource().getPlayer();
 
-        getInfo(player);
+        if (player != null) {
+            getInfo(player);
+        } else {
+            CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
+        }
         return 1;
     }
 
@@ -45,17 +47,25 @@ public class CultivationStatsCommand {
         )).withStyle(ChatFormatting.DARK_AQUA));
     }
 
-//    Body
+//    Set Commands
+    // Body
     public static void setBody(CommandContext<CommandSourceStack> context, Player player) {
         float bodyValue = FloatArgumentType.getFloat(context, "bodyValue");
-        player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
-            body.setBody(bodyValue);
+        player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+            capability.setBody(bodyValue);
         });
+        ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
+        playerData.setBody(bodyValue);
+        CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
     }
 
     public static int setSelfBody(CommandContext<CommandSourceStack> context) {
         Player player = context.getSource().getPlayer();
-        setBody(context, player);
+        if (player != null) {
+            setBody(context, player);
+        } else {
+            CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
+        }
         return 1;
     }
 
@@ -65,17 +75,25 @@ public class CultivationStatsCommand {
         return 1;
     }
 
-//    Qi
+    // Qi
     public static void setQi(CommandContext<CommandSourceStack> context, Player player) {
         float qiValue = FloatArgumentType.getFloat(context, "qiValue");
-        player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
-            qi.setQi(qiValue);
+        player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+            capability.setQi(qiValue);
         });
+        ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
+        playerData.setQi(qiValue);
+        CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
     }
 
     public static int setSelfQi(CommandContext<CommandSourceStack> context) {
         Player player = context.getSource().getPlayer();
-        setQi(context, player);
+
+        if (player != null) {
+            setQi(context, player);
+        } else {
+            CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
+        }
         return 1;
     }
 
@@ -85,17 +103,25 @@ public class CultivationStatsCommand {
         return 1;
     }
 
-//    Realm
+    // Realm
     public static void setRealm(CommandContext<CommandSourceStack> context, Player player) {
         float realmValue = FloatArgumentType.getFloat(context, "realmValue");
-        player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(realm -> {
-            realm.setRealm(realmValue);
+        player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+            capability.setRealm(realmValue);
         });
+        ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
+        playerData.setRealm(realmValue);
+        CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
     }
 
     public static int setSelfRealm(CommandContext<CommandSourceStack> context) {
         Player player = context.getSource().getPlayer();
-        setRealm(context, player);
+
+        if (player != null) {
+            setRealm(context, player);
+        } else {
+            CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
+        }
         return 1;
     }
 
@@ -105,17 +131,25 @@ public class CultivationStatsCommand {
         return 1;
     }
 
-//    Cultivation
+    // Cultivation
     public static void setCultivation(CommandContext<CommandSourceStack> context, Player player) {
         boolean cultivationValue = BoolArgumentType.getBool(context, "cultivationValue");
-        player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
-            cultivation.setCultivation(cultivationValue);
+        player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+            capability.setCultivation(cultivationValue);
         });
+        ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
+        playerData.setCultivation(cultivationValue);
+        CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
     }
 
     public static int setSelfCultivation(CommandContext<CommandSourceStack> context) {
         Player player = context.getSource().getPlayer();
-        setCultivation(context, player);
+
+        if (player != null) {
+            setCultivation(context, player);
+        } else {
+            CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
+        }
         return 1;
     }
 
@@ -125,29 +159,23 @@ public class CultivationStatsCommand {
         return 1;
     }
 
+//    Reset Commands
     public static void reset(Player player) {
         if(player != null) {
-            player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(capability -> {
+            player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
                 capability.setQi(0);
-            });
-            player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(capability -> {
                 capability.setRealm(0);
-            });
-            player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(capability -> {
                 capability.setCultivation(false);
-            });
-            player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(capability -> {
                 capability.setBody(0);
-            });
-            player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(capability -> {
                 capability.setMaxQi(100);
             });
-            player.getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).ifPresent(capability -> {
-                capability.setMeditating(false);
-            });
-            ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
-            playerData.setBreakthrough(false);
-            CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
+            ServerPlayerData oldPlayerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
+
+            ServerPlayerData newPlayerData = new ServerPlayerData(player.getUUID());
+            newPlayerData.setPlayerUUID(player.getUUID());
+            newPlayerData.setTickCounter(oldPlayerData.getTickCounter());
+
+            CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), newPlayerData);
         }
     }
 
@@ -155,8 +183,10 @@ public class CultivationStatsCommand {
         Player player = context.getSource().getPlayer();
         reset(player);
         if(player != null) {
-            player.sendSystemMessage(Component.literal("Reset Cultivation Stats"));
-            CultivationMastery.LOGGER.info(String.format("Reset Cultivation Stats for %s", player.getDisplayName()));
+            player.sendSystemMessage(Component.literal("Reseting Cultivation Stats"));
+            CultivationMastery.LOGGER.info(String.format("Reseting Cultivation Stats for %s", player.getDisplayName()));
+        } else {
+            CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
         }
         return 1;
     }

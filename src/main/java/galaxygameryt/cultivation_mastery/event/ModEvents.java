@@ -1,22 +1,10 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBody;
-import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
-import galaxygameryt.cultivation_mastery.capabilites.cultivation.PlayerCultivation;
-import galaxygameryt.cultivation_mastery.capabilites.cultivation.PlayerCultivationProvider;
-import galaxygameryt.cultivation_mastery.capabilites.max_qi.PlayerMaxQi;
-import galaxygameryt.cultivation_mastery.capabilites.max_qi.PlayerMaxQiProvider;
-import galaxygameryt.cultivation_mastery.capabilites.meditating.PlayerMeditating;
-import galaxygameryt.cultivation_mastery.capabilites.meditating.PlayerMeditatingProvider;
-import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQi;
-import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQiProvider;
-import galaxygameryt.cultivation_mastery.capabilites.qi_increase.PlayerQiIncrease;
-import galaxygameryt.cultivation_mastery.capabilites.qi_increase.PlayerQiIncreaseProvider;
-import galaxygameryt.cultivation_mastery.capabilites.realm.PlayerRealm;
-import galaxygameryt.cultivation_mastery.capabilites.realm.PlayerRealmProvider;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
+import galaxygameryt.cultivation_mastery.util.capability.PlayerCapability;
+import galaxygameryt.cultivation_mastery.util.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -39,34 +27,8 @@ public class ModEvents {
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
         if(event.getObject() instanceof Player) {
             // Attaches the capabilities to the player
-
-            // Cultivation
-            if(!event.getObject().getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "cultivation"), new PlayerCultivationProvider());
-            }
-            // Qi
-            if(!event.getObject().getCapability(PlayerQiProvider.PLAYER_QI).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "qi"), new PlayerQiProvider());
-            }
-            // Max Qi
-            if(!event.getObject().getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "max_qi"), new PlayerMaxQiProvider());
-            }
-            // Qi Increase
-            if(!event.getObject().getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "qi_increase"), new PlayerQiIncreaseProvider());
-            }
-            // Meditating
-            if(!event.getObject().getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "meditating"), new PlayerMeditatingProvider());
-            }
-            // Body
-            if(!event.getObject().getCapability(PlayerBodyProvider.PLAYER_BODY).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "body"), new PlayerBodyProvider());
-            }
-            // Realm
-            if(!event.getObject().getCapability(PlayerRealmProvider.PLAYER_REALM).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "realm"), new PlayerRealmProvider());
+            if(!event.getObject().getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).isPresent()) {
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "capabilities"), new PlayerCapabilityProvider());
             }
         }
     }
@@ -77,33 +39,8 @@ public class ModEvents {
             // Keeps the data on death
             Player player = event.getOriginal();
 
-            // Cultivation
-            player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(oldStore -> {
-                player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
-            });
-            // Max Qi
-            player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(oldStore -> {
-                player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
-            });
-            // Qi Increase
-            player.getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).ifPresent(oldStore -> {
-                player.getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
-            });
-            // Body
-            player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(oldStore -> {
-                player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(newStore -> {
-                    newStore.copyFrom(oldStore);
-                });
-            });
-            // Realm
-            player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(oldStore -> {
-                player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(newStore -> {
+            player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(oldStore -> {
+                player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
             });
@@ -139,13 +76,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         // Registers the player's capabilities data
-        event.register(PlayerCultivation.class);
-        event.register(PlayerQi.class);
-        event.register(PlayerMaxQi.class);
-        event.register(PlayerQiIncrease.class);
-        event.register(PlayerMeditating.class);
-        event.register(PlayerBody.class);
-        event.register(PlayerRealm.class);
+        event.register(PlayerCapability.class);
     }
 
     public static ServerPlayerData capabilities2PlayerData(Player player) {
@@ -153,33 +84,13 @@ public class ModEvents {
         CultivationMastery.SERVER_PLAYER_DATA_MAP.putIfAbsent(playerId, new ServerPlayerData(playerId));
         ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(playerId);
 
-        // Gets the cultivation boolean of the player
-        player.getCapability(PlayerCultivationProvider.PLAYER_CULTIVATION).ifPresent(cultivation -> {
-            playerData.setCultivation(cultivation.getCultivation());
-        });
-        // Gets the max qi of the player
-        player.getCapability(PlayerMaxQiProvider.PLAYER_MAX_QI).ifPresent(max_qi -> {
-            playerData.setMaxQi(max_qi.getMaxQi());
-        });
-        // Gets the qi increase of the player
-        player.getCapability(PlayerQiIncreaseProvider.PLAYER_QI_INCREASE).ifPresent(qi_increase -> {
-            playerData.setQiIncrease(qi_increase.getQi_increase());
-        });
-        // Gets the meditating boolean of the player
-        player.getCapability(PlayerMeditatingProvider.PLAYER_MEDITATING).ifPresent(meditating -> {
-            playerData.setMeditating(meditating.getMeditating());
-        });
-        // Gets the body cultivation of the player
-        player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
-            playerData.setBody(body.getBody());
-        });
-        // Gets the Qi value of the player
-        player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
-            playerData.setQi(qi.getQi());
-        });
-        // Gets the Realm value of the player
-        player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(realm -> {
-            playerData.setRealm(realm.getRealm());
+        player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+                playerData.setCultivation(capability.getCultivation());
+                playerData.setMaxQi(capability.getMaxQi());
+                playerData.setQiIncrease(capability.getQiIncrease());
+                playerData.setQi(capability.getQi());
+                playerData.setBody(capability.getBody());
+                playerData.setRealm(capability.getRealm());
         });
 
         CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
@@ -191,24 +102,26 @@ public class ModEvents {
         CultivationMastery.SERVER_PLAYER_DATA_MAP.putIfAbsent(playerId, new ServerPlayerData(playerId));
         ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(playerId);
 
-        // Gets the Realm value of the player
-        player.getCapability(PlayerRealmProvider.PLAYER_REALM).ifPresent(realm -> {
-            realm.setRealm(playerData.getRealm());
+        player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+            if (playerData.getCultivation() != capability.getCultivation()) {
+                capability.setCultivation(playerData.getCultivation());
+            }
+            if (playerData.getMaxQi() != capability.getMaxQi()) {
+                capability.setMaxQi(playerData.getMaxQi());
+            }
+            if (playerData.getQiIncrease() != capability.getQiIncrease()) {
+                capability.setQiIncrease(playerData.getQiIncrease());
+            }
+            if (playerData.getQi() != capability.getQi()) {
+                capability.setQi(playerData.getQi());
+            }
+            if (playerData.getBody() != capability.getBody()) {
+                capability.setBody(playerData.getBody());
+            }
+            if (playerData.getRealm() != capability.getRealm()) {
+                capability.setRealm(playerData.getRealm());
+            }
         });
-
-        // Gets the Qi value of the player
-        if(playerData.getRealm() >= 7) {
-            player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(qi -> {
-                qi.setQi(playerData.getQi());
-            });
-        }
-
-        // Gets the Body value of the player
-        if(playerData.getRealm() < 1) {
-            player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(body -> {
-                body.setBody(playerData.getBody());
-            });
-        }
     }
 
     @SubscribeEvent
@@ -218,7 +131,8 @@ public class ModEvents {
             Player player = event.player;
             UUID playerId = player.getUUID();
 
-            ServerPlayerData playerData = capabilities2PlayerData(player);
+            CultivationMastery.SERVER_PLAYER_DATA_MAP.putIfAbsent(playerId, new ServerPlayerData(playerId));
+            ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(playerId);
 
             playerData.incrementTickCounter();
 
@@ -234,6 +148,10 @@ public class ModEvents {
                     // Adds to the player's qi
                     playerData.increase_qi();
                 }
+            }
+
+            if (playerData.getTickCounter() >= 20) {
+                playerData.setBreakthrough(false);
             }
 
             playerData2Capabilities(player);
