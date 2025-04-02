@@ -9,8 +9,13 @@ import galaxygameryt.cultivation_mastery.screen.custom.BackpackScreen;
 import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
 import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -29,13 +34,24 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             Player player = Minecraft.getInstance().player;
-            if (player != null) {
+            ClientLevel level = Minecraft.getInstance().level;
+            if (player != null && level != null) {
                 if (KeyBinding.MEDITATE_KEY.consumeClick()) {
                     boolean meditating = CultivationMastery.CLIENT_PLAYER_DATA.getMeditating();
-                    ModMessages.sendToServer(new MeditatingC2SPacket(!meditating));
+                    CultivationMastery.CLIENT_PLAYER_DATA.setMeditating(!meditating);
+                    ModMessages.sendToServer(new MeditatingC2SPacket(!meditating, player.getUUID()));
+                    if (meditating) {
+                        player.sendSystemMessage(Component.translatable("message.cultivation_mastery.meditate").withStyle(ChatFormatting.GOLD));
+                        level.playSound(player, player.getOnPos(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS,
+                                0.5F, level.random.nextFloat() * 0.1F + 0.9F);
+                    } else {
+                        player.sendSystemMessage(Component.translatable("message.cultivation_mastery.not_meditate").withStyle(ChatFormatting.GOLD));
+                        level.playSound(player, player.getOnPos(), SoundEvents.BEACON_DEACTIVATE, SoundSource.PLAYERS,
+                                0.5F, level.random.nextFloat() * 0.1F + 0.9F);
+                    }
                 }
                 if (KeyBinding.BREAKTHROUGH_KEY.consumeClick()) {
-                    ModMessages.sendToServer(new BreakthroughC2SPacket());
+                    ModMessages.sendToServer(new BreakthroughC2SPacket(true, player.getUUID()));
                 }
             }
         }

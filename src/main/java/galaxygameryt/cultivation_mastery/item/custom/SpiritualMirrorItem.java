@@ -27,11 +27,13 @@ public class SpiritualMirrorItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack item = player.getItemInHand(hand);
         if (world.isClientSide) {
-            // Open the GUI
-            Minecraft.getInstance().setScreen(new SpiritualMirrorScreen());
-            if(!CultivationMastery.CLIENT_PLAYER_DATA.getCultivation()) {
+            boolean cultivation = CultivationMastery.CLIENT_PLAYER_DATA.getCultivation();
+            if (cultivation) {
+                Minecraft.getInstance().setScreen(new SpiritualMirrorScreen());
+            } else {
                 CultivationMastery.CLIENT_PLAYER_DATA.setCultivation(true);
-                ModMessages.sendToServer(new CultivationC2SPacket(CultivationMastery.CLIENT_PLAYER_DATA.getCultivation()));
+                ModMessages.sendToServer(new CultivationC2SPacket(true, player.getUUID()));
+                Minecraft.getInstance().setScreen(new SpiritualMirrorScreen());
             }
         }
         return InteractionResultHolder.success(item);

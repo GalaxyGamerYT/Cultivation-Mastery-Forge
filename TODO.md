@@ -1,8 +1,8 @@
 # TODO
 
 ## Details
-- Spiritual Mirror to view stats
+
 
 ## Future
-- Make each cultivation realm as in 
+- Make breakthrough appear as Toast! (Achievement style pop up!)
 - Personal dimension for inner world (eventually)

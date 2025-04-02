@@ -11,11 +11,11 @@ public class CultivationHudOverlay {
     public static final IGuiOverlay HUD_CULTIVATION = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Player player = Minecraft.getInstance().player;
         if(player!=null) {
-
-            boolean cultivating = CultivationMastery.CLIENT_PLAYER_DATA.getCultivation();
-            float qi = CultivationMastery.CLIENT_PLAYER_DATA.getQi();
-            float body = CultivationMastery.CLIENT_PLAYER_DATA.getBody();
-            float realm = CultivationMastery.CLIENT_PLAYER_DATA.getRealm();
+            ClientPlayerData playerData = CultivationMastery.CLIENT_PLAYER_DATA;
+            boolean cultivating = playerData.getCultivation();
+            float qi = playerData.getQi();
+            float body = playerData.getBody();
+            float realm = playerData.getRealm();
 
             String quantifier = "";
             if (qi >= 1000000) {

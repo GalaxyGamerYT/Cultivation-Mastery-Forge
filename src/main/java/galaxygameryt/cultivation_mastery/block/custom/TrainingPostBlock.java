@@ -1,8 +1,7 @@
 package galaxygameryt.cultivation_mastery.block.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.capabilites.body.PlayerBodyProvider;
-import galaxygameryt.cultivation_mastery.capabilites.qi.PlayerQiProvider;
+import galaxygameryt.cultivation_mastery.util.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -104,16 +103,16 @@ public class TrainingPostBlock extends Block {
         Random rand = new Random();
         ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
 
-        float bodyData = rand.nextFloat(0.2f, 0.5f) * BodyMultiplier;
-        playerData.addBody(bodyData);
-        player.getCapability(PlayerBodyProvider.PLAYER_BODY).ifPresent(capability -> {
+        player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+            float bodyData = rand.nextFloat(0.2f, 0.5f) * BodyMultiplier;
+            playerData.addBody(bodyData);
             capability.setBody(playerData.getBody());
-        });
 
-        float qiData = rand.nextFloat(0.2f, 0.5f) * QiMultiplier;
-        playerData.addQi(qiData);
-        player.getCapability(PlayerQiProvider.PLAYER_QI).ifPresent(capability -> {
-            capability.setQi(playerData.getQi());
+            float qiData = rand.nextFloat(0.2f, 0.5f) * QiMultiplier;
+            if (playerData.getRealm() >= 1.7) {
+                playerData.addQi(qiData);
+                capability.setQi(playerData.getQi());
+            }
         });
 
         CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
