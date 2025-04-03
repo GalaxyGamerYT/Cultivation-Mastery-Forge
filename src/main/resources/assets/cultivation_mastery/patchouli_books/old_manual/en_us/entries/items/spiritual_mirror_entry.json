@@ -1,0 +1,22 @@
+{
+  "name": "Spiritual Mirror",
+  "icon": "cultivation_mastery:spiritual_mirror",
+  "category": "cultivation_mastery:items_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "cultivation_mastery:spiritual_mirror"
+      }
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This spiritual treasure lets a cultivator peer into the deepest depths of their bodies constitution and start their cultivation journey. Once $(qi) is injected into this treasure, a cultivator can examine themselves and see their cultivation realm and statistics. A cultivator can also examine another cultivators realm and statistics depending on how powerful they are, by using the treasure while shifting."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "cultivation_mastery:spiritual_mirror",
+      "text": "If a cultivator combines an iron mirror with low spirit stones, they can craft this spiritual treasure."
+    }
+  ]
+}

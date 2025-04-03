@@ -1,6 +1,7 @@
 package galaxygameryt.cultivation_mastery.screen.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.util.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -11,13 +12,31 @@ import net.minecraft.world.entity.player.Player;
 
 public class SpiritualMirrorScreen extends Screen {
     private Player player;
+    private ClientPlayerData playerData;
 
-    public SpiritualMirrorScreen() {
+    public SpiritualMirrorScreen(Player target) {
         super(Component.translatable("menu.title.cultivation_mastery.spiritual_mirror_menu"));
+        player = target;
+        assert Minecraft.getInstance().player != null;
+        if (target.getUUID() == Minecraft.getInstance().player.getUUID()) {
+            playerData = CultivationMastery.CLIENT_PLAYER_DATA;
+        } else {
+            playerData = new ClientPlayerData();
+            target.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+                playerData.setCultivation(capability.getCultivation());
+                playerData.setMaxQi(capability.getMaxQi());
+                playerData.setQiIncrease(capability.getQiIncrease());
+                playerData.setQi(capability.getQi());
+                playerData.setBody(capability.getBody());
+                playerData.setRealm(capability.getRealm());
+            });
+        }
     }
 
     private void sync() {
-        this.player = Minecraft.getInstance().player;
+        if (player == Minecraft.getInstance().player) {
+            playerData = CultivationMastery.CLIENT_PLAYER_DATA;
+        }
     }
 
     @Override
@@ -31,7 +50,7 @@ public class SpiritualMirrorScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         sync();
 
         var background = new Object() {
@@ -39,8 +58,8 @@ public class SpiritualMirrorScreen extends Screen {
                     "textures/gui/spiritual_mirror_gui.png");
             final int width = 256;
             final int height = 256;
-            final int left = (pGuiGraphics.guiWidth()/2)-(width/2);
-            final int top = (pGuiGraphics.guiHeight()/2)-(height/2);
+            final int left = (guiGraphics.guiWidth()/2)-(width/2);
+            final int top = (guiGraphics.guiHeight()/2)-(height/2);
             final int xOffset = 0;
             final int yOffset = 0;
         };
@@ -56,17 +75,17 @@ public class SpiritualMirrorScreen extends Screen {
         final int label3_y = (label2_y+label_height)+gap;
         final int label4_y = (label3_y+label_height)+gap;
 
-        pGuiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height);
+        guiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height);
 
-//        pGuiGraphics.drawString(this.font, "The start of your cultivation journey!!!", label_x, label1_y, label_colour, false);
-        drawCenteredString(pGuiGraphics, String.format("%s's Cultivation Stats", player.getDisplayName().getString()), background.left+(background.width/2), label1_y, label_colour, false);
-        pGuiGraphics.drawString(this.font, String.format("Realm: %s", CultivationMastery.CLIENT_PLAYER_DATA.getRealmDisplay()), label_x, label2_y, label_colour, false);
-        pGuiGraphics.drawString(this.font, String.format("Body: %.2f", CultivationMastery.CLIENT_PLAYER_DATA.getBody()), label_x, label3_y, label_colour, false);
-        pGuiGraphics.drawString(this.font, String.format("Qi: %.2f", CultivationMastery.CLIENT_PLAYER_DATA.getQi()), label_x, label4_y, label_colour, false);
+//        guiGraphics.drawString(this.font, "The start of your cultivation journey!!!", label_x, label1_y, label_colour, false);
+        drawCenteredString(guiGraphics, String.format("%s's Cultivation Stats", player.getDisplayName().getString()), background.left+(background.width/2), label1_y, label_colour, false);
+        guiGraphics.drawString(this.font, String.format("Realm: %s", playerData.getRealmDisplay()), label_x, label2_y, label_colour, false);
+        guiGraphics.drawString(this.font, String.format("Body: %.2f", playerData.getBody()), label_x, label3_y, label_colour, false);
+        guiGraphics.drawString(this.font, String.format("Qi: %.2f", playerData.getQi()), label_x, label4_y, label_colour, false);
     }
 
-    private void drawCenteredString(GuiGraphics guiGraphics, String text, int pX, int pY, int pColor, boolean dropShadow) {
-        guiGraphics.drawString(this.font, text, pX - this.font.width(text) / 2, pY, pColor, dropShadow);
+    private void drawCenteredString(GuiGraphics guiGraphics, String text, int pX, int pY, int color, boolean dropShadow) {
+        guiGraphics.drawString(this.font, text, pX - this.font.width(text) / 2, pY, color, dropShadow);
     }
 
 

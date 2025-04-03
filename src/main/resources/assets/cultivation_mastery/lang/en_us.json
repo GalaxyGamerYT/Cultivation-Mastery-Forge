@@ -45,5 +45,9 @@
   "key.cultivation_mastery.cultivation_gui": "Cultivation GUI",
 
   "message.cultivation_mastery.meditate": "Meditating!",
-  "message.cultivation_mastery.not_meditate": "Not Meditating!"
+  "message.cultivation_mastery.not_meditate": "Not Meditating!",
+
+
+  "patchouli_books.cultivation_mastery.old_manual.name": "Old Manual",
+  "patchouli_books.cultivation_mastery.old_manual.landing_text": "Welcome to Cultivation Mastery"
 }
