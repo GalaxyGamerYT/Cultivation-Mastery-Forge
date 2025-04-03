@@ -2,7 +2,7 @@
 ## Body Tempering
 ### 9 levels
 A cultivator must train their body to open their meridians. After reaching the Tempered Body 4th Stage, one begins to sense Spiritual Energy in the atmosphere. At the 7th Stage, one starts to naturally gather World Energy and absorb it into their body through their meridians, allowing them to start forming a dantian.
-## Qi Refinement
+## Qi Gathering
 ### 9 levels
 After the dantian is formed, a cultivator can absorbing the Qi and store it in the dantian. The cultivator can move the Qi in their dantian through their meridians allowing the Qi to nourish their body in order to effectively improve one's physique into a body capable of utilising Qi.
 ## Foundation Establishment

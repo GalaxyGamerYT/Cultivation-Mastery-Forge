@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;

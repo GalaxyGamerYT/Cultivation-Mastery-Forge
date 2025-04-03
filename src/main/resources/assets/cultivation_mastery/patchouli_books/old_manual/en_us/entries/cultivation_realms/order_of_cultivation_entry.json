@@ -1,0 +1,32 @@
+{
+  "name": "Order of Cultivation",
+  "icon": "minecraft:writable_book",
+  "category": "cultivation_mastery:cultivation_realms_category",
+  "priority": "true",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Cultivation realms are split into 3 martial realms:$(li)Mortal Realm$(li)True Realm$(li)Divine Realm"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Mortal Martial Realm$()$(br)In this martial realm, there are 3 realms of cultivation:$(li)Mortal$(li)Body Tempering$(li)Qi Gathering"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)True Martial Realm$()$(br)In this martial realm, there are 4 realms of cultivation:$(li)Foundation Establishment$(li)Core Formation$(li)Golden Core$(li)Nascent Soul"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)True Martial Realm$()$(br)In this martial realm, there are 4 realms of cultivation:$(li)Foundation Establishment$(li)Core Formation$(li)Golden Core$(li)Nascent Soul"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Divine Martial Realm$()$(br)In this martial realm, there are 3 realms of cultivation:$(li)Half-Step Saint$(li)Saint$(li)Return To Origin"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "At the end of the Divine Martial Realm, there is an unknown cultivation realm that mortals call $(bold)Immortality$()."
+    }
+  ]
+}

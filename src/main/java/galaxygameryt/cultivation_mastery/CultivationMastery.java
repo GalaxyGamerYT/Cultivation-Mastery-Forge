@@ -10,7 +10,6 @@ import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
 import galaxygameryt.cultivation_mastery.util.objects.MajorRealmObjectType;
 import galaxygameryt.cultivation_mastery.util.objects.MinorRealmObjectType;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -56,7 +55,9 @@ public class CultivationMastery
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        event.enqueueWork(ModMessages::register);
+        event.enqueueWork(() -> {
+            ModMessages.register();
+        });
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

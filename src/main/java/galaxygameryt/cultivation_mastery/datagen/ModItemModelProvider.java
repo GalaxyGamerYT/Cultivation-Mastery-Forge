@@ -29,6 +29,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.SPIRITUAL_IRON_INGOT.get());
 
 //        simpleItem(ModItems.BACKPACK.get());
+
+        simpleItem(ModItems.YIN_YANG.get());
     }
 
     private ItemModelBuilder simpleItem(Item item) {

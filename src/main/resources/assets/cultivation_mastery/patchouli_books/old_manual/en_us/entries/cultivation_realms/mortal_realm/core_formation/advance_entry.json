@@ -1,0 +1,16 @@
+{
+  "name": "How to advance",
+  "icon": "minecraft:beacon",
+  "category": "cultivation_mastery:cultivation_realms/core_formation_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After a cultivator's spiritual sea is completely formed, the pressure of the True Qi makes the dantian start to crack. True Qi starts to seep through the cracks and solidify on the exterior of the dantian creating a core until the dantian is destroyed and replaced.$(br2)Hint - Meditate and gather $(true qi)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "After a Core Formation realm cultivator's core is completely formed the cultivator goes through a lightning tribulation, the surrounding area might get damaged or even destroyed. It is also possible for the cultivator to die and loose their core during the tribulation."
+    }
+  ]
+}

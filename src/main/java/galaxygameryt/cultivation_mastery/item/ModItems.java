@@ -31,6 +31,9 @@ public class ModItems {
     public static final RegistryObject<Item> SPIRITUAL_IRON_INGOT = ITEMS.register("spiritual_iron_ingot",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> YIN_YANG = ITEMS.register("yin_yang",
+            () -> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

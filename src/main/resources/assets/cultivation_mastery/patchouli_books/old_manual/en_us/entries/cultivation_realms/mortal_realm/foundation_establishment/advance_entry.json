@@ -1,0 +1,12 @@
+{
+  "name": "How to advance",
+  "icon": "minecraft:beacon",
+  "category": "cultivation_mastery:cultivation_realms/foundation_establishment_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After the $(qi) is fully absorbed into the dantian. The $(qi) is compressed and turned into a liquid form called $(true qi) in the dantian creating a spiritual sea contained within. This spiritual sea will be the foundation of your future strength, so make sure to convert as much $(qi) into $(true qi) as you can before you break through to the next realm.$(br2)Hint - Meditate and gather $(true qi)."
+    }
+  ]
+}

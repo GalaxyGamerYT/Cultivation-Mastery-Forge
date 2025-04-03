@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 public class SpiritualMirrorScreen extends Screen {
     private Player player;
     private ClientPlayerData playerData;
+    private final boolean self;
 
     public SpiritualMirrorScreen(Player target) {
         super(Component.translatable("menu.title.cultivation_mastery.spiritual_mirror_menu"));
@@ -20,6 +21,7 @@ public class SpiritualMirrorScreen extends Screen {
         assert Minecraft.getInstance().player != null;
         if (target.getUUID() == Minecraft.getInstance().player.getUUID()) {
             playerData = CultivationMastery.CLIENT_PLAYER_DATA;
+            self = true;
         } else {
             playerData = new ClientPlayerData();
             target.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
@@ -30,6 +32,7 @@ public class SpiritualMirrorScreen extends Screen {
                 playerData.setBody(capability.getBody());
                 playerData.setRealm(capability.getRealm());
             });
+            self = false;
         }
     }
 

@@ -1,0 +1,16 @@
+{
+  "name": "Abilities",
+  "icon": "minecraft:diamond_sword",
+  "category": "cultivation_mastery:cultivation_realms/golden_core_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Golden Core realm cultivator is able to peer into their core using an upgraded version of their spiritual mirror, the $(true qi) stored in the core appears gold as it has been purified by the heavenly lightning."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Void Control$()$(br2)$(true qi) can then be used to freely control the cultivators spiritual weapon without being near the cultivators body."
+    }
+  ]
+}
