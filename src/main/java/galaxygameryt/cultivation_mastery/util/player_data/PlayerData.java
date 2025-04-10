@@ -1,5 +1,7 @@
 package galaxygameryt.cultivation_mastery.util.player_data;
 
+import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
+
 import java.util.UUID;
 
 public class PlayerData {

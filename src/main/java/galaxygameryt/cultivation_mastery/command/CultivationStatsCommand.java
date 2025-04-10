@@ -38,12 +38,13 @@ public class CultivationStatsCommand {
     private static void getInfo(Player player) {
         ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
         player.sendSystemMessage(Component.literal(String.format(
-                "-----%s-----\nCultivation: %b\nRealm: %.1f\nBody: %.5f\nQi: %.5f",
+                "-----%s-----\nCultivation: %b\nRealm: %.1f\nBody: %.5f\nQi: %.5f\nMax Qi: %d",
                 player.getDisplayName().getString(),
                 playerData.getCultivation(),
                 playerData.getRealm(),
                 playerData.getBody(),
-                playerData.getQi()
+                playerData.getQi(),
+                playerData.getMaxQi()
         )).withStyle(ChatFormatting.DARK_AQUA));
     }
 
@@ -162,13 +163,6 @@ public class CultivationStatsCommand {
 //    Reset Commands
     public static void reset(Player player) {
         if(player != null) {
-            player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
-                capability.setQi(0);
-                capability.setRealm(0);
-                capability.setCultivation(false);
-                capability.setBody(0);
-                capability.setMaxQi(100);
-            });
             ServerPlayerData oldPlayerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(player.getUUID());
 
             ServerPlayerData newPlayerData = new ServerPlayerData(player.getUUID());
@@ -176,6 +170,15 @@ public class CultivationStatsCommand {
             newPlayerData.setTickCounter(oldPlayerData.getTickCounter());
 
             CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), newPlayerData);
+
+            player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).ifPresent(capability -> {
+                capability.setQi(newPlayerData.getQi());
+                capability.setRealm(newPlayerData.getRealm());
+                capability.setCultivation(newPlayerData.getCultivation());
+                capability.setBody(newPlayerData.getBody());
+                capability.setMaxQi(newPlayerData.maxQi);
+                capability.setQiIncrease(newPlayerData.getQiIncrease());
+            });
         }
     }
 

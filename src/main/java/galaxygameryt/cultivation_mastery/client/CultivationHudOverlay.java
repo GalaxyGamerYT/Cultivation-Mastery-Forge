@@ -29,27 +29,32 @@ public class CultivationHudOverlay {
             var background = new Object() {
                 final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
                         "textures/hud/background_scroll.png");
-                int width = 100;
-                int height = 50;
+                final int width = 100;
+                final int height = 50;
                 final int left = gap;
                 final int top = screenHeight - (height + gap);
                 final int xOffset = 0;
                 final int yOffset = 0;
             };
 
+            var realm_label = new Object() {
+                final int left = background.left + (background.width / 2);
+                final int top = background.top - 10;
+            };
+
             var center_label = new Object() {
-                int left = background.left + 25;
-                int top = (background.top + (background.height / 2)) - gap;
+                final int left = background.left + 25;
+                final int top = (background.top + (background.height / 2)) - gap;
             };
 
             var top_label = new Object() {
-                int left = background.left + 25;
-                int top = (background.top + (background.height / 4)) - gap;
+                final int left = background.left + 25;
+                final int top = background.top + (background.height / 4);
             };
 
             var bottom_label = new Object() {
-                int left = background.left + 25;
-                int top = (background.top + ((background.height / 4) * 3)) - gap;
+                final int left = background.left + 25;
+                final int top = (background.top + (background.height / 4) * 3) - gap;
             };
 
             var qi_label = new Object() {
@@ -70,8 +75,8 @@ public class CultivationHudOverlay {
 
 
             if (cultivating) {
-                if (realm >= 0.7f) {
-                    if (realm < 1) {
+                if (realm >= 1.7f) {
+                    if (realm < 2) {
                         qi_label.left = bottom_label.left;
                         qi_label.top = bottom_label.top;
                     } else {
@@ -80,8 +85,8 @@ public class CultivationHudOverlay {
                     }
                     qi_label.visible = true;
                 }
-                if (realm < 1) {
-                    if (realm >= 0.7f) {
+                if (realm < 2) {
+                    if (realm >= 1.7f) {
                         body_label.left = top_label.left;
                         body_label.top = top_label.top;
                     } else {
@@ -94,6 +99,7 @@ public class CultivationHudOverlay {
                 guiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height,
                         100, 50);
 
+                guiGraphics.drawCenteredString(gui.getFont(), playerData.getRealmDisplay(),realm_label.left, realm_label.top, label_colour);
                 if (body_label.visible) {
                     guiGraphics.drawString(gui.getFont(), String.format("Body: %.2f", body), body_label.left, body_label.top, label_colour);
                 }

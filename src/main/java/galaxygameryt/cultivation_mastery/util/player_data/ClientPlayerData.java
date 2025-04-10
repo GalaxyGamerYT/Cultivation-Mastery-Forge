@@ -17,7 +17,15 @@ public class ClientPlayerData extends PlayerData{
         int minorRealmValue = (int) Math.floor((realm*10)-(majorRealmValue*10));
 
         MajorRealmObjectType majorRealm = CultivationMastery.REALMS[majorRealmValue];
-        MinorRealmObjectType minorRealm = majorRealm.minorRealms[minorRealmValue];
+
+//        This Try Catch statement is a temporary fix, If a solution is found please remove.
+        MinorRealmObjectType minorRealm = new MinorRealmObjectType();
+        try {
+            minorRealm = majorRealm.minorRealms[minorRealmValue];
+
+        } catch (Exception e) {
+            CultivationMastery.LOGGER.debug(String.valueOf(e));
+        }
 
         return String.format("%s %s %s", minorRealm.prefix, majorRealm.name, minorRealm.suffix);
     }

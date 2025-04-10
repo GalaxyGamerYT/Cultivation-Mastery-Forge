@@ -1,6 +1,7 @@
 package galaxygameryt.cultivation_mastery.networking;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.networking.packet.C2S.BreakthroughC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.CultivationC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.ExampleC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPacket;
@@ -46,6 +47,11 @@ public class ModMessages {
                 .decoder(CultivationC2SPacket::new)
                 .encoder(CultivationC2SPacket::toBytes)
                 .consumerMainThread(CultivationC2SPacket::handle)
+                .add();
+        net.messageBuilder(BreakthroughC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(BreakthroughC2SPacket::new)
+                .encoder(BreakthroughC2SPacket::toBytes)
+                .consumerMainThread(BreakthroughC2SPacket::handle)
                 .add();
 
         // S2C - To The Client!

@@ -69,83 +69,89 @@ public class CultivationMastery
 
     private static MajorRealmObjectType[] setCultivationRealms() {
         return new MajorRealmObjectType[]{
-                new MajorRealmObjectType("Mortal", 1, new MinorRealmObjectType[]{
+                new MajorRealmObjectType("Mortal", new MinorRealmObjectType[]{
+                        new MinorRealmObjectType("", ""),
+                }),
+                new MajorRealmObjectType("Body Tempering", new MinorRealmObjectType[]{
+                        new MinorRealmObjectType("", "I"),
+                        new MinorRealmObjectType("", "II"),
+                        new MinorRealmObjectType("", "III"),
+                        new MinorRealmObjectType("", "IV"),
+                        new MinorRealmObjectType("", "V"),
+                        new MinorRealmObjectType("", "VI"),
+                        new MinorRealmObjectType("", "VII"),
+                        new MinorRealmObjectType("", "VIII"),
+                        new MinorRealmObjectType("", "IV")
+                }),
+                new MajorRealmObjectType("Qi Refinement", new MinorRealmObjectType[]{
+                        new MinorRealmObjectType("", "I"),
+                        new MinorRealmObjectType("", "II"),
+                        new MinorRealmObjectType("", "III"),
+                        new MinorRealmObjectType("", "IV"),
+                        new MinorRealmObjectType("", "V"),
+                        new MinorRealmObjectType("", "VI"),
+                        new MinorRealmObjectType("", "VII"),
+                        new MinorRealmObjectType("", "VIII"),
+                        new MinorRealmObjectType("", "IV")
+                }),
+                new MajorRealmObjectType("Foundation Establishment", new MinorRealmObjectType[]{
+                        new MinorRealmObjectType("", "I"),
+                        new MinorRealmObjectType("", "II"),
+                        new MinorRealmObjectType("", "III"),
+                        new MinorRealmObjectType("", "IV"),
+                        new MinorRealmObjectType("", "V"),
+                        new MinorRealmObjectType("", "VI"),
+                        new MinorRealmObjectType("", "VII"),
+                        new MinorRealmObjectType("", "VIII"),
+                        new MinorRealmObjectType("", "IV")
+                }),
+                new MajorRealmObjectType("Core Formation", new MinorRealmObjectType[]{
+                        new MinorRealmObjectType("", "I"),
+                        new MinorRealmObjectType("", "II"),
+                        new MinorRealmObjectType("", "III"),
+                        new MinorRealmObjectType("", "IV"),
+                        new MinorRealmObjectType("", "V"),
+                        new MinorRealmObjectType("", "VI"),
+                        new MinorRealmObjectType("", "VII"),
+                        new MinorRealmObjectType("", "VIII"),
+                        new MinorRealmObjectType("", "IV")
+                }),
+                new MajorRealmObjectType("Golden Core", new MinorRealmObjectType[]{
+                        new MinorRealmObjectType("", "I"),
+                        new MinorRealmObjectType("", "II"),
+                        new MinorRealmObjectType("", "III"),
+                        new MinorRealmObjectType("", "IV"),
+                        new MinorRealmObjectType("", "V"),
+                        new MinorRealmObjectType("", "VI"),
+                        new MinorRealmObjectType("", "VII"),
+                        new MinorRealmObjectType("", "VIII"),
+                        new MinorRealmObjectType("", "IV")
+                }),
+                new MajorRealmObjectType("Nascent Soul", new MinorRealmObjectType[]{
+                        new MinorRealmObjectType("", "I"),
+                        new MinorRealmObjectType("", "II"),
+                        new MinorRealmObjectType("", "III"),
+                        new MinorRealmObjectType("", "IV"),
+                        new MinorRealmObjectType("", "V"),
+                        new MinorRealmObjectType("", "VI"),
+                        new MinorRealmObjectType("", "VII"),
+                        new MinorRealmObjectType("", "VIII"),
+                        new MinorRealmObjectType("", "IV")
+                }),
+                new MajorRealmObjectType("Half-Step Saint", new MinorRealmObjectType[]{
                         new MinorRealmObjectType("", "")
                 }),
-                new MajorRealmObjectType("Body Tempering", 9, new MinorRealmObjectType[]{
-                        new MinorRealmObjectType("", "I"),
-                        new MinorRealmObjectType("", "II"),
-                        new MinorRealmObjectType("", "III"),
-                        new MinorRealmObjectType("", "IV"),
-                        new MinorRealmObjectType("", "V"),
-                        new MinorRealmObjectType("", "VI"),
-                        new MinorRealmObjectType("", "VII"),
-                        new MinorRealmObjectType("", "VIII")
-                }),
-                new MajorRealmObjectType("Qi Refinement", 9, new MinorRealmObjectType[]{
-                        new MinorRealmObjectType("", "I"),
-                        new MinorRealmObjectType("", "II"),
-                        new MinorRealmObjectType("", "III"),
-                        new MinorRealmObjectType("", "IV"),
-                        new MinorRealmObjectType("", "V"),
-                        new MinorRealmObjectType("", "VI"),
-                        new MinorRealmObjectType("", "VII"),
-                        new MinorRealmObjectType("", "VIII")
-                }),
-                new MajorRealmObjectType("Foundation Establishment", 9, new MinorRealmObjectType[]{
-                        new MinorRealmObjectType("", "I"),
-                        new MinorRealmObjectType("", "II"),
-                        new MinorRealmObjectType("", "III"),
-                        new MinorRealmObjectType("", "IV"),
-                        new MinorRealmObjectType("", "V"),
-                        new MinorRealmObjectType("", "VI"),
-                        new MinorRealmObjectType("", "VII"),
-                        new MinorRealmObjectType("", "VIII")
-                }),
-                new MajorRealmObjectType("Core Formation", 9, new MinorRealmObjectType[]{
-                        new MinorRealmObjectType("", "I"),
-                        new MinorRealmObjectType("", "II"),
-                        new MinorRealmObjectType("", "III"),
-                        new MinorRealmObjectType("", "IV"),
-                        new MinorRealmObjectType("", "V"),
-                        new MinorRealmObjectType("", "VI"),
-                        new MinorRealmObjectType("", "VII"),
-                        new MinorRealmObjectType("", "VIII")
-                }),
-                new MajorRealmObjectType("Golden Core", 9, new MinorRealmObjectType[]{
-                        new MinorRealmObjectType("", "I"),
-                        new MinorRealmObjectType("", "II"),
-                        new MinorRealmObjectType("", "III"),
-                        new MinorRealmObjectType("", "IV"),
-                        new MinorRealmObjectType("", "V"),
-                        new MinorRealmObjectType("", "VI"),
-                        new MinorRealmObjectType("", "VII"),
-                        new MinorRealmObjectType("", "VIII")
-                }),
-                new MajorRealmObjectType("Nascent Soul", 9, new MinorRealmObjectType[]{
-                        new MinorRealmObjectType("", "I"),
-                        new MinorRealmObjectType("", "II"),
-                        new MinorRealmObjectType("", "III"),
-                        new MinorRealmObjectType("", "IV"),
-                        new MinorRealmObjectType("", "V"),
-                        new MinorRealmObjectType("", "VI"),
-                        new MinorRealmObjectType("", "VII"),
-                        new MinorRealmObjectType("", "VIII")
-                }),
-                new MajorRealmObjectType("Half-Step Saint", 1, new MinorRealmObjectType[]{
-                        new MinorRealmObjectType("", "")
-                }),
-                new MajorRealmObjectType("Saint", 3, new MinorRealmObjectType[]{
+                new MajorRealmObjectType("Saint", new MinorRealmObjectType[]{
                         new MinorRealmObjectType("1st Order", ""),
                         new MinorRealmObjectType("2nd Order", ""),
                         new MinorRealmObjectType("3rd Order", ""),
                 }),
-                new MajorRealmObjectType("Return To Origin", 3, new MinorRealmObjectType[]{
+                new MajorRealmObjectType("Return To Origin",  new MinorRealmObjectType[]{
                         new MinorRealmObjectType("1st Order", ""),
                         new MinorRealmObjectType("2nd Order", ""),
                         new MinorRealmObjectType("3rd Order", ""),
                 }),
-                new MajorRealmObjectType("Immortal", 1, new MinorRealmObjectType[]{
+                new MajorRealmObjectType("Immortal", new MinorRealmObjectType[]{
                         new MinorRealmObjectType("", "")
                 })
         };

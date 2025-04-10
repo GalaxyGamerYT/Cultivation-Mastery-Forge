@@ -31,6 +31,7 @@ public class SpiritualMirrorScreen extends Screen {
                 playerData.setQi(capability.getQi());
                 playerData.setBody(capability.getBody());
                 playerData.setRealm(capability.getRealm());
+                playerData.setMaxQi(capability.getMaxQi());
             });
             self = false;
         }
@@ -77,6 +78,7 @@ public class SpiritualMirrorScreen extends Screen {
         final int label2_y = (label1_y+label_height)+gap;
         final int label3_y = (label2_y+label_height)+gap;
         final int label4_y = (label3_y+label_height)+gap;
+        final int label5_y = (label4_y+label_height)+gap;
 
         guiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height);
 
@@ -85,6 +87,7 @@ public class SpiritualMirrorScreen extends Screen {
         guiGraphics.drawString(this.font, String.format("Realm: %s", playerData.getRealmDisplay()), label_x, label2_y, label_colour, false);
         guiGraphics.drawString(this.font, String.format("Body: %.2f", playerData.getBody()), label_x, label3_y, label_colour, false);
         guiGraphics.drawString(this.font, String.format("Qi: %.2f", playerData.getQi()), label_x, label4_y, label_colour, false);
+        guiGraphics.drawString(this.font, String.format("Max Qi: %d", playerData.getMaxQi()), label_x, label5_y, label_colour, false);
     }
 
     private void drawCenteredString(GuiGraphics guiGraphics, String text, int pX, int pY, int color, boolean dropShadow) {

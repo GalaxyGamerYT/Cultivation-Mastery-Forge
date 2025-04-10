@@ -160,19 +160,19 @@ public class ModEvents {
     }
 
     private static void realmLogic(ServerPlayerData playerData, Player player) {
-        if (playerData.getRealm() > 1) {
+        if (playerData.getRealm() < 1) {
             realmMortalLogic(playerData, playerData.getRealm(), playerData.getBody());
-        } else if (playerData.getRealm() > 2) {
+        } else if (playerData.getRealm() < 2) {
             realmBodyTemperingLogic(playerData, playerData.getRealm(), playerData.getBody(), playerData.getBreakthrough());
         }
     }
 
     private static void realmBodyTemperingLogic(ServerPlayerData playerData, float realm, float body, boolean breakthrough) {
         if(body == 100 && breakthrough) {
-            if(realm == CultivationMastery.REALMS[0].maxLevelFraction) {
+            if(realm >= CultivationMastery.REALMS[1].maxLevelFraction) {
                 if(playerData.getQi() == playerData.getMaxQi()) {
                     playerData.setQi(0);
-                    playerData.addRealm(0.1f);
+                    playerData.setRealm(2);
                 }
             } else {
                 playerData.addRealm(0.1f);
@@ -182,7 +182,7 @@ public class ModEvents {
     }
 
     private static void realmMortalLogic(ServerPlayerData playerData, float realm, float body) {
-        if(realm == CultivationMastery.REALMS[0].maxLevelFraction) {
+        if(realm >= CultivationMastery.REALMS[0].maxLevelFraction) {
             playerData.setRealm(1);
         }
         if(body == 100) {
