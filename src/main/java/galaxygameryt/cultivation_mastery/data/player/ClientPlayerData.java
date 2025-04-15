@@ -1,11 +1,8 @@
-package galaxygameryt.cultivation_mastery.util.player_data;
+package galaxygameryt.cultivation_mastery.data.player;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.util.objects.MajorRealmObjectType;
 import galaxygameryt.cultivation_mastery.util.objects.MinorRealmObjectType;
-import net.minecraft.client.Minecraft;
-
-import java.util.UUID;
 
 public class ClientPlayerData extends PlayerData{
     public ClientPlayerData() {

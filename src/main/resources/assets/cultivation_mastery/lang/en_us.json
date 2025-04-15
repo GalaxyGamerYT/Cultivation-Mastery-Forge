@@ -48,5 +48,8 @@
   "key.cultivation_mastery.cultivation_gui": "Cultivation GUI",
 
   "message.cultivation_mastery.meditate": "Meditating!",
-  "message.cultivation_mastery.not_meditate": "Not Meditating!"
+  "message.cultivation_mastery.not_meditate": "Not Meditating!",
+
+  "effect.cultivation_mastery.breakthrough": "Breakthough",
+  "effect.cultivation_mastery.qi_absorption": "Qi Absorption"
 }

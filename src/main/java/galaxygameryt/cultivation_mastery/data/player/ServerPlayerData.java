@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.util.player_data;
+package galaxygameryt.cultivation_mastery.data.player;
 
 import java.util.UUID;
 

@@ -1,13 +1,11 @@
-package galaxygameryt.cultivation_mastery.util.player_data;
+package galaxygameryt.cultivation_mastery.data.player;
 
-import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
-
-import java.util.UUID;
+import galaxygameryt.cultivation_mastery.CultivationMastery;
 
 public class PlayerData {
     // Constants
     public final int MAX_BODY = 100;
-    public final int MAX_REALM = 11;
+    public final int MAX_REALM = 10;
 
     // Boolean Data
     public boolean cultivation = false;
@@ -20,6 +18,9 @@ public class PlayerData {
     public float qi = 0;
     public float body = 0;
     public float realm = 0;
+
+    public int envQiMulti = 1;
+    public int baseQiMulti = 1;
 
     public PlayerData() {
 
@@ -102,7 +103,7 @@ public class PlayerData {
     }
 
     public void increase_qi() {
-        addQi(qiIncrease);
+        addQi((qiIncrease * baseQiMulti) * envQiMulti);
     }
 
     public void subQi(float sub) {
@@ -132,14 +133,55 @@ public class PlayerData {
     }
 
     public void setRealm(float realm) {
-        this.realm = realm;
+        this.realm = Math.min(realm, MAX_REALM);
     }
 
     public void addRealm(float add) {
-        setRealm(Math.min(realm + add, MAX_REALM));
+        float minimum = Math.min(realm + add, MAX_REALM);
+        int majorRealmValue = (int) Math.floor(realm);
+        if(minimum > CultivationMastery.REALMS[majorRealmValue].maxLevelFraction) {
+            setRealm(majorRealmValue+1);
+        } else {
+            setRealm(minimum);
+        }
     }
 
     public void subRealm(float sub) {
         setRealm(Math.max(realm - sub, 0));
     }
+
+    // Environment Multiplier
+    public int getEnvQiMulti() {
+        return envQiMulti;
+    }
+
+    public void setEnvQiMulti(int envQiMulti) {
+        this.envQiMulti = envQiMulti;
+    }
+
+    public void addQiEnvMulti(int add) {
+        setEnvQiMulti(envQiMulti + add);
+    }
+
+    public void subQiEnvMulti(int sub) {
+        setEnvQiMulti(Math.max(envQiMulti - sub, 1));
+    }
+
+    // Base Qi Multiplier
+    public int getBaseQiMulti() {
+        return baseQiMulti;
+    }
+
+    public void setBaseQiMulti(int baseQiMulti) {
+        this.baseQiMulti = baseQiMulti;
+    }
+
+    public void addBaseQiMulti(int add) {
+        setBaseQiMulti(baseQiMulti + add);
+    }
+
+    public void subBaseQiMulti(int sub) {
+        setBaseQiMulti(Math.max(baseQiMulti - sub, 1));
+    }
+
 }
