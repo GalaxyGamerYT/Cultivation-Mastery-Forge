@@ -1,22 +1,19 @@
 package galaxygameryt.cultivation_mastery.networking.packet.S2C;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.UUID;
 import java.util.function.Supplier;
 
-public class CultivationSyncS2CPacket {
+public class CultivationDataSyncS2CPacket {
     private final boolean cultivation;
 
-    public CultivationSyncS2CPacket(boolean cultivation) {
+    public CultivationDataSyncS2CPacket(boolean cultivation) {
         this.cultivation = cultivation;
     }
 
-    public CultivationSyncS2CPacket(FriendlyByteBuf buf) {
+    public CultivationDataSyncS2CPacket(FriendlyByteBuf buf) {
         this.cultivation = buf.readBoolean();
     }
 

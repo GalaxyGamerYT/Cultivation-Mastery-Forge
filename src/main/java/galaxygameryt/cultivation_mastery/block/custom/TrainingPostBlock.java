@@ -1,8 +1,8 @@
 package galaxygameryt.cultivation_mastery.block.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.capability.PlayerCapabilityProvider;
-import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.data.capability.PlayerCapabilityProvider;
+import galaxygameryt.cultivation_mastery.data.player.ServerPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

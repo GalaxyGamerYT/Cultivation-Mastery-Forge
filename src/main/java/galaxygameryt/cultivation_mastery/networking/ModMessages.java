@@ -60,10 +60,10 @@ public class ModMessages {
                 .encoder(QiDataSyncS2CPacket::toBytes)
                 .consumerMainThread(QiDataSyncS2CPacket::handle)
                 .add();
-        net.messageBuilder(CultivationSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(CultivationSyncS2CPacket::new)
-                .encoder(CultivationSyncS2CPacket::toBytes)
-                .consumerMainThread(CultivationSyncS2CPacket::handle)
+        net.messageBuilder(CultivationDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CultivationDataSyncS2CPacket::new)
+                .encoder(CultivationDataSyncS2CPacket::toBytes)
+                .consumerMainThread(CultivationDataSyncS2CPacket::handle)
                 .add();
         net.messageBuilder(BodyDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(BodyDataSyncS2CPacket::new)
@@ -79,6 +79,16 @@ public class ModMessages {
                 .decoder(MaxQiDataSyncS2CPacket::new)
                 .encoder(MaxQiDataSyncS2CPacket::toBytes)
                 .consumerMainThread(MaxQiDataSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(BaseQiMultiDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BaseQiMultiDataSyncS2CPacket::new)
+                .encoder(BaseQiMultiDataSyncS2CPacket::toBytes)
+                .consumerMainThread(BaseQiMultiDataSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(EnvQiMultiDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EnvQiMultiDataSyncS2CPacket::new)
+                .encoder(EnvQiMultiDataSyncS2CPacket::toBytes)
+                .consumerMainThread(EnvQiMultiDataSyncS2CPacket::handle)
                 .add();
     }
 

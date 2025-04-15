@@ -8,7 +8,6 @@ import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPack
 import galaxygameryt.cultivation_mastery.screen.custom.BackpackScreen;
 import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
-import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -21,12 +20,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-
-import java.util.UUID;
 
 public class ClientEvents {
     @Mod.EventBusSubscriber(modid = CultivationMastery.MOD_ID, value = Dist.CLIENT)

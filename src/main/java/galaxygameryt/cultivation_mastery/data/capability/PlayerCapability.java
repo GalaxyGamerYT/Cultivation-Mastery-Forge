@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.util.capability;
+package galaxygameryt.cultivation_mastery.data.capability;
 
 import net.minecraft.nbt.CompoundTag;
 

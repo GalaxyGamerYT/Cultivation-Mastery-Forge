@@ -6,19 +6,19 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class RealmDataSyncS2CPacket {
-    private final float realm;
+public class BaseQiMultiDataSyncS2CPacket {
+    private final int baseQiMulti;
 
-    public RealmDataSyncS2CPacket(float body) {
-        this.realm = body;
+    public BaseQiMultiDataSyncS2CPacket(int baseQiMulti) {
+        this.baseQiMulti = baseQiMulti;
     }
 
-    public RealmDataSyncS2CPacket(FriendlyByteBuf buf) {
-        this.realm = buf.readFloat();
+    public BaseQiMultiDataSyncS2CPacket(FriendlyByteBuf buf) {
+        this.baseQiMulti = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeFloat(realm);
+        buf.writeInt(baseQiMulti);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -26,8 +26,8 @@ public class RealmDataSyncS2CPacket {
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
 
-            if(realm != CultivationMastery.CLIENT_PLAYER_DATA.getRealm()) {
-                CultivationMastery.CLIENT_PLAYER_DATA.setRealm(realm);
+            if(baseQiMulti != CultivationMastery.CLIENT_PLAYER_DATA.getBaseQiMulti()) {
+                CultivationMastery.CLIENT_PLAYER_DATA.setBaseQiMulti(baseQiMulti);
             }
         });
         return true;

@@ -1,8 +1,8 @@
 package galaxygameryt.cultivation_mastery.screen.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.util.capability.PlayerCapabilityProvider;
-import galaxygameryt.cultivation_mastery.util.player_data.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.data.capability.PlayerCapabilityProvider;
+import galaxygameryt.cultivation_mastery.data.player.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -79,6 +79,9 @@ public class SpiritualMirrorScreen extends Screen {
         final int label3_y = (label2_y+label_height)+gap;
         final int label4_y = (label3_y+label_height)+gap;
         final int label5_y = (label4_y+label_height)+gap;
+        final int label6_y = (label5_y+label_height)+gap;
+        final int label7_y = (label6_y+label_height)+gap;
+        final int label8_y = (label7_y+label_height)+gap;
 
         guiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height);
 
@@ -88,6 +91,9 @@ public class SpiritualMirrorScreen extends Screen {
         guiGraphics.drawString(this.font, String.format("Body: %.2f", playerData.getBody()), label_x, label3_y, label_colour, false);
         guiGraphics.drawString(this.font, String.format("Qi: %.2f", playerData.getQi()), label_x, label4_y, label_colour, false);
         guiGraphics.drawString(this.font, String.format("Max Qi: %d", playerData.getMaxQi()), label_x, label5_y, label_colour, false);
+        guiGraphics.drawString(this.font, String.format("Base Qi Multiplier: %dX", playerData.getBaseQiMulti()), label_x, label6_y, label_colour, false);
+        guiGraphics.drawString(this.font, String.format("Environment Qi Multiplier: %dX", playerData.getEnvQiMulti()), label_x, label7_y, label_colour, false);
+        guiGraphics.drawString(this.font, String.format("Qi Increase: %.2f", playerData.getQiIncrease()), label_x, label8_y, label_colour, false);
     }
 
     private void drawCenteredString(GuiGraphics guiGraphics, String text, int pX, int pY, int color, boolean dropShadow) {

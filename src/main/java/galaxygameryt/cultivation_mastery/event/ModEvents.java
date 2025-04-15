@@ -3,9 +3,9 @@ package galaxygameryt.cultivation_mastery.event;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
-import galaxygameryt.cultivation_mastery.util.capability.PlayerCapability;
-import galaxygameryt.cultivation_mastery.util.capability.PlayerCapabilityProvider;
-import galaxygameryt.cultivation_mastery.util.player_data.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.data.capability.PlayerCapability;
+import galaxygameryt.cultivation_mastery.data.capability.PlayerCapabilityProvider;
+import galaxygameryt.cultivation_mastery.data.player.ServerPlayerData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -64,13 +64,17 @@ public class ModEvents {
         // Qi
         ModMessages.sendToPlayer(new QiDataSyncS2CPacket(playerData.getQi()), player);
         // Cultivation
-        ModMessages.sendToPlayer(new CultivationSyncS2CPacket(playerData.getCultivation()), player);
+        ModMessages.sendToPlayer(new CultivationDataSyncS2CPacket(playerData.getCultivation()), player);
         // Body
         ModMessages.sendToPlayer(new BodyDataSyncS2CPacket(playerData.getBody()), player);
         // Realm
         ModMessages.sendToPlayer(new RealmDataSyncS2CPacket(playerData.getRealm()), player);
         // Max Qi
         ModMessages.sendToPlayer(new MaxQiDataSyncS2CPacket(playerData.getMaxQi()), player);
+        // Base Qi Multi
+        ModMessages.sendToPlayer(new BaseQiMultiDataSyncS2CPacket(playerData.getBaseQiMulti()), player);
+        // Env Qi Multi
+        ModMessages.sendToPlayer(new EnvQiMultiDataSyncS2CPacket(playerData.getEnvQiMulti()), player);
     }
 
     @SubscribeEvent
@@ -163,31 +167,33 @@ public class ModEvents {
         if (playerData.getRealm() < 1) {
             realmMortalLogic(playerData, playerData.getRealm(), playerData.getBody());
         } else if (playerData.getRealm() < 2) {
-            realmBodyTemperingLogic(playerData, playerData.getRealm(), playerData.getBody(), playerData.getBreakthrough());
+            realmBodyTemperingLogic(playerData, playerData.getRealm(), playerData.getBody(), playerData.getBreakthrough(), player);
         }
     }
 
-    private static void realmBodyTemperingLogic(ServerPlayerData playerData, float realm, float body, boolean breakthrough) {
+    private static void realmBodyTemperingLogic(ServerPlayerData playerData, float realm, float body, boolean breakthrough, Player player) {
         if(body == 100 && breakthrough) {
-            if(realm >= CultivationMastery.REALMS[1].maxLevelFraction) {
-                if(playerData.getQi() == playerData.getMaxQi()) {
+            if (realm <= CultivationMastery.REALMS[1].maxLevelFraction) {
+                playerData.addRealm(0.1f);
+                playerData.setBody(0);
+            } else {
+                if (playerData.getQi() == playerData.getMaxQi()) {
                     playerData.setQi(0);
                     playerData.setRealm(2);
                 }
-            } else {
-                playerData.addRealm(0.1f);
-                playerData.setBody(0);
             }
         }
+
+//        Change how to set to new realm using realm capability.
     }
 
     private static void realmMortalLogic(ServerPlayerData playerData, float realm, float body) {
-        if(realm >= CultivationMastery.REALMS[0].maxLevelFraction) {
-            playerData.setRealm(1);
-        }
         if(body == 100) {
             playerData.addRealm(0.1f);
             playerData.setBody(0);
+        }
+        if(realm >= CultivationMastery.REALMS[0].maxLevelFraction) {
+            playerData.setRealm(1);
         }
     }
 }
