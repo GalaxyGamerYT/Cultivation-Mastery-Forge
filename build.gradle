@@ -167,10 +167,13 @@ dependencies {
     runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
     // Dev Dependencies
-    implementation fg.deobf("curse.maven:spark-${cm_spark_version}:${cm_spark_file}")
-    implementation fg.deobf("curse.maven:Controlling-${cm_controlling_version}:${cm_controlling_file}")
-    implementation fg.deobf("curse.maven:Searchables-${cm_searchables_version}:${cm_searchables_file}")
-    implementation fg.deobf("curse.maven:jade-${cm_jade_version}:${cm_jade_file}")
+    implementation fg.deobf("curse.maven:spark-361579:4738952")
+    implementation fg.deobf("curse.maven:Controlling-250398:4646682")
+    implementation fg.deobf("curse.maven:Searchables-858542:5284015")
+    implementation fg.deobf("curse.maven:jade-324717:6271651")
+    implementation fg.deobf("curse.maven:betterf3-401648:4863626")
+    implementation fg.deobf("curse.maven:cloth-config-348521:5729105")
+    implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

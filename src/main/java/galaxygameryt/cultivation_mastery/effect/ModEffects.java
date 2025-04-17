@@ -21,7 +21,7 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> QI_ABSORPTION = MOB_EFFECTS.register("qi_absorption",
             () -> new QiAbsorptionEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.AQUA.getColor()));
     public static final RegistryObject<MobEffect> ENVIRONMENT_QI_ABSORPTION = MOB_EFFECTS.register("environment_qi_absorption",
-            () -> new EnvironmentQiAbsorptionEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.AQUA.getColor()));
+            () -> new EnvironmentQiAbsorptionEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.GREEN.getColor()));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

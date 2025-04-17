@@ -51,5 +51,6 @@
   "message.cultivation_mastery.not_meditate": "Not Meditating!",
 
   "effect.cultivation_mastery.breakthrough": "Breakthough",
-  "effect.cultivation_mastery.qi_absorption": "Qi Absorption"
+  "effect.cultivation_mastery.qi_absorption": "Qi Absorption",
+  "effect.cultivation_mastery.environment_qi_absorption": "Environment Qi Absorption"
 }

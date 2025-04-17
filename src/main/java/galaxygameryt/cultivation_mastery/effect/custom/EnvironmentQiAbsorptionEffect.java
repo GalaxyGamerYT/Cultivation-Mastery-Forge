@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class EnvironmentQiAbsorptionEffect extends MobEffect {
+
     public EnvironmentQiAbsorptionEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
     }

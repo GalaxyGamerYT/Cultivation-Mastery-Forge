@@ -1,15 +1,21 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
 import galaxygameryt.cultivation_mastery.data.capability.PlayerCapability;
 import galaxygameryt.cultivation_mastery.data.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.data.player.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.ModTags;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -18,6 +24,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.UUID;
 
@@ -133,6 +140,7 @@ public class ModEvents {
         if(event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
             // Ticks on the server
             Player player = event.player;
+            Level level = player.level();
             UUID playerId = player.getUUID();
 
             CultivationMastery.SERVER_PLAYER_DATA_MAP.putIfAbsent(playerId, new ServerPlayerData(playerId));
@@ -143,6 +151,7 @@ public class ModEvents {
             // The game runs at 20 t/s
             // Once every 5 seconds / 100 ticks
             if(playerData.getCultivation()) {
+                envQiAbsorptionBiomeLogic(player, level);
                 // Cultivation Realms Logic
                 realmLogic(playerData, player);
 
@@ -163,12 +172,50 @@ public class ModEvents {
         }
     }
 
+    private static void envQiAbsorptionBiomeLogic(Player player, Level level) {
+        Holder<Biome> biomeHolder = level.getBiome(player.blockPosition());
+        MobEffectInstance existing = player.getEffect(ModEffects.ENVIRONMENT_QI_ABSORPTION.get());
+        int duration = 600;
+        int duration_limit = 550;
+
+        if (biomeHolder.is(ModTags.Biomes.MEDIUM_SPIRIT_BIOMES)) {
+            if (existing == null || existing.getDuration() < duration_limit) {
+                MobEffectInstance instance = new MobEffectInstance(ModEffects.ENVIRONMENT_QI_ABSORPTION.get(), duration, 0, false, false, true);
+                if (existing != null) {
+                    player.removeEffect(existing.getEffect());
+                }
+                player.addEffect(instance);
+            }
+        } else if (biomeHolder.is(ModTags.Biomes.HIGH_SPIRIT_BIOMES)) {
+            if (existing == null || existing.getDuration() < duration_limit) {
+                MobEffectInstance instance = new MobEffectInstance(ModEffects.ENVIRONMENT_QI_ABSORPTION.get(), duration, 1, false, false, true);
+                if (existing != null) {
+                    player.removeEffect(existing.getEffect());
+                }
+                player.addEffect(instance);
+            }
+        }
+    }
+
+    private static void breakthroughLogic(ServerPlayerData playerData, Player player) {
+        float realm = playerData.getRealm();
+        int majorRealmValue = (int) Math.floor(realm);
+        if(realm > CultivationMastery.REALMS[majorRealmValue].maxLevelFraction) {
+            playerData.setRealm(majorRealmValue+1);
+            MobEffectInstance instance = new MobEffectInstance(ModEffects.BREAKTHROUGH.get(), 1200, 0, false, true, true);
+            player.addEffect(instance);
+        } else {
+            playerData.setRealm(realm);
+        }
+    }
+
     private static void realmLogic(ServerPlayerData playerData, Player player) {
         if (playerData.getRealm() < 1) {
             realmMortalLogic(playerData, playerData.getRealm(), playerData.getBody());
         } else if (playerData.getRealm() < 2) {
             realmBodyTemperingLogic(playerData, playerData.getRealm(), playerData.getBody(), playerData.getBreakthrough(), player);
         }
+        breakthroughLogic(playerData, player);
     }
 
     private static void realmBodyTemperingLogic(ServerPlayerData playerData, float realm, float body, boolean breakthrough, Player player) {
@@ -183,8 +230,6 @@ public class ModEvents {
                 }
             }
         }
-
-//        Change how to set to new realm using realm capability.
     }
 
     private static void realmMortalLogic(ServerPlayerData playerData, float realm, float body) {
