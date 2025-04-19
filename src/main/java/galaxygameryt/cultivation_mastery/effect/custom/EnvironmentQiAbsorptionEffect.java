@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.effect.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.data.player.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;

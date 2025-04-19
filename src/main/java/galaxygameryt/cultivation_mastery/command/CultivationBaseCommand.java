@@ -37,7 +37,7 @@ public class CultivationBaseCommand {
                         .then(Commands.literal("set")
                                 .then(Commands.literal("body")
                                         .requires(CommandSourceStack::isPlayer)
-                                        .then(Commands.argument("bodyValue", FloatArgumentType.floatArg(0,99))
+                                        .then(Commands.argument("bodyValue", FloatArgumentType.floatArg(0,100))
                                                 .requires(CommandSourceStack::isPlayer)
                                                 .executes(CultivationStatsCommand::setSelfBody)
                                                 .then(Commands.argument("player", EntityArgument.player())

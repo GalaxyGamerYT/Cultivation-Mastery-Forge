@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.client;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.data.player.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;

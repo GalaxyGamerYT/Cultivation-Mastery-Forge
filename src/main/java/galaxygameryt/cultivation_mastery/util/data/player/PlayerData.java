@@ -1,11 +1,13 @@
 package galaxygameryt.cultivation_mastery.util.data.player;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.Realms;
+import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
 
 public class PlayerData {
     // Constants
     protected final int MAX_BODY = 100;
-    protected final int MAX_REALM = 10;
+    protected final int MAX_REALM = Realms.REALMS.length-1;
 
     // Boolean Data
     protected boolean cultivation = false;
@@ -13,7 +15,7 @@ public class PlayerData {
     protected boolean breakthrough = false;
 
     // Data
-    protected int maxQi = 100;
+    protected int maxQi = 50;
     protected float qiIncrease = 0.1f;
     protected float qi = 0;
     protected float body = 0;
@@ -22,9 +24,7 @@ public class PlayerData {
     protected int envQiMulti = 1;
     protected int baseQiMulti = 1;
 
-    public PlayerData() {
-
-    }
+    public PlayerData() {}
 
     // Boolean Data
     // Cultivation
@@ -137,11 +137,11 @@ public class PlayerData {
     }
 
     public void addRealm(float add) {
-        setRealm(Math.min(realm + add, MAX_REALM));
+        setRealm(Math.min(MathHelper.roundFloat(realm + add, 2), MAX_REALM));
     }
 
     public void subRealm(float sub) {
-        setRealm(Math.max(realm - sub, 0));
+        setRealm(Math.max(MathHelper.roundFloat(realm - sub,2), 0));
     }
 
     // Environment Multiplier
@@ -176,6 +176,11 @@ public class PlayerData {
 
     public void subBaseQiMulti(int sub) {
         setBaseQiMulti(Math.max(baseQiMulti - sub, 1));
+    }
+
+    // Extra Data
+    public int getMajorRealm() {
+        return (int) Math.floor(realm);
     }
 
 }

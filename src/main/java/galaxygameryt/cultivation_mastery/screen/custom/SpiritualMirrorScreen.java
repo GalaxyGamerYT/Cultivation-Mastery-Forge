@@ -1,8 +1,8 @@
 package galaxygameryt.cultivation_mastery.screen.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.data.capability.PlayerCapabilityProvider;
-import galaxygameryt.cultivation_mastery.data.player.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapabilityProvider;
+import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;

@@ -5,8 +5,8 @@ import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.data.capability.PlayerCapabilityProvider;
-import galaxygameryt.cultivation_mastery.data.player.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapabilityProvider;
+import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -176,7 +176,7 @@ public class CultivationStatsCommand {
                 capability.setRealm(newPlayerData.getRealm());
                 capability.setCultivation(newPlayerData.getCultivation());
                 capability.setBody(newPlayerData.getBody());
-                capability.setMaxQi(newPlayerData.maxQi);
+                capability.setMaxQi(newPlayerData.getMaxQi());
                 capability.setQiIncrease(newPlayerData.getQiIncrease());
             });
         }

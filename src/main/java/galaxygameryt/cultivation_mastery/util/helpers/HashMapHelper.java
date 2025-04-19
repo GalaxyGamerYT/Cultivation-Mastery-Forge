@@ -1,6 +1,6 @@
 package galaxygameryt.cultivation_mastery.util.helpers;
 
-import galaxygameryt.cultivation_mastery.data.player.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
 
 import java.util.HashMap;
 import java.util.Map;

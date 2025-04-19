@@ -1,13 +1,14 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.Realms;
 import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
-import galaxygameryt.cultivation_mastery.data.capability.PlayerCapability;
-import galaxygameryt.cultivation_mastery.data.capability.PlayerCapabilityProvider;
-import galaxygameryt.cultivation_mastery.data.player.ServerPlayerData;
 import galaxygameryt.cultivation_mastery.util.ModTags;
+import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapability;
+import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapabilityProvider;
+import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +25,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.UUID;
 
@@ -200,10 +200,12 @@ public class ModEvents {
     private static void breakthroughLogic(ServerPlayerData playerData, Player player) {
         float realm = playerData.getRealm();
         int majorRealmValue = (int) Math.floor(realm);
-        if(realm > CultivationMastery.REALMS[majorRealmValue].maxLevelFraction) {
+        if(realm > Realms.REALMS[majorRealmValue].max) {
+            if (realm >= 1) {
+                MobEffectInstance instance = new MobEffectInstance(ModEffects.BREAKTHROUGH.get(), 1200, 0, false, true, true);
+                player.addEffect(instance);
+            }
             playerData.setRealm(majorRealmValue+1);
-            MobEffectInstance instance = new MobEffectInstance(ModEffects.BREAKTHROUGH.get(), 1200, 0, false, true, true);
-            player.addEffect(instance);
         } else {
             playerData.setRealm(realm);
         }
@@ -211,34 +213,37 @@ public class ModEvents {
 
     private static void realmLogic(ServerPlayerData playerData, Player player) {
         if (playerData.getRealm() < 1) {
-            realmMortalLogic(playerData, playerData.getRealm(), playerData.getBody());
+            realmMortalLogic(playerData, player);
         } else if (playerData.getRealm() < 2) {
-            realmBodyTemperingLogic(playerData, playerData.getRealm(), playerData.getBody(), playerData.getBreakthrough(), player);
+            realmBodyTemperingLogic(playerData, player);
         }
         breakthroughLogic(playerData, player);
     }
 
-    private static void realmBodyTemperingLogic(ServerPlayerData playerData, float realm, float body, boolean breakthrough, Player player) {
-        if(body == 100 && breakthrough) {
-            if (realm <= CultivationMastery.REALMS[1].maxLevelFraction) {
+    private static void realmBodyTemperingLogic(ServerPlayerData playerData, Player player) {
+        float body = playerData.getBody();
+        boolean breakthrough = playerData.getBreakthrough();
+
+        if (breakthrough && body == 100) {
+            if (playerData.getRealm() < Realms.REALMS[1].max) {
+                // 1-9
                 playerData.addRealm(0.1f);
                 playerData.setBody(0);
             } else {
-                if (playerData.getQi() == playerData.getMaxQi()) {
+                // 9-max
+                if (playerData.getQi() >= playerData.getMaxQi()) {
                     playerData.setQi(0);
-                    playerData.setRealm(2);
+                    playerData.setMaxQi(100);
+                    playerData.addRealm(0.1f);
                 }
             }
         }
     }
 
-    private static void realmMortalLogic(ServerPlayerData playerData, float realm, float body) {
-        if(body == 100) {
+    private static void realmMortalLogic(ServerPlayerData playerData, Player player) {
+        if(playerData.getBody() == 100) {
             playerData.addRealm(0.1f);
             playerData.setBody(0);
-        }
-        if(realm >= CultivationMastery.REALMS[0].maxLevelFraction) {
-            playerData.setRealm(1);
         }
     }
 }
