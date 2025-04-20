@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.Realms;
+import galaxygameryt.cultivation_mastery.realms.Realms;
 import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;

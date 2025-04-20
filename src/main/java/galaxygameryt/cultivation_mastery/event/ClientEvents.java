@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.client.CultivationHudOverlay;
+import galaxygameryt.cultivation_mastery.client.gui.overlays.CultivationHudOverlay;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.BreakthroughC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPacket;
@@ -70,7 +70,8 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAboveAll("cultivation", CultivationHudOverlay.HUD_CULTIVATION);
+//            event.registerAboveAll("cultivation", CultivationHudOverlayOld.HUD_CULTIVATION);
+            event.registerAboveAll("cultivation", CultivationHudOverlay.instance);
         }
     }
 }

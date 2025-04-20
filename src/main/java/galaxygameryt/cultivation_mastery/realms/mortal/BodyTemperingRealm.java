@@ -1,7 +1,6 @@
-package galaxygameryt.cultivation_mastery.realms;
+package galaxygameryt.cultivation_mastery.realms.mortal;
 
 import galaxygameryt.cultivation_mastery.realms.base.MajorRealm;
-import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
 
 public class BodyTemperingRealm extends MajorRealm {
     public BodyTemperingRealm() {

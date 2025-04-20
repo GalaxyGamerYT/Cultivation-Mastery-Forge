@@ -1,7 +1,7 @@
-package galaxygameryt.cultivation_mastery;
+package galaxygameryt.cultivation_mastery.realms;
 
-import galaxygameryt.cultivation_mastery.realms.*;
 import galaxygameryt.cultivation_mastery.realms.base.MajorRealm;
+import galaxygameryt.cultivation_mastery.realms.mortal.*;
 
 public class Realms {
     public static MajorRealm[] REALMS = new MajorRealm[]{

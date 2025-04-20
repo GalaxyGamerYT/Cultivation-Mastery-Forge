@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.realms;
+package galaxygameryt.cultivation_mastery.realms.mortal;
 
 import galaxygameryt.cultivation_mastery.realms.base.MajorRealm;
 

@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.client;
+package galaxygameryt.cultivation_mastery.client.gui.overlays;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-public class CultivationHudOverlay {
+public class CultivationHudOverlayOld {
     public static final IGuiOverlay HUD_CULTIVATION = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Player player = Minecraft.getInstance().player;
         if(player!=null) {
@@ -29,17 +29,12 @@ public class CultivationHudOverlay {
             var background = new Object() {
                 final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
                         "textures/hud/background_scroll.png");
-                final int width = 100;
-                final int height = 50;
+                final int width = 150;
+                final int height = 75;
                 final int left = gap;
-                final int top = screenHeight - (height + gap);
+                final int top = gap;
                 final int xOffset = 0;
                 final int yOffset = 0;
-            };
-
-            var realm_label = new Object() {
-                final int left = background.left + (background.width / 2);
-                final int top = background.top - 10;
             };
 
             var center_label = new Object() {
@@ -57,6 +52,16 @@ public class CultivationHudOverlay {
                 final int top = (background.top + (background.height / 4) * 3) - gap;
             };
 
+            var left_label = new Object() {
+                final int left = (screenWidth/2)+(screenWidth/5);
+                final int top = screenHeight - (gap*2);
+            };
+
+            var realm_label = new Object() {
+                final int left = screenWidth/2;
+                final int top = screenHeight - 50;
+            };
+
             var qi_label = new Object() {
                 boolean visible = false;
                 int left;
@@ -70,35 +75,35 @@ public class CultivationHudOverlay {
             };
 
             final int label_colour = 0xFFFFFF;
-            int x = 100;
-            int y = 100;
-
 
             if (cultivating) {
-                if (realm >= 1.7f) {
-                    if (realm < 2) {
-                        qi_label.left = bottom_label.left;
-                        qi_label.top = bottom_label.top;
-                    } else {
-                        qi_label.left = center_label.left;
-                        qi_label.top = center_label.top;
-                    }
-                    qi_label.visible = true;
-                }
-                if (realm < 2) {
-                    if (realm >= 1.7f) {
-                        body_label.left = top_label.left;
-                        body_label.top = top_label.top;
-                    } else {
-                        body_label.left = center_label.left;
-                        body_label.top = center_label.top;
-                    }
-                    body_label.visible = true;
-                }
+//                if (realm >= 1.6f) {
+//                    if (realm < 2) {
+//                        qi_label.left = bottom_label.left;
+//                        qi_label.top = bottom_label.top;
+//                    } else {
+//                        qi_label.left = center_label.left;
+//                        qi_label.top = center_label.top;
+//                    }
+//                    qi_label.visible = true;
+//                }
+//                if (realm < 2) {
+//                    if (realm >= 1.6f) {
+//                        body_label.left = top_label.left;
+//                        body_label.top = top_label.top;
+//                    } else {
+//                        body_label.left = center_label.left;
+//                        body_label.top = center_label.top;
+//                    }
+//                    body_label.visible = true;
+//                }
 
                 guiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height,
-                        100, 50);
+                        background.width, background.height);
 
+                body_label.left = left_label.left;
+                body_label.top = left_label.top;
+                body_label.visible = true;
                 guiGraphics.drawCenteredString(gui.getFont(), playerData.getRealmDisplay(),realm_label.left, realm_label.top, label_colour);
                 if (body_label.visible) {
                     guiGraphics.drawString(gui.getFont(), String.format("Body: %.2f", body), body_label.left, body_label.top, label_colour);

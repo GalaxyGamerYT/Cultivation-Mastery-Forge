@@ -1,7 +1,6 @@
 package galaxygameryt.cultivation_mastery.util.data.player;
 
-import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.Realms;
+import galaxygameryt.cultivation_mastery.realms.Realms;
 import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
 
 public class PlayerData {
