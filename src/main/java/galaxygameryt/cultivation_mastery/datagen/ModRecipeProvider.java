@@ -6,19 +6,13 @@ import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.util.ModTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.nbt.Tag;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.List;
@@ -66,6 +60,16 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('D', Items.DIAMOND)
                 .define('S', ModItems.LOW_SPIRIT_STONE.get())
                 .define('G', Items.GLASS)
+                .unlockedBy("has_spritual_stone", has(ModTags.Items.SPIRITUAL_STONES))
+                .save(pWriter);
+
+        // Space Ring
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SPACE_RING.get())
+                .pattern("SI ")
+                .pattern("I I")
+                .pattern(" I ")
+                .define('I', Items.IRON_INGOT)
+                .define('S', ModItems.MEDIUM_SPIRIT_STONE.get())
                 .unlockedBy("has_spritual_stone", has(ModTags.Items.SPIRITUAL_STONES))
                 .save(pWriter);
 

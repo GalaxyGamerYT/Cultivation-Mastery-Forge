@@ -5,8 +5,8 @@ import galaxygameryt.cultivation_mastery.client.gui.overlays.CultivationHudOverl
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.BreakthroughC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPacket;
-import galaxygameryt.cultivation_mastery.screen.custom.BackpackScreen;
-import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
+import galaxygameryt.cultivation_mastery.client.gui.screens.custom.ContainerScreen;
+import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -58,7 +58,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            MenuScreens.register(ModMenuTypes.BACKPACK_MENU.get(), BackpackScreen::new);
+            MenuScreens.register(ModMenuTypes.CONTAINER_MENU.get(), ContainerScreen::new);
         }
 
         @SubscribeEvent

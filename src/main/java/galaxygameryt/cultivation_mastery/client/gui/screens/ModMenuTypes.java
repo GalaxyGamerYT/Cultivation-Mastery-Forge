@@ -1,7 +1,7 @@
 package galaxygameryt.cultivation_mastery.client.gui.screens;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.client.gui.screens.custom.BackpackMenu;
+import galaxygameryt.cultivation_mastery.client.gui.screens.custom.ContainerMenu;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -16,7 +16,7 @@ public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, CultivationMastery.MOD_ID);
 
-    public static final RegistryObject<MenuType<BackpackMenu>> BACKPACK_MENU = registerFactoryMenuType("backpack_menu", BackpackMenu::new);
+    public static final RegistryObject<MenuType<ContainerMenu>> CONTAINER_MENU = registerFactoryMenuType("container_menu", ContainerMenu::new);
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, MenuType.MenuSupplier<T> supplier) {
         return MENUS.register(name, () -> new MenuType(supplier, FeatureFlags.DEFAULT_FLAGS));

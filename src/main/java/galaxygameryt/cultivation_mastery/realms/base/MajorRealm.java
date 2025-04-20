@@ -1,7 +1,6 @@
 package galaxygameryt.cultivation_mastery.realms.base;
 
 import galaxygameryt.cultivation_mastery.util.helpers.IntHelper;
-import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
 
 public abstract class MajorRealm {
     public String name = "";

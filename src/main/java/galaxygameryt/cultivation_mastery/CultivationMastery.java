@@ -6,7 +6,7 @@ import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.item.ModCreativeModeTabs;
 import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
-import galaxygameryt.cultivation_mastery.screen.ModMenuTypes;
+import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
 import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
 import net.minecraftforge.common.MinecraftForge;

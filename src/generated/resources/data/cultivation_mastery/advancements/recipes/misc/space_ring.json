@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spritual_stone": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "cultivation_mastery:spiritual_stones"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "cultivation_mastery:space_ring"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_spritual_stone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cultivation_mastery:space_ring"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -6,7 +6,6 @@ import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
 import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
 import galaxygameryt.cultivation_mastery.util.objects.labels.DataLabelObject;
 import galaxygameryt.cultivation_mastery.util.objects.labels.LabelObject;
-import galaxygameryt.cultivation_mastery.util.objects.labels.TextureLabel;
 import galaxygameryt.cultivation_mastery.util.objects.labels.centered.CenteredDataLabelObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -72,9 +71,14 @@ public class CultivationHudOverlay implements IGuiOverlay {
 
             final int label_colour = 0xFFFFFF;
 
+
             if (cultivating) {
                 realmLabel.visible = true;
                 scrollImage.visible = true;
+
+                if (player.isCreative()) {
+                    realmLabel.y = scaledScreenHeight - 35;
+                }
 
                 if (realm < 2) {
                     bodyLabel.visible = true;
@@ -95,8 +99,10 @@ public class CultivationHudOverlay implements IGuiOverlay {
                 }
             }
 
-            guiGraphics.blit(scrollImage.texture, scrollImage.left, scrollImage.top, scrollImage.xOffset, scrollImage.yOffset,
-                    scrollImage.width, scrollImage.height, scrollImage.textureWidth, scrollImage.textureHeight);
+            if (scrollImage.visible) {
+                guiGraphics.blit(scrollImage.texture, scrollImage.left, scrollImage.top, scrollImage.xOffset, scrollImage.yOffset,
+                        scrollImage.width, scrollImage.height, scrollImage.textureWidth, scrollImage.textureHeight);
+            }
 
             if (realmLabel.visible) {
                 guiGraphics.drawCenteredString(font, playerData.getRealmDisplay(), realmLabel.x, realmLabel.y, label_colour);

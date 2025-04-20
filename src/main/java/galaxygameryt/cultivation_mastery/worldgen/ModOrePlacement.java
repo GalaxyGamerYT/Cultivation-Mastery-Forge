@@ -1,6 +1,5 @@
 package galaxygameryt.cultivation_mastery.worldgen;
 
-import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;

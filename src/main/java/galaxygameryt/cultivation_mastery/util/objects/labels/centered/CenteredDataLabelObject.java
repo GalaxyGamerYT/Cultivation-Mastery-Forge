@@ -1,7 +1,5 @@
 package galaxygameryt.cultivation_mastery.util.objects.labels.centered;
 
-import galaxygameryt.cultivation_mastery.util.objects.labels.LabelObject;
-
 public class CenteredDataLabelObject extends CenteredLabelObject {
     public boolean visible = false;
 

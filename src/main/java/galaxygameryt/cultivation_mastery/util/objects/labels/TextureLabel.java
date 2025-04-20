@@ -1,6 +1,5 @@
 package galaxygameryt.cultivation_mastery.util.objects.labels;
 
-import galaxygameryt.cultivation_mastery.CultivationMastery;
 import net.minecraft.resources.ResourceLocation;
 
 public class TextureLabel extends LabelObject{

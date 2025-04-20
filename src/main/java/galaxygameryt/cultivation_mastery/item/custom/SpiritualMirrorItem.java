@@ -3,7 +3,7 @@ package galaxygameryt.cultivation_mastery.item.custom;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.CultivationC2SPacket;
-import galaxygameryt.cultivation_mastery.screen.custom.SpiritualMirrorScreen;
+import galaxygameryt.cultivation_mastery.client.gui.screens.custom.SpiritualMirrorScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

@@ -1,8 +1,9 @@
 package galaxygameryt.cultivation_mastery.item;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.item.custom.BackpackItem;
+import galaxygameryt.cultivation_mastery.item.custom.ContainerItem;
 import galaxygameryt.cultivation_mastery.item.custom.SpiritualMirrorItem;
+import galaxygameryt.cultivation_mastery.item.custom.containers.SpaceRingItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,8 +18,11 @@ public class ModItems {
     public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("spiritual_mirror",
             () -> new SpiritualMirrorItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> SPACE_RING = ITEMS.register("space_ring",
+            () -> new SpaceRingItem(new Item.Properties(), "menu.title.cultivation_mastery.space_ring"));
+
 //    public static final RegistryObject<Item> BACKPACK = ITEMS.register("backpack",
-//            () -> new BackpackItem(new Item.Properties()));
+//            () -> new ContainerItem(new Item.Properties()));
 
 
     public static final RegistryObject<Item> LOW_SPIRIT_STONE = ITEMS.register("low_spirit_stone",

@@ -2,7 +2,6 @@ package galaxygameryt.cultivation_mastery.item;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
-import galaxygameryt.cultivation_mastery.util.ModTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,6 +27,7 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.cultivation_mastery.cultivation_mastery_tab"))
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.SPIRITUAL_MIRROR.get());
+                        output.accept(ModItems.SPACE_RING.get());
 //                        output.accept(ModItems.BACKPACK.get());
                         output.accept(ModItems.SPIRITUAL_IRON_INGOT.get());
 

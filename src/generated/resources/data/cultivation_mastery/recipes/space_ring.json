@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "cultivation_mastery:medium_spirit_stone"
+    }
+  },
+  "pattern": [
+    "SI ",
+    "I I",
+    " I "
+  ],
+  "result": {
+    "item": "cultivation_mastery:space_ring"
+  },
+  "show_notification": true
+}
