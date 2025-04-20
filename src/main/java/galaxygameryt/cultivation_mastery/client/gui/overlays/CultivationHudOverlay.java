@@ -62,8 +62,8 @@ public class CultivationHudOverlay implements IGuiOverlay {
                 boolean visible = false;
             };
 
-            LabelObject scrollTopLabel = new LabelObject(scrollImage.left + 25, (scrollImage.top + (scrollImage.height / 4)) - gap);
-            LabelObject scrollCenterLabel = new LabelObject(scrollImage.left + 25, scrollImage.top + (scrollImage.height / 2));
+            LabelObject scrollTopLabel = new LabelObject(scrollImage.left + 25, scrollImage.top + (scrollImage.height / 4));
+            LabelObject scrollCenterLabel = new LabelObject(scrollImage.left + 25, (scrollImage.top + (scrollImage.height / 2)) - 3);
             LabelObject scrollBottomLabel = new LabelObject(scrollImage.left + 25, (scrollImage.top + (scrollImage.height / 4) * 3) - gap);
 
             CenteredDataLabelObject realmLabel = new CenteredDataLabelObject(scaledScreenWidth/2, scaledScreenHeight - 50);
