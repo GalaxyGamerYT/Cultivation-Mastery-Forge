@@ -52,26 +52,4 @@ public class ClientEvents {
             }
         }
     }
-
-    @Mod.EventBusSubscriber(modid = CultivationMastery.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ClientModBusEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
-            MenuScreens.register(ModMenuTypes.CONTAINER_MENU.get(), ContainerScreen::new);
-        }
-
-        @SubscribeEvent
-        public static void onKeyRegister(RegisterKeyMappingsEvent event) {
-            event.register(KeyBinding.MEDITATE_KEY);
-            event.register(KeyBinding.BREAKTHROUGH_KEY);
-//            event.register(KeyBinding.CULTIVATION_GUI_KEY);
-        }
-
-        @SubscribeEvent
-        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-//            event.registerAboveAll("cultivation", CultivationHudOverlayOld.HUD_CULTIVATION);
-            event.registerAboveAll("cultivation", CultivationHudOverlay.instance);
-        }
-    }
 }

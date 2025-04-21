@@ -109,7 +109,7 @@ public class TrainingPostBlock extends Block {
             capability.setBody(playerData.getBody());
 
             float qiData = rand.nextFloat(0.2f, 0.5f) * QiMultiplier;
-            if (playerData.getRealm() >= 1.7) {
+            if (playerData.getRealm() >= 1.6) {
                 playerData.addQi(qiData);
                 capability.setQi(playerData.getQi());
             }
