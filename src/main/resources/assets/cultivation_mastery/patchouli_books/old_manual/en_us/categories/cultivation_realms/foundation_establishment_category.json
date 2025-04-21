@@ -1,7 +1,0 @@
-{
-  "name": "Foundation Establishment Realm",
-  "description": "The start of being a true cultivator.$(br2)There is 9 levels in this realm.",
-  "icon": "cultivation_mastery:textures/patchouli_books/old_manual/icons/realms/foundation_establishment.png",
-  "sortnum": 3,
-  "parent": "cultivation_mastery:cultivation_realms_category"
-}

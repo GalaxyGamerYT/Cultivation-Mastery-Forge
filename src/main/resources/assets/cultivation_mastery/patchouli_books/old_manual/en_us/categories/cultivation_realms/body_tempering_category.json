@@ -1,7 +1,0 @@
-{
-  "name": "Body Tempering Realm",
-  "description": "First step past having a mortal body.$(br2)There is 9 levels in this realm.",
-  "icon": "cultivation_mastery:textures/patchouli_books/old_manual/icons/realms/body_tempering.png",
-  "sortnum": 1,
-  "parent": "cultivation_mastery:cultivation_realms_category"
-}

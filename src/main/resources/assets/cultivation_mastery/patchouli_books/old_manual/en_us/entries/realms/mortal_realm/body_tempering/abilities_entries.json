@@ -1,0 +1,12 @@
+{
+  "name": "Abilities",
+  "icon": "minecraft:diamond_sword",
+  "category": "cultivation_mastery:realms/body_tempering_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A body tempering cultivator is stronger and more agile than mortals."
+    }
+  ]
+}

@@ -220,15 +220,23 @@ public class ModEvents {
             realmMortalLogic(playerData, player);
         } else if (playerData.getRealm() < 2) {
             realmBodyTemperingLogic(playerData, player);
+        } else if (playerData.getRealm() < 3) {
+            realmQiGatheringLogic(playerData, player);
         }
         breakthroughLogic(playerData, player);
     }
 
-    private static void realmBodyTemperingLogic(ServerPlayerData playerData, Player player) {
-        float body = playerData.getBody();
-        boolean breakthrough = playerData.getBreakthrough();
+    private static void realmQiGatheringLogic(ServerPlayerData playerData, Player player) {
+        float qi = playerData.getQi();
+        int maxQi = playerData.getMaxQi();
 
-        if (breakthrough && body == 100) {
+        if (playerData.getBreakthrough() && qi == maxQi) {
+
+        }
+    }
+
+    private static void realmBodyTemperingLogic(ServerPlayerData playerData, Player player) {
+        if (playerData.getBreakthrough() && playerData.getBody() == 100) {
             if (playerData.getRealm() < Realms.REALMS[1].max) {
                 // 1-9
                 playerData.addRealm(0.1f);

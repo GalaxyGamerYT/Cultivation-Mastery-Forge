@@ -1,0 +1,16 @@
+{
+  "name": "How to advance",
+  "icon": "minecraft:beacon",
+  "category": "cultivation_mastery:realms/golden_core_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The cultivator has to condense their True Qi into a solidified form, this form floats above the spiritual sea and forms a nascent.$(br2)Hint - Meditate and gather even more $(true qi) while under pressure.$(br)Hint 2 - Use formations."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Once the nascent is completely solidified within the core, the cultivator must go through another more destructive lightning tribulation."
+    }
+  ]
+}

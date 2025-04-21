@@ -1,0 +1,12 @@
+{
+  "name": "How to advance",
+  "icon": "minecraft:beacon",
+  "category": "cultivation_mastery:realms/qi_gathering_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "After the dantian is formed, a cultivator can absorbing the $(qi) and store it in the dantian. The cultivator can move the $(qi) in their dantian through their meridians allowing the $(qi) to nourish their body in order to effectively improve one's physique into a body capable of utilising $(qi).$(br2)Hint - Meditate and gather $(qi)."
+    }
+  ]
+}

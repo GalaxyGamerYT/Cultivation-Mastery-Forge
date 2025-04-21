@@ -1,0 +1,16 @@
+{
+  "name": "Abilities",
+  "icon": "minecraft:diamond_sword",
+  "category": "cultivation_mastery:realms/foundation_establishment_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "As $(true qi) is more powerful than $(qi), a foundation establishment realm cultivator, are much stronger when using their $(true qi)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(true qi) can be used to control a spiritual weapon around their body to be able to fly."
+    }
+  ]
+}

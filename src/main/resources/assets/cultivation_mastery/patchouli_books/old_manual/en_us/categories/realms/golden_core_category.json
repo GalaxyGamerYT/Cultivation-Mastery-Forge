@@ -1,0 +1,7 @@
+{
+  "name": "Golden Core Realm",
+  "description": "Solidify your $(true qi).$(br2)There is 9 levels in this realm.$(br2)If the cultivator survives the tribulation, the heavenly lightning tempers the core to be able to handle any internal pressure from $(true qi)",
+  "icon": "cultivation_mastery:textures/patchouli_books/old_manual/icons/realms/golden_core.png",
+  "sortnum": 5,
+  "parent": "cultivation_mastery:realms_category"
+}

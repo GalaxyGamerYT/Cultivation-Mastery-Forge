@@ -1,7 +1,0 @@
-{
-  "name": "Nascent Soul Realm",
-  "description": "The peak of being a True Cultivator.$(br2)There is 9 levels in this realm.$(br2)If the cultivator survives the tribulation, the heavenly lightning merges the cultivators soul with the nascent, forging a nascent soul.",
-  "icon": "cultivation_mastery:textures/patchouli_books/old_manual/icons/realms/nascent_soul.png",
-  "sortnum": 6,
-  "parent": "cultivation_mastery:cultivation_realms_category"
-}

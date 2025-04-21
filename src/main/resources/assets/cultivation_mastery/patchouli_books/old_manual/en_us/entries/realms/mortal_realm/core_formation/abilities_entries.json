@@ -1,0 +1,16 @@
+{
+  "name": "Abilities",
+  "icon": "minecraft:diamond_sword",
+  "category": "cultivation_mastery:realms/core_formation_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A Core Formation cultivator can store and use more $(true qi)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Core Formation cultivator can also absorb $(true qi) from Medium Spirit Stones to help with their cultivation without exploding."
+    }
+  ]
+}

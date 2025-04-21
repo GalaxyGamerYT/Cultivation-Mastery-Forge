@@ -2,15 +2,18 @@
   "name": "Old Manual",
   "subtitle": "old but mysteriously supreme and divine",
   "landing_text": "Welcome to $(bold)Cultivation Mastery$() where you cultivate to gain power and reach immortality.$(br2)This guide will help you traverse through the world of cultivation.",
-  "version": 1,
   "creative_tab": "cultivation_mastery:cultivation_mastery_tab",
   "use_resource_pack": true,
   "show_progress": false,
+  "use_blocky_font": true,
   "macros": {
+    "$(low)": "$(#16a29f)",
+    "$(medium)": "$(#fecd28)",
+    "$(high)": "$(#0058c4)",
     "$(spiritual energy)": "$(d)Spiritual Energy/$",
-    "$(qi)": "$(3)Qi/$",
-    "$(true qi)": "$(e)True Qi/$",
-    "$(divine": "$(6)Divine $(9)Qi/$",
+    "$(qi)": "$(low)Qi/$",
+    "$(true qi)": "$(medium)True Qi/$",
+    "$(divine": "$(6)Divine $(high)Qi/$",
     "$(heaven and earth)": "$(6)Heaven And Earth/$"
   }
 }

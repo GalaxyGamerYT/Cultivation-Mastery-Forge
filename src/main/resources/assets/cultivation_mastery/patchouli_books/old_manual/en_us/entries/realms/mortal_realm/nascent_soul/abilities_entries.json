@@ -1,0 +1,32 @@
+{
+  "name": "Abilities",
+  "icon": "minecraft:diamond_sword",
+  "category": "cultivation_mastery:realms/nascent_soul_category",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The nascent soul opens up the cultivator's knowledge sea is within the mind. The nascent soul has the ability to automatically absorb and condense $(spiritual energy) from the surroundings into $(true qi) to continuously replenish the spiritual sea. At this stage the cultivator almost has a form of unlimited $(true qi) as long as there is enough $(qi) in their surroundings.$(br2)Hint - Automatic absorption of $(spiritual energy) into $(true qi) is only possible in biomes with Medium $(spiritual energy)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Knowledge Sea$()$(br2)A Knowledge Sea gives one the ability to store all of their knowledge, memories, techniques, and Soul Artifacts. A cultivator's spiritual mirror automatically gets absorbed into their knowledge sea, allowing a Nascent Soul realm cultivator to set what can be viewed by other cultivators."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Void Steps$()$(br2)The nascent soul helps the cultivator to control and analyse the almost endless $(true qi), this increases their understanding and control over $(true qi) enabling the cultivator to condense $(true qi) below their feet to make platforms for them to walk on, appearing as if they are walking or running on or through the air."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Divine Sense$()$(br2)With the increased control over $(true qi), the cultivator can also spread $(true qi) out from the mind, this is the Divine Sense technique. Divine Sense allows one to see and/or sense everything within a certain radius of their surroundings as long as it is sufficiently powerful."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The more $(true qi) the nascent soul absorbs, the more powerful the nascent soul becomes. Able to absorb more $(spiritual energy) more quickly, effectively meaning the cultivator can utilise more $(true qi)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "In the Mortal Realm, you are practically invincible at this stage, as continuing past this stage takes an incredible amount of time and $(true qi) to break through, most cultivators stop here not able to breakthrough to the next Martial Realm."
+    }
+  ]
+}

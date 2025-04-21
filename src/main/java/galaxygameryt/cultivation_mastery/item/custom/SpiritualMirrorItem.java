@@ -27,7 +27,7 @@ public class SpiritualMirrorItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack item = player.getItemInHand(hand);
-        if (world.isClientSide) {
+        if (world.isClientSide()) {
             boolean cultivation = CultivationMastery.CLIENT_PLAYER_DATA.getCultivation();
             if (cultivation) {
                 Minecraft.getInstance().setScreen(new SpiritualMirrorScreen(player));

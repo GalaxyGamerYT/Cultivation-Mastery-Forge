@@ -1,7 +1,0 @@
-{
-  "name": "Core Formation Realm",
-  "description": "Reinforcing the dantian into a core.$(br2)There is 9 levels in this realm.",
-  "icon": "cultivation_mastery:textures/patchouli_books/old_manual/icons/realms/core_formation.png",
-  "sortnum": 4,
-  "parent": "cultivation_mastery:cultivation_realms_category"
-}

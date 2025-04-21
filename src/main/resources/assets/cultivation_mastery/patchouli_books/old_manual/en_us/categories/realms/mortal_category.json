@@ -1,0 +1,7 @@
+{
+  "name": "Mortal Realm",
+  "description": "The beginning of your cultivation journey where the goal is to forge your body into a physique capable of higher cultivation.",
+  "icon": "cultivation_mastery:textures/patchouli_books/old_manual/icons/realms/mortal.png",
+  "sortnum": 0,
+  "parent": "cultivation_mastery:realms_category"
+}
