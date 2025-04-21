@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class ContainerMenu extends AbstractContainerMenu {
     public final SimpleContainer inventory;
@@ -51,7 +52,7 @@ public class ContainerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public void removed(Player player) {
+    public void removed(@NotNull Player player) {
         super.removed(player);
         if (!player.level().isClientSide) {
             ContainerItem.saveInventory(itemStack, inventory); // Save when closing
@@ -59,12 +60,12 @@ public class ContainerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player pPlayer) {
+    public boolean stillValid(@NotNull Player pPlayer) {
         return true;
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
         Slot clickedSlot = this.slots.get(index);
 
         if (!clickedSlot.hasItem() || index == blockedSlot) {
@@ -113,12 +114,12 @@ public class ContainerMenu extends AbstractContainerMenu {
         }
 
         @Override
-        public ContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+        public ContainerMenu createMenu(int id, @NotNull Inventory playerInventory, @NotNull Player player) {
             return new ContainerMenu(id, playerInventory, inventory, stack, size, blockedSlot);
         }
 
         @Override
-        public Component getDisplayName() {
+        public @NotNull Component getDisplayName() {
             return title;
         }
     }

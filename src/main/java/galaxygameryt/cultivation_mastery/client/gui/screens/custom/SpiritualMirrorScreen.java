@@ -1,8 +1,10 @@
 package galaxygameryt.cultivation_mastery.client.gui.screens.custom;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.client.CultivationMasteryClient;
 import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
+import galaxygameryt.cultivation_mastery.util.enums.Screens;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -11,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public class SpiritualMirrorScreen extends Screen {
-    private Player player;
+    private final Player player;
     private ClientPlayerData playerData;
 
     public SpiritualMirrorScreen() {
@@ -86,6 +88,6 @@ public class SpiritualMirrorScreen extends Screen {
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(null);
+        Minecraft.getInstance().setScreen(null);
     }
 }

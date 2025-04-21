@@ -40,8 +40,11 @@ public class CultivationMasteryClient {
     public static void openScreen(Screens screen) {
         Minecraft instance = Minecraft.getInstance();
 
-        if (screen == Screens.SPIRITUAL_MIRROR) {
-            instance.setScreen(new SpiritualMirrorScreen());
+        switch (screen) {
+            case NULL:
+                instance.setScreen(null);
+            case SPIRITUAL_MIRROR:
+                instance.setScreen(new SpiritualMirrorScreen());
         }
     }
 }

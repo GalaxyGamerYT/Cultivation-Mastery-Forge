@@ -5,7 +5,6 @@ import galaxygameryt.cultivation_mastery.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,9 +30,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.YIN_YANG.get());
     }
 
-    private ItemModelBuilder simpleItem(Item item) {
+    private void simpleItem(Item item) {
         ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item);
-        return withExistingParent(itemId.getPath(),
+        withExistingParent(itemId.getPath(),
                 ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
                 ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "item/" + itemId.getPath()));
     }

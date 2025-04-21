@@ -7,6 +7,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import org.jetbrains.annotations.NotNull;
 
 public class QiAbsorptionEffect extends MobEffect {
     public QiAbsorptionEffect(MobEffectCategory pCategory, int pColor) {
@@ -14,12 +15,12 @@ public class QiAbsorptionEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
         super.applyEffectTick(livingEntity, amplifier);
     }
 
     @Override
-    public void addAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int amplifier) {
+    public void addAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap attributeMap, int amplifier) {
         if (livingEntity instanceof ServerPlayer entity) {
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(entity.getUUID());
             playerData.addBaseQiMulti(amplifier);
@@ -29,7 +30,7 @@ public class QiAbsorptionEffect extends MobEffect {
     }
 
     @Override
-    public void removeAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int amplifier) {
+    public void removeAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap attributeMap, int amplifier) {
         if (livingEntity instanceof ServerPlayer entity) {
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(entity.getUUID());
             playerData.subBaseQiMulti(amplifier);

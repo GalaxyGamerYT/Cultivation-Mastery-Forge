@@ -64,7 +64,7 @@ public class TrainingPostBlock extends Block {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
 
         pTooltip.add(Component.translatable("block.cultivation_mastery.training_post.tooltip.1"));
@@ -74,7 +74,7 @@ public class TrainingPostBlock extends Block {
     }
 
     @Override
-    public @NotNull InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         if(!pLevel.isClientSide() && pPlayer instanceof ServerPlayer player) {
             if(pPlayer.isCrouching() && player.getMainHandItem().isEmpty()) {
                 pLevel.destroyBlock(pPos, true);
@@ -89,7 +89,7 @@ public class TrainingPostBlock extends Block {
     }
 
     @Override
-    public void attack(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
+    public void attack(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer) {
         super.attack(pState, pLevel, pPos, pPlayer);
         if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer player) {
             addData(player);
@@ -119,7 +119,7 @@ public class TrainingPostBlock extends Block {
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         boolean lower = pState.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
 
         return lower ? SHAPE_LOWER : SHAPE_UPPER;
@@ -144,12 +144,12 @@ public class TrainingPostBlock extends Block {
     }
 
     @Override
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+    public void setPlacedBy(Level pLevel, BlockPos pPos, @NotNull BlockState pState, @Nullable LivingEntity pPlacer, @NotNull ItemStack pStack) {
         pLevel.setBlock(pPos.above(), this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     @Override
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+    public void playerWillDestroy(Level pLevel, @NotNull BlockPos pPos, BlockState pState, @NotNull Player pPlayer) {
         DoubleBlockHalf half = pState.getValue(HALF);
         BlockPos otherPart = half == DoubleBlockHalf.LOWER ? pPos.above() : pPos.below();
         BlockState otherState = pLevel.getBlockState(otherPart);

@@ -4,6 +4,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class ProtectedSlot extends Slot {
     private final int blockedSlot;
@@ -14,12 +15,12 @@ public class ProtectedSlot extends Slot {
     }
 
     @Override
-    public boolean mayPickup(Player player) {
+    public boolean mayPickup(@NotNull Player player) {
         return this.getSlotIndex() != blockedSlot && super.mayPickup(player);
     }
 
     @Override
-    public boolean mayPlace(ItemStack stack) {
+    public boolean mayPlace(@NotNull ItemStack stack) {
         return this.getSlotIndex() != blockedSlot && super.mayPlace(stack);
     }
 }

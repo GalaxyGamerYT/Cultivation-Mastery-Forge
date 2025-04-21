@@ -31,11 +31,5 @@ public class ContainerScreen extends AbstractContainerScreen<ContainerMenu> {
         };
 
         guiGraphics.blit(background.texture, background.left, background.top, background.xOffset, background.yOffset, background.width, background.height);
-
-//        for (int row = 0; row < menu.inventorySize/9; row++) {
-//            for (int col = 0; col < 9; col++) {
-//
-//            }
-//        }
     }
 }
