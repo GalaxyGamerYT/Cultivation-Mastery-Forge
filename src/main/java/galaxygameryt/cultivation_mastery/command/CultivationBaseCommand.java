@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.BreakthroughS2CPacket;
+import galaxygameryt.cultivation_mastery.util.enums.Toasts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -15,6 +16,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.server.command.EnumArgument;
 
 public class CultivationBaseCommand {
     private static final String PLAYER_ERROR_MESSAGE = "You must specify a player for this command!";
@@ -24,9 +26,11 @@ public class CultivationBaseCommand {
                 .requires(commandSourceStack -> commandSourceStack.hasPermission(4))
                 .then(Commands.literal("toast")
                         .requires(CommandSourceStack::isPlayer)
-                        .executes(CultivationBaseCommand::addToastSelf)
-                        .then(Commands.argument("player", EntityArgument.player())
-                                .executes(CultivationBaseCommand::addToastOthers)))
+                        .then(Commands.argument("toast", EnumArgument.enumArgument(Toasts.class))
+                                .requires(CommandSourceStack::isPlayer)
+                                .executes(CultivationBaseCommand::addToastSelf)
+                                .then(Commands.argument("player", EntityArgument.player())
+                                        .executes(CultivationBaseCommand::addToastOthers))))
                 .then(Commands.literal("help")
                         .requires(CommandSourceStack::isPlayer)
                         .executes(CultivationBaseCommand::help))

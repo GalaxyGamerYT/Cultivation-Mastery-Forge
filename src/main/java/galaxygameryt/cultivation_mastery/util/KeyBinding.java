@@ -12,7 +12,7 @@ public class KeyBinding {
 
     // Keys
     public static final String KEY_MEDITATE = "key.cultivation_mastery.meditate";
-    public static final String KEY_BREAKTHROUGH = "key.cultivation_mastery.breakthrough";
+    public static final String KEY_BREAKTHROUGH = "key.cultivation_mastery.BREAKTHROUGH";
 //    public static final String KEY_CULTIVATION_GUI = "key.cultivation_mastery.cultivation_gui";
 
     // Key Mappings

@@ -16,7 +16,7 @@ public class ModEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS
             = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, CultivationMastery.MOD_ID);
 
-    public static final RegistryObject<MobEffect> BREAKTHROUGH = MOB_EFFECTS.register("breakthrough",
+    public static final RegistryObject<MobEffect> BREAKTHROUGH = MOB_EFFECTS.register("BREAKTHROUGH",
             () -> new BreakthroughEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.GOLD.getColor()));
     public static final RegistryObject<MobEffect> QI_ABSORPTION = MOB_EFFECTS.register("qi_absorption",
             () -> new QiAbsorptionEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.AQUA.getColor()));

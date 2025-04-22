@@ -45,8 +45,6 @@ public class CultivationMasteryClient {
         Minecraft instance = Minecraft.getInstance();
 
         switch (screen) {
-            case NULL:
-                instance.setScreen(null);
             case SPIRITUAL_MIRROR:
                 instance.setScreen(new SpiritualMirrorScreen());
         }
@@ -57,7 +55,7 @@ public class CultivationMasteryClient {
         ToastComponent toastComponent = instance.getToasts();
 
         switch (toast) {
-            case BREAKTROUGH:
+            case BREAKTHROUGH:
                 toastComponent.addToast(new BreakthroughToast());
                 instance.player.sendSystemMessage(Component.literal("Sending Breakthrough Toast!"));
         }

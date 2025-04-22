@@ -33,7 +33,7 @@ public class BreakthroughC2SPacket {
             // HERE WE ARE ON THE SERVER!
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(playerId);
 
-            // Toggle breakthrough
+            // Toggle BREAKTHROUGH
             playerData.setBreakthrough(breakthrough);
             CultivationMastery.SERVER_PLAYER_DATA_MAP.put(playerId, playerData);
         });

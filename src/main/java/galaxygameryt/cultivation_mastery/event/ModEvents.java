@@ -166,10 +166,6 @@ public class ModEvents {
                 playerData.setBreakthrough(false);
             }
 
-            if (playerData.getTickCounter() >= 1000) {
-                ModMessages.sendToPlayer(new BreakthroughS2CPacket(), (ServerPlayer) player);
-            }
-
             if (playerData.getTickCounter() >= 1200) {
                 playerData.setTickCounter(0);
             }

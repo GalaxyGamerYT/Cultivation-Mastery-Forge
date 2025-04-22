@@ -15,7 +15,7 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, CultivationMastery.MOD_ID);
 
 
-    public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("spiritual_mirror",
+    public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("SPIRITUAL_MIRROR",
             () -> new SpiritualMirrorItem(new Item.Properties()));
 
     public static final RegistryObject<Item> SPACE_RING = ITEMS.register("space_ring",

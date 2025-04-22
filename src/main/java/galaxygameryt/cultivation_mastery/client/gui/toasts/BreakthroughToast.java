@@ -15,7 +15,7 @@ public class BreakthroughToast implements Toast {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "textures/gui/sprites/breakthrough_toast.png");
     private static final Component TITLE = Component.translatable("misc.cultivation_mastery.toast.breakthrough.title");
 
-    private static final long TIME_VISIBLE = 500;
+    private static final long TIME_VISIBLE = 2500;
     private static final int MARGIN = 4;
 
     @Override
@@ -37,10 +37,14 @@ public class BreakthroughToast implements Toast {
             final int textureHeight = height;
         };
 
-        guiGraphics.blit(image.texture, image.left, image.top, image.xOffset, image.yOffset, image.width, image.height, image.textureWidth, image.textureHeight);
+        guiGraphics.blit(image.texture, 0, 0, image.xOffset, image.yOffset, image.width, image.height, image.textureWidth, image.textureHeight);
 
-        guiGraphics.drawCenteredString(font, TITLE, image.left+(image.width/2), image.top+(image.height/2), ChatFormatting.BLACK.getColor());
+        drawCenteredString(guiGraphics, font, TITLE, image.width/2, image.height/2, ChatFormatting.BLACK.getColor());
 
-        return timeSinceLastVisible >= TIME_VISIBLE ? Visibility.HIDE : Visibility.SHOW;
+        return CultivationMastery.CLIENT_PLAYER_DATA.getBreakthrough() ? Visibility.HIDE : Visibility.SHOW;
+    }
+
+    private void drawCenteredString(GuiGraphics guiGraphics, Font font, Component text, int x, int y, int color) {
+        guiGraphics.drawString(font, text, x - font.width(text.getString()) / 2, y - (font.lineHeight/2), color, false);
     }
 }
