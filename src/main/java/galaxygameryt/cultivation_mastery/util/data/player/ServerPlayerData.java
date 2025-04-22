@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class ServerPlayerData extends PlayerData {
     // Specialised
-    public UUID playerUUID;
+    private UUID playerUUID;
 
     public ServerPlayerData(UUID playerUUID) {
 

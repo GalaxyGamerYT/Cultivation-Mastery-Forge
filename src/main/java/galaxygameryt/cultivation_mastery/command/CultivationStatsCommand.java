@@ -167,7 +167,7 @@ public class CultivationStatsCommand {
 
             ServerPlayerData newPlayerData = new ServerPlayerData(player.getUUID());
             newPlayerData.setPlayerUUID(player.getUUID());
-            newPlayerData.setTickCounter(oldPlayerData.getTickCounter());
+            newPlayerData.setTickCounterMap(oldPlayerData.getTickCounterMap());
 
             CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), newPlayerData);
 
@@ -178,6 +178,7 @@ public class CultivationStatsCommand {
                 capability.setBody(newPlayerData.getBody());
                 capability.setMaxQi(newPlayerData.getMaxQi());
                 capability.setQiIncrease(newPlayerData.getQiIncrease());
+                capability.setBreakthrough(newPlayerData.getBreakthrough());
             });
         }
     }

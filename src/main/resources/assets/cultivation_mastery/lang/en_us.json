@@ -21,6 +21,9 @@
 
   "block.cultivation_mastery.spiritual_iron_block": "Spiritual Iron Block",
 
+  "block.cultivation_mastery.padded_cushion": "Padded Cushion",
+  "block.cultivation_mastery.padded_cushion.tooltip": "Used to meditate on",
+
   "block.cultivation_mastery.oak_training_post": "Oak Training Post",
   "block.cultivation_mastery.spruce_training_post": "Spruce Training Post",
   "block.cultivation_mastery.cherry_training_post": "Cherry Training Post",
@@ -52,6 +55,8 @@
   "message.cultivation_mastery.not_meditate": "Not Meditating!",
 
   "message.cultivation_mastery.max_realm": "§6Congratulations!§r You are currently at the maximum realm available in this version of the mod!",
+
+  "message.cultivation_mastery.welcome": "Thank you for using §lCultivation Mastery§r by GalaxyGamerYT",
 
   "effect.cultivation_mastery.breakthrough": "Breakthough",
   "effect.cultivation_mastery.qi_absorption": "Qi Absorption",

@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -29,6 +30,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(ModBlocks.SPIRITUAL_IRON_BLOCK.get());
 
+        customModelBlockItem(ModBlocks.PADDED_CUSHION);
+
         trainingPostBlock(ModBlocks.OAK_TRAINING_POST.get());
         trainingPostBlock(ModBlocks.JUNGLE_TRAINING_POST.get());
         trainingPostBlock(ModBlocks.MANGROVE_TRAINING_POST.get());
@@ -40,6 +43,17 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         // Spiritual Iron Training Post
         trainingPostBlock(ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get());
+    }
+
+    private void customModelBlockItem(RegistryObject<Block> block) {
+        ModelFile model = new ModelFile(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "block/"+block.getId().getPath())) {
+            @Override
+            protected boolean exists() {
+                return true;
+            }
+        };
+        getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
+        simpleBlockItem(block.get(), model);
     }
 
     private void trainingPostBlock(Block block) {

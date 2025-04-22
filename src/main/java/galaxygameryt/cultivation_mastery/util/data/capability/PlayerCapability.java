@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 public class PlayerCapability {
     // Boolean Data
     private boolean cultivation = false;
+    private boolean breakthrough = false;
 
     // Int Data
     private int maxQi = 100;
@@ -23,6 +24,15 @@ public class PlayerCapability {
 
     public void setCultivation(boolean cultivation) {
         this.cultivation = cultivation;
+    }
+
+    // Breakthrough
+    public boolean getBreakthrough() {
+        return breakthrough;
+    }
+
+    public void setBreakthrough(boolean breakthrough) {
+        this.breakthrough = breakthrough;
     }
 
     // Max Qi
@@ -73,6 +83,7 @@ public class PlayerCapability {
     // IMPORTANT!!!!
     public void copyFrom(PlayerCapability source) {
         this.cultivation = source.cultivation;
+        this.breakthrough = source.breakthrough;
         this.maxQi = source.maxQi;
         this.qiIncrease = source.qiIncrease;
         this.qi = source.qi;
@@ -82,6 +93,7 @@ public class PlayerCapability {
 
     public void saveNBTData(CompoundTag nbt) {
         nbt.putBoolean("cultivation", cultivation);
+        nbt.putBoolean("breakthrough", breakthrough);
         nbt.putInt("maxQi", maxQi);
         nbt.putFloat("qiIncrease", qiIncrease);
         nbt.putFloat("qi", qi);
@@ -91,6 +103,7 @@ public class PlayerCapability {
 
     public void loadNBTData(CompoundTag nbt) {
         cultivation = nbt.getBoolean("cultivation");
+        breakthrough = nbt.getBoolean("breakthrough");
         maxQi = nbt.getInt("maxQi");
         qiIncrease = nbt.getFloat("qiIncrease");
         qi = nbt.getFloat("qi");

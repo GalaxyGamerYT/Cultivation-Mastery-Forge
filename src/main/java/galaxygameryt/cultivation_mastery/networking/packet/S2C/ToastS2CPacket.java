@@ -7,17 +7,18 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class BreakthroughS2CPacket {
-    public BreakthroughS2CPacket() {
-
+public class ToastS2CPacket {
+    Toasts toast;
+    public ToastS2CPacket(Toasts toast) {
+        this.toast = toast;
     }
 
-    public BreakthroughS2CPacket(FriendlyByteBuf buf) {
-
+    public ToastS2CPacket(FriendlyByteBuf buf) {
+        toast = buf.readEnum(Toasts.class);
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-
+        buf.writeEnum(toast);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -25,7 +26,7 @@ public class BreakthroughS2CPacket {
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
 
-            CultivationMasteryClient.addToast(Toasts.BREAKTHROUGH);
+            CultivationMasteryClient.addToast(toast);
         });
         return true;
     }

@@ -1,8 +1,10 @@
 package galaxygameryt.cultivation_mastery.block;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.block.custom.PaddedCushionBlock;
 import galaxygameryt.cultivation_mastery.block.custom.TrainingPostBlock;
 import galaxygameryt.cultivation_mastery.item.ModItems;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -24,6 +26,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> SPIRITUAL_IRON_BLOCK = registerBlock("spiritual_iron_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(7.5F, 8.5F)));
+
+    public static final RegistryObject<Block> PADDED_CUSHION = registerBlock("padded_cushion",
+            () -> new PaddedCushionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 
     public static final RegistryObject<Block> LOW_SPIRIT_STONE_ORE = registerBlock("low_spirit_stone_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
@@ -83,6 +88,7 @@ public class ModBlocks {
     }
 
     public static void register(IEventBus eventBus) {
+        Logger.info("Registering Blocks");
         BLOCKS.register(eventBus);
     }
 }

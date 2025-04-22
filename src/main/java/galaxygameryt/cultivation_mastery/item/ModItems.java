@@ -4,6 +4,7 @@ import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.item.custom.ContainerItem;
 import galaxygameryt.cultivation_mastery.item.custom.SpiritualMirrorItem;
 import galaxygameryt.cultivation_mastery.item.custom.containers.SpaceRingItem;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,7 +16,7 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, CultivationMastery.MOD_ID);
 
 
-    public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("SPIRITUAL_MIRROR",
+    public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("spiritual_mirror",
             () -> new SpiritualMirrorItem(new Item.Properties()));
 
     public static final RegistryObject<Item> SPACE_RING = ITEMS.register("space_ring",
@@ -39,6 +40,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
+        Logger.info("Registering Items");
         ITEMS.register(eventBus);
     }
 }

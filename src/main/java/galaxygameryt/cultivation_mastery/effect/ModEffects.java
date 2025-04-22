@@ -4,6 +4,7 @@ import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.effect.custom.BreakthroughEffect;
 import galaxygameryt.cultivation_mastery.effect.custom.EnvironmentQiAbsorptionEffect;
 import galaxygameryt.cultivation_mastery.effect.custom.QiAbsorptionEffect;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -16,7 +17,7 @@ public class ModEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS
             = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, CultivationMastery.MOD_ID);
 
-    public static final RegistryObject<MobEffect> BREAKTHROUGH = MOB_EFFECTS.register("BREAKTHROUGH",
+    public static final RegistryObject<MobEffect> BREAKTHROUGH = MOB_EFFECTS.register("breakthrough",
             () -> new BreakthroughEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.GOLD.getColor()));
     public static final RegistryObject<MobEffect> QI_ABSORPTION = MOB_EFFECTS.register("qi_absorption",
             () -> new QiAbsorptionEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.AQUA.getColor()));
@@ -24,6 +25,7 @@ public class ModEffects {
             () -> new EnvironmentQiAbsorptionEffect(MobEffectCategory.BENEFICIAL, ChatFormatting.GREEN.getColor()));
 
     public static void register(IEventBus eventBus) {
+        Logger.info("Registering Mob Effects");
         MOB_EFFECTS.register(eventBus);
     }
 }

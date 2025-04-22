@@ -3,17 +3,22 @@ package galaxygameryt.cultivation_mastery.util.data.player;
 import galaxygameryt.cultivation_mastery.realms.Realms;
 import galaxygameryt.cultivation_mastery.util.helpers.MathHelper;
 
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+
 public class PlayerData {
     // Constants
     protected final int MAX_BODY = 100;
     protected final int MAX_REALM = Realms.REALMS.length-1;
 
     // Specialised
-    protected int tickCounter = 0;
+    protected HashMap<String, Integer> tickCounterMap = new HashMap<>();
 
     // Boolean Data
     protected boolean cultivation = false;
     protected boolean meditating = false;
+    protected boolean breakthroughKey = false;
     protected boolean breakthrough = false;
 
     // Data
@@ -30,16 +35,54 @@ public class PlayerData {
 
     // Specialised
     // Tick Counter
-    public int getTickCounter() {
-        return tickCounter;
+
+
+    public HashMap<String, Integer> getTickCounterMap() {
+        return tickCounterMap;
     }
 
-    public void setTickCounter(int tickCounter) {
-        this.tickCounter = tickCounter;
+    public void setTickCounterMap(HashMap<String, Integer> tickCounterMap) {
+        this.tickCounterMap = tickCounterMap;
     }
 
-    public void incrementTickCounter() {
-        this.tickCounter++;
+    public int getTickCounter(String counter) {
+        return tickCounterMap.getOrDefault(counter, 0);
+    }
+
+    public void setTickCounter(String counter, int tick) {
+        tickCounterMap.putIfAbsent(counter, 0);
+        tickCounterMap.put(counter, tick);
+    }
+
+    public void incrementTickCounter(String counter) {
+        tickCounterMap.putIfAbsent(counter, 0);
+        int tick = tickCounterMap.get(counter);
+        tick++;
+        tickCounterMap.put(counter, tick);
+    }
+
+    public void incrementAllTickCounters() {
+        for (String counter : tickCounterMap.keySet()) {
+            incrementTickCounter(counter);
+        }
+    }
+
+    public void resetTickCounter(String counter) {
+        setTickCounter(counter, 0);
+    }
+
+    public void createTickCounter(String counter) {
+        tickCounterMap.putIfAbsent(counter, 0);
+    }
+
+    public boolean tickCounterExists(String counter) {
+        return tickCounterMap.containsKey(counter);
+    }
+
+    public void removeTickCounter(String counter) {
+        if (tickCounterExists(counter)) {
+            tickCounterMap.remove(counter);
+        }
     }
 
     // Boolean Data
@@ -59,6 +102,15 @@ public class PlayerData {
 
     public void setMeditating(boolean meditating) {
         this.meditating = meditating;
+    }
+
+    // Breakthrough Key
+    public boolean getBreakthroughKey() {
+        return breakthroughKey;
+    }
+
+    public void setBreakthroughKey(boolean breakthroughKey) {
+        this.breakthroughKey = breakthroughKey;
     }
 
     // Breakthrough

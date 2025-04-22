@@ -2,6 +2,7 @@ package galaxygameryt.cultivation_mastery.item;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -43,6 +44,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.DEEPSLATE_HIGH_SPIRIT_STONE_ORE.get().asItem());
 
                         output.accept(ModBlocks.SPIRITUAL_IRON_BLOCK.get().asItem());
+
+                        output.accept(ModBlocks.PADDED_CUSHION.get().asItem());
                     })
                     .build());
 
@@ -64,6 +67,7 @@ public class ModCreativeModeTabs {
                     .build());
 
     public static void register(IEventBus eventBus) {
+        Logger.info("Registering Creative Mode Tabs");
         CREATIVE_MODE_TABS.register(eventBus);
     }
 }

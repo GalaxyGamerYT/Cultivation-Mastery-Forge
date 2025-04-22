@@ -2,6 +2,7 @@ package galaxygameryt.cultivation_mastery.client.gui.screens;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.ContainerMenu;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -27,6 +28,7 @@ public class ModMenuTypes {
     }
 
     public static void register(IEventBus eventBus) {
+        Logger.info("Registering Menu Types");
         MENUS.register(eventBus);
     }
 }

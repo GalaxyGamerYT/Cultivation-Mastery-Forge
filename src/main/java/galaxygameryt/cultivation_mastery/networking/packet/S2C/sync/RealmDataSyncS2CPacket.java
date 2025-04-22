@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.networking.packet.S2C;
+package galaxygameryt.cultivation_mastery.networking.packet.S2C.sync;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import net.minecraft.network.FriendlyByteBuf;
@@ -6,19 +6,19 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class BodyDataSyncS2CPacket {
-    private final float body;
+public class RealmDataSyncS2CPacket {
+    private final float realm;
 
-    public BodyDataSyncS2CPacket(float body) {
-        this.body = body;
+    public RealmDataSyncS2CPacket(float body) {
+        this.realm = body;
     }
 
-    public BodyDataSyncS2CPacket(FriendlyByteBuf buf) {
-        this.body = buf.readFloat();
+    public RealmDataSyncS2CPacket(FriendlyByteBuf buf) {
+        this.realm = buf.readFloat();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeFloat(body);
+        buf.writeFloat(realm);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -26,8 +26,8 @@ public class BodyDataSyncS2CPacket {
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
 
-            if(body != CultivationMastery.CLIENT_PLAYER_DATA.getBody()) {
-                CultivationMastery.CLIENT_PLAYER_DATA.setBody(body);
+            if(realm != CultivationMastery.CLIENT_PLAYER_DATA.getRealm()) {
+                CultivationMastery.CLIENT_PLAYER_DATA.setRealm(realm);
             }
         });
         return true;

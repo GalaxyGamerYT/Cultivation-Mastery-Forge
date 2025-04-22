@@ -8,22 +8,22 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class BreakthroughC2SPacket {
-    boolean breakthrough;
+public class BreakthroughKeyC2SPacket {
+    boolean breakthroughKey;
     UUID playerId;
 
-    public BreakthroughC2SPacket(boolean breakthrough, UUID playerId) {
-        this.breakthrough = breakthrough;
+    public BreakthroughKeyC2SPacket(boolean breakthroughKey, UUID playerId) {
+        this.breakthroughKey = breakthroughKey;
         this.playerId = playerId;
     }
 
-    public BreakthroughC2SPacket(FriendlyByteBuf buf) {
-        this.breakthrough = buf.readBoolean();
+    public BreakthroughKeyC2SPacket(FriendlyByteBuf buf) {
+        this.breakthroughKey = buf.readBoolean();
         this.playerId = buf.readUUID();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeBoolean(breakthrough);
+        buf.writeBoolean(breakthroughKey);
         buf.writeUUID(playerId);
     }
 
@@ -33,8 +33,8 @@ public class BreakthroughC2SPacket {
             // HERE WE ARE ON THE SERVER!
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(playerId);
 
-            // Toggle BREAKTHROUGH
-            playerData.setBreakthrough(breakthrough);
+            // Toggle breakthrough key
+            playerData.setBreakthroughKey(breakthroughKey);
             CultivationMastery.SERVER_PLAYER_DATA_MAP.put(playerId, playerData);
         });
         return true;

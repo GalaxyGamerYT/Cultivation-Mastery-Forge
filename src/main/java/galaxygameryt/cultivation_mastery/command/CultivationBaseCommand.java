@@ -7,9 +7,10 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
-import galaxygameryt.cultivation_mastery.networking.packet.S2C.BreakthroughS2CPacket;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.ToastS2CPacket;
 import galaxygameryt.cultivation_mastery.util.enums.Toasts;
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -99,7 +100,7 @@ public class CultivationBaseCommand {
         Player player = context.getSource().getPlayer();
 
         if (player != null) {
-            addToast(player);
+            addToast(context, player);
         } else {
             CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
         }
@@ -108,12 +109,13 @@ public class CultivationBaseCommand {
 
     private static int addToastOthers(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = EntityArgument.getPlayer(context, "player");
-        addToast(player);
+        addToast(context, player);
         return 1;
     }
 
-    private static void addToast(Player player) {
-        ModMessages.sendToPlayer(new BreakthroughS2CPacket(), (ServerPlayer) player);
+    private static void addToast(CommandContext<CommandSourceStack> context, Player player) {
+        Toasts toast = context.getArgument("toast", Toasts.class);
+        ModMessages.sendToPlayer(new ToastS2CPacket(toast), (ServerPlayer) player);
     }
 
     public static int help(CommandContext<CommandSourceStack> context) {

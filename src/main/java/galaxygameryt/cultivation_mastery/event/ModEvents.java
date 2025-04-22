@@ -1,15 +1,17 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.ToastS2CPacket;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.sync.*;
 import galaxygameryt.cultivation_mastery.realms.Realms;
 import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
-import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
 import galaxygameryt.cultivation_mastery.realms.mortal.QiGatheringRealm;
 import galaxygameryt.cultivation_mastery.util.ModTags;
 import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapability;
 import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
+import galaxygameryt.cultivation_mastery.util.enums.Toasts;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -84,6 +86,10 @@ public class ModEvents {
         ModMessages.sendToPlayer(new BaseQiMultiDataSyncS2CPacket(playerData.getBaseQiMulti()), player);
         // Env Qi Multi
         ModMessages.sendToPlayer(new EnvQiMultiDataSyncS2CPacket(playerData.getEnvQiMulti()), player);
+        // Breakthrough
+        ModMessages.sendToPlayer(new BreakthroughDataSyncS2CPacket(playerData.getBreakthrough()), player);
+        // Breakthrough Key
+        ModMessages.sendToPlayer(new BreakthroughKeyDataSyncS2CPacket(playerData.getBreakthroughKey()), player);
     }
 
     @SubscribeEvent
@@ -104,6 +110,7 @@ public class ModEvents {
                 playerData.setQi(capability.getQi());
                 playerData.setBody(capability.getBody());
                 playerData.setRealm(capability.getRealm());
+                playerData.setBreakthrough(capability.getBreakthrough());
         });
 
         CultivationMastery.SERVER_PLAYER_DATA_MAP.put(player.getUUID(), playerData);
@@ -133,6 +140,9 @@ public class ModEvents {
             if (playerData.getRealm() != capability.getRealm()) {
                 capability.setRealm(playerData.getRealm());
             }
+            if (playerData.getBreakthrough() != capability.getBreakthrough()) {
+                capability.setBreakthrough(playerData.getBreakthrough());
+            }
         });
     }
 
@@ -147,7 +157,11 @@ public class ModEvents {
             CultivationMastery.SERVER_PLAYER_DATA_MAP.putIfAbsent(playerId, new ServerPlayerData(playerId));
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(playerId);
 
-            playerData.incrementTickCounter();
+            playerData.createTickCounter("general");
+
+            if (!playerData.tickCounterExists("breakthrough_key") && playerData.getBreakthroughKey()) {
+                playerData.createTickCounter("breakthrough_key");
+            }
 
             // The game runs at 20 t/s
             // Once every 5 seconds / 100 ticks
@@ -156,20 +170,36 @@ public class ModEvents {
                 // Cultivation Realms Logic
                 realmLogic(playerData, player);
 
-                if(playerData.getMeditating() && playerData.getRealm() >= 2 && playerData.getTickCounter() >= 100) {
+                if(playerData.getMeditating() && playerData.getRealm() >= 2) {
                     // Adds to the player's qi
-                    playerData.increase_qi();
+                    playerData.createTickCounter("meditate_qi");
+                    if (playerData.getTickCounter("meditate_qi") >= 20) {
+                        playerData.increase_qi();
+                        playerData.resetTickCounter("meditate_qi");
+                    }
                 }
             }
 
-            if (playerData.getTickCounter() >= 20) {
-                playerData.setBreakthrough(false);
+            if (playerData.getTickCounter("general") >= 20) {
+                playerData.resetTickCounter("general");
+            }
+            if (playerData.getTickCounter("breakthrough_key") >= 20) {
+                playerData.setBreakthroughKey(false);
+                playerData.removeTickCounter("breakthrough_key");
+            }
+            if (!playerData.getMeditating() && playerData.tickCounterExists("meditate_qi")) {
+                playerData.removeTickCounter("meditate_qi");
             }
 
-            if (playerData.getTickCounter() >= 1200) {
-                playerData.setTickCounter(0);
+            if (playerData.getBreakthrough() && !playerData.tickCounterExists("breakthrough_toast")) {
+                playerData.createTickCounter("breakthrough_toast");
+                ModMessages.sendToPlayer(new ToastS2CPacket(Toasts.breakthrough), (ServerPlayer) player);
+            } else
+                if (!playerData.getBreakthrough() && playerData.tickCounterExists("breakthrough_toast")) {
+                playerData.removeTickCounter("breakthrough_toast");
             }
 
+            playerData.incrementAllTickCounters();
             playerData2Capabilities(player);
             syncS2C((ServerPlayer) player);
         }
@@ -231,33 +261,70 @@ public class ModEvents {
         int majorRealm = (int) Math.floor(realm);
         int minorRealm = (int) Math.floor((realm*10)-(majorRealm*10));
 
-        if (playerData.getBreakthrough()) {
-            if (realm < Realms.REALMS[2].max) {
-                int realmMaxQi = QiGatheringRealm.getMaxQi(minorRealm);
-                if (qi >= realmMaxQi) {
+        if (realm < Realms.REALMS[2].max) {
+            int realmMaxQi = QiGatheringRealm.getMaxQi(minorRealm);
+            if (qi >= realmMaxQi) {
+                if (playerData.getBreakthroughKey()) {
                     playerData.addRealm(0.1f);
+                    playerData.setBreakthrough(false);
+                } else {
+                    playerData.setBreakthrough(true);
                 }
-            } else {
-                player.sendSystemMessage(Component.translatable("message.cultivation_mastery.max_realm"));
             }
+        } else {
+            player.sendSystemMessage(Component.translatable("message.cultivation_mastery.max_realm"));
         }
+
+//        if (playerData.getBreakthroughKey()) {
+//            if (realm < Realms.REALMS[2].max) {
+//                int realmMaxQi = QiGatheringRealm.getMaxQi(minorRealm);
+//                if (qi >= realmMaxQi) {
+//                    playerData.addRealm(0.1f);
+//                }
+//            } else {
+//                player.sendSystemMessage(Component.translatable("message.cultivation_mastery.max_realm"));
+//            }
+//        }
     }
 
     private static void realmBodyTemperingLogic(ServerPlayerData playerData, Player player) {
-        if (playerData.getBreakthrough() && playerData.getBody() == 100) {
+        if (playerData.getBody() == 100) {
             if (playerData.getRealm() < Realms.REALMS[1].max) {
-                // 1-9
-                playerData.addRealm(0.1f);
-                playerData.setBody(0);
-            } else {
-                // 9-max
-                if (playerData.getQi() >= playerData.getMaxQi()) {
-                    playerData.setQi(0);
-                    playerData.setMaxQi(100);
+                if (playerData.getBreakthroughKey()) {
                     playerData.addRealm(0.1f);
+                    playerData.setBody(0);
+                    playerData.setBreakthrough(false);
+                } else {
+                    playerData.setBreakthrough(true);
+                }
+            } else {
+                if (playerData.getQi() >= playerData.getMaxQi()) {
+                    if (playerData.getBreakthroughKey()) {
+                        playerData.setQi(0);
+                        playerData.setMaxQi(100);
+                        playerData.addRealm(0.1f);
+                        playerData.setBreakthrough(false);
+                    } else {
+                        playerData.setBreakthrough(true);
+                    }
                 }
             }
         }
+
+//        if (playerData.getBreakthroughKey() && playerData.getBody() == 100) {
+//            if (playerData.getRealm() < Realms.REALMS[1].max) {
+//                // 1-9
+//                playerData.addRealm(0.1f);
+//                playerData.setBody(0);
+//            } else {
+//                // 9-max
+//                if (playerData.getQi() >= playerData.getMaxQi()) {
+//                    playerData.setQi(0);
+//                    playerData.setMaxQi(100);
+//                    playerData.addRealm(0.1f);
+//                }
+//            }
+//        }
     }
 
     private static void realmMortalLogic(ServerPlayerData playerData, Player player) {

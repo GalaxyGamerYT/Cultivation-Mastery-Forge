@@ -27,6 +27,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
         this.dropSelf(ModBlocks.SPIRITUAL_IRON_BLOCK.get());
+        this.dropSelf(ModBlocks.PADDED_CUSHION.get());
 
         this.add(ModBlocks.LOW_SPIRIT_STONE_ORE.get(),
                 block -> createCopperLikeOreDrops(ModBlocks.LOW_SPIRIT_STONE_ORE.get(), ModItems.LOW_SPIRIT_STONE.get()));

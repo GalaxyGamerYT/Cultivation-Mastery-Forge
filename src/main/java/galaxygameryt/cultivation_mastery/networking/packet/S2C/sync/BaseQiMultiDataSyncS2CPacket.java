@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.networking.packet.S2C;
+package galaxygameryt.cultivation_mastery.networking.packet.S2C.sync;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import net.minecraft.network.FriendlyByteBuf;

@@ -2,7 +2,7 @@ package galaxygameryt.cultivation_mastery.config;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
-import galaxygameryt.cultivation_mastery.networking.packet.S2C.CultivationDataSyncS2CPacket;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.sync.CultivationDataSyncS2CPacket;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

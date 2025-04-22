@@ -3,6 +3,8 @@ package galaxygameryt.cultivation_mastery.networking;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.*;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.sync.*;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -19,6 +21,7 @@ public class ModMessages {
     }
 
     public static void register() {
+        Logger.info("Registering Networking");
         SimpleChannel net = NetworkRegistry.ChannelBuilder
                 .named(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "messages"))
                 .networkProtocolVersion(() -> "1.0")
@@ -49,14 +52,25 @@ public class ModMessages {
                 .encoder(CultivationC2SPacket::toBytes)
                 .consumerMainThread(CultivationC2SPacket::handle)
                 .add();
-        INSTANCE.messageBuilder(BreakthroughC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(BreakthroughC2SPacket::new)
-                .encoder(BreakthroughC2SPacket::toBytes)
-                .consumerMainThread(BreakthroughC2SPacket::handle)
+        INSTANCE.messageBuilder(BreakthroughKeyC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(BreakthroughKeyC2SPacket::new)
+                .encoder(BreakthroughKeyC2SPacket::toBytes)
+                .consumerMainThread(BreakthroughKeyC2SPacket::handle)
                 .add();
     }
 
     private static void S2C() {
+        S2CSync();
+
+        // Other Packets
+        INSTANCE.messageBuilder(ToastS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ToastS2CPacket::new)
+                .encoder(ToastS2CPacket::toBytes)
+                .consumerMainThread(ToastS2CPacket::handle)
+                .add();
+    }
+
+    private static void S2CSync() {
         INSTANCE.messageBuilder(QiDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(QiDataSyncS2CPacket::new)
                 .encoder(QiDataSyncS2CPacket::toBytes)
@@ -92,11 +106,17 @@ public class ModMessages {
                 .encoder(EnvQiMultiDataSyncS2CPacket::toBytes)
                 .consumerMainThread(EnvQiMultiDataSyncS2CPacket::handle)
                 .add();
-        INSTANCE.messageBuilder(BreakthroughS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(BreakthroughS2CPacket::new)
-                .encoder(BreakthroughS2CPacket::toBytes)
-                .consumerMainThread(BreakthroughS2CPacket::handle)
+        INSTANCE.messageBuilder(BreakthroughDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BreakthroughDataSyncS2CPacket::new)
+                .encoder(BreakthroughDataSyncS2CPacket::toBytes)
+                .consumerMainThread(BreakthroughDataSyncS2CPacket::handle)
                 .add();
+        INSTANCE.messageBuilder(BreakthroughKeyDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BreakthroughKeyDataSyncS2CPacket::new)
+                .encoder(BreakthroughKeyDataSyncS2CPacket::toBytes)
+                .consumerMainThread(BreakthroughKeyDataSyncS2CPacket::handle)
+                .add();
+
     }
 
     public static <MSG> void sendToServer(MSG message) {

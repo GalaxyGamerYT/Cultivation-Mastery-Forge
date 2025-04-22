@@ -1,9 +1,9 @@
 package galaxygameryt.cultivation_mastery.client;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.client.gui.overlays.CultivationHudOverlay;
-import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
-import galaxygameryt.cultivation_mastery.client.gui.screens.custom.ContainerScreen;
+import galaxygameryt.cultivation_mastery.client.gui.overlays.ModOverlays;
+import galaxygameryt.cultivation_mastery.client.gui.overlays.custom.CultivationHudOverlay;
+import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuScreens;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.SpiritualMirrorScreen;
 import galaxygameryt.cultivation_mastery.client.gui.toasts.BreakthroughToast;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
@@ -11,7 +11,6 @@ import galaxygameryt.cultivation_mastery.util.enums.Screens;
 import galaxygameryt.cultivation_mastery.util.enums.Toasts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -23,29 +22,25 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @Mod.EventBusSubscriber(modid = CultivationMastery.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CultivationMasteryClient {
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event)
-    {
-        MenuScreens.register(ModMenuTypes.CONTAINER_MENU.get(), ContainerScreen::new);
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        ModMenuScreens.register(event);
     }
 
     @SubscribeEvent
     public static void onKeyRegister(RegisterKeyMappingsEvent event) {
-        event.register(KeyBinding.MEDITATE_KEY);
-        event.register(KeyBinding.BREAKTHROUGH_KEY);
-//            event.register(KeyBinding.CULTIVATION_GUI_KEY);
+        KeyBinding.register(event);
     }
 
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-//            event.registerAboveAll("cultivation", CultivationHudOverlayOld.HUD_CULTIVATION);
-        event.registerAboveAll("cultivation", CultivationHudOverlay.instance);
+        ModOverlays.register(event);
     }
 
     public static void openScreen(Screens screen) {
         Minecraft instance = Minecraft.getInstance();
 
         switch (screen) {
-            case SPIRITUAL_MIRROR:
+            case spiritual_mirror:
                 instance.setScreen(new SpiritualMirrorScreen());
         }
     }
@@ -55,7 +50,7 @@ public class CultivationMasteryClient {
         ToastComponent toastComponent = instance.getToasts();
 
         switch (toast) {
-            case BREAKTHROUGH:
+            case breakthrough:
                 toastComponent.addToast(new BreakthroughToast());
                 instance.player.sendSystemMessage(Component.literal("Sending Breakthrough Toast!"));
         }

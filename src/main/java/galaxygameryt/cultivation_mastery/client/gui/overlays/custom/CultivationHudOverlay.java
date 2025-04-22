@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.client.gui.overlays;
+package galaxygameryt.cultivation_mastery.client.gui.overlays.custom;
 
 import com.mojang.blaze3d.platform.Window;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
@@ -16,8 +16,6 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class CultivationHudOverlay implements IGuiOverlay {
-    public static final CultivationHudOverlay instance = new CultivationHudOverlay();
-
     public static final ResourceLocation SCROLL_TEXTURE = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
             "textures/hud/background_scroll.png");
 

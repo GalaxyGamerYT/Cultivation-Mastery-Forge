@@ -32,7 +32,7 @@ public class SpiritualMirrorItem extends Item {
                 CultivationMastery.CLIENT_PLAYER_DATA.setCultivation(true);
                 ModMessages.sendToServer(new CultivationC2SPacket(true, player.getUUID()));
             }
-            CultivationMasteryClient.openScreen(Screens.SPIRITUAL_MIRROR);
+            CultivationMasteryClient.openScreen(Screens.spiritual_mirror);
         }
         return InteractionResultHolder.sidedSuccess(item, world.isClientSide());
     }

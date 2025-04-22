@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-30T19:42:59.0883762	Loot Tables
+// 1.20.1	2025-04-23T00:11:02.8395999	Loot Tables
 8057d218cbb935606093f8fd312e2d0ffe94193f data/cultivation_mastery/loot_tables/blocks/acacia_training_post.json
 063e2a5cbee9b1c76bcd5ef0dc74c513e9572617 data/cultivation_mastery/loot_tables/blocks/birch_training_post.json
 226a5223fbb30c0816f4a9fcb8d843e46da82534 data/cultivation_mastery/loot_tables/blocks/cherry_training_post.json
@@ -12,6 +12,7 @@ f5a95b72fc9fa317d24ed5d0180ed92738bcc806 data/cultivation_mastery/loot_tables/bl
 ababd0e178c6bcaeeef3e8f171ea8e27a80b9b6b data/cultivation_mastery/loot_tables/blocks/mangrove_training_post.json
 4086a0da3aceb27cb55a1851826551c4e968da6c data/cultivation_mastery/loot_tables/blocks/medium_spirit_stone_ore.json
 6ab5c6901e42c49c9f9c04720b234f5ea7172102 data/cultivation_mastery/loot_tables/blocks/oak_training_post.json
+03f54bd1564f47d5fc59161416e6d71df8d05f9b data/cultivation_mastery/loot_tables/blocks/padded_cushion.json
 30f5b16475377eb3870cc63d27bca0c6facace5f data/cultivation_mastery/loot_tables/blocks/spiritual_iron_block.json
 01064c5518dae29666124d41d22e6dcb8ed5ce94 data/cultivation_mastery/loot_tables/blocks/spiritual_iron_training_post.json
 75efc1e0b0aa1050581479046f749fd73acfea33 data/cultivation_mastery/loot_tables/blocks/spruce_training_post.json

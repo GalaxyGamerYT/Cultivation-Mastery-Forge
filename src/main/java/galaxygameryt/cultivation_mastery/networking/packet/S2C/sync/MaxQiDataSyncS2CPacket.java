@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.networking.packet.S2C;
+package galaxygameryt.cultivation_mastery.networking.packet.S2C.sync;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import net.minecraft.network.FriendlyByteBuf;
@@ -6,19 +6,19 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class RealmDataSyncS2CPacket {
-    private final float realm;
+public class MaxQiDataSyncS2CPacket {
+    private final int max_qi;
 
-    public RealmDataSyncS2CPacket(float body) {
-        this.realm = body;
+    public MaxQiDataSyncS2CPacket(int max_qi) {
+        this.max_qi = max_qi;
     }
 
-    public RealmDataSyncS2CPacket(FriendlyByteBuf buf) {
-        this.realm = buf.readFloat();
+    public MaxQiDataSyncS2CPacket(FriendlyByteBuf buf) {
+        this.max_qi = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeFloat(realm);
+        buf.writeInt(max_qi);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -26,8 +26,8 @@ public class RealmDataSyncS2CPacket {
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
 
-            if(realm != CultivationMastery.CLIENT_PLAYER_DATA.getRealm()) {
-                CultivationMastery.CLIENT_PLAYER_DATA.setRealm(realm);
+            if(max_qi != CultivationMastery.CLIENT_PLAYER_DATA.getMaxQi()) {
+                CultivationMastery.CLIENT_PLAYER_DATA.setMaxQi(max_qi);
             }
         });
         return true;
