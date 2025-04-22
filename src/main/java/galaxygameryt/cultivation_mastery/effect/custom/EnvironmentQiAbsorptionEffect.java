@@ -24,7 +24,7 @@ public class EnvironmentQiAbsorptionEffect extends MobEffect {
     public void addAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap attributeMap, int amplifier) {
         if (livingEntity instanceof ServerPlayer entity) {
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(entity.getUUID());
-            playerData.addQiEnvMulti(amplifier);
+            playerData.addQiEnvMulti(amplifier+1);
         }
 
         super.addAttributeModifiers(livingEntity, attributeMap, amplifier);
@@ -34,7 +34,7 @@ public class EnvironmentQiAbsorptionEffect extends MobEffect {
     public void removeAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap attributeMap, int amplifier) {
         if (livingEntity instanceof ServerPlayer entity) {
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(entity.getUUID());
-            playerData.subQiEnvMulti(amplifier);
+            playerData.subQiEnvMulti(amplifier+1);
         }
 
         super.removeAttributeModifiers(livingEntity, attributeMap, amplifier);

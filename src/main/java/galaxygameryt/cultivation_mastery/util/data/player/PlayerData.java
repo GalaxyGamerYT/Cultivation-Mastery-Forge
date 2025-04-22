@@ -8,6 +8,9 @@ public class PlayerData {
     protected final int MAX_BODY = 100;
     protected final int MAX_REALM = Realms.REALMS.length-1;
 
+    // Specialised
+    protected int tickCounter = 0;
+
     // Boolean Data
     protected boolean cultivation = false;
     protected boolean meditating = false;
@@ -24,6 +27,20 @@ public class PlayerData {
     protected int baseQiMulti = 1;
 
     public PlayerData() {}
+
+    // Specialised
+    // Tick Counter
+    public int getTickCounter() {
+        return tickCounter;
+    }
+
+    public void setTickCounter(int tickCounter) {
+        this.tickCounter = tickCounter;
+    }
+
+    public void incrementTickCounter() {
+        this.tickCounter++;
+    }
 
     // Boolean Data
     // Cultivation
@@ -98,11 +115,21 @@ public class PlayerData {
     }
 
     public void addQi(float add) {
-        setQi(Math.min(qi + add, maxQi));
+        float result = qi + add;
+
+        if (result > maxQi && realm >= 2) {
+            setMaxQi((int) Math.ceil(result));
+        }
+
+        setQi(result);
     }
 
     public void increase_qi() {
         addQi((qiIncrease * baseQiMulti) * envQiMulti);
+    }
+
+    public void increase_qi(float increase) {
+        addQi((increase * baseQiMulti) * envQiMulti);
     }
 
     public void subQi(float sub) {

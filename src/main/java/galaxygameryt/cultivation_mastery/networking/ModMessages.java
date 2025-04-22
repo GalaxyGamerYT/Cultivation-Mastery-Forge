@@ -94,6 +94,11 @@ public class ModMessages {
                 .encoder(EnvQiMultiDataSyncS2CPacket::toBytes)
                 .consumerMainThread(EnvQiMultiDataSyncS2CPacket::handle)
                 .add();
+        INSTANCE.messageBuilder(BreakthroughS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BreakthroughS2CPacket::new)
+                .encoder(BreakthroughS2CPacket::toBytes)
+                .consumerMainThread(BreakthroughS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

@@ -23,7 +23,7 @@ public class QiAbsorptionEffect extends MobEffect {
     public void addAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap attributeMap, int amplifier) {
         if (livingEntity instanceof ServerPlayer entity) {
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(entity.getUUID());
-            playerData.addBaseQiMulti(amplifier);
+            playerData.addBaseQiMulti(amplifier+1);
         }
 
         super.addAttributeModifiers(livingEntity, attributeMap, amplifier);
@@ -33,7 +33,7 @@ public class QiAbsorptionEffect extends MobEffect {
     public void removeAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap attributeMap, int amplifier) {
         if (livingEntity instanceof ServerPlayer entity) {
             ServerPlayerData playerData = CultivationMastery.SERVER_PLAYER_DATA_MAP.get(entity.getUUID());
-            playerData.subBaseQiMulti(amplifier);
+            playerData.subBaseQiMulti(amplifier+1);
         }
 
         super.removeAttributeModifiers(livingEntity, attributeMap, amplifier);

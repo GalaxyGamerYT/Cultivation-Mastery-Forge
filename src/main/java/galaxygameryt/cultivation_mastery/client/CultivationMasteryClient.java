@@ -5,10 +5,14 @@ import galaxygameryt.cultivation_mastery.client.gui.overlays.CultivationHudOverl
 import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.ContainerScreen;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.SpiritualMirrorScreen;
+import galaxygameryt.cultivation_mastery.client.gui.toasts.BreakthroughToast;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
 import galaxygameryt.cultivation_mastery.util.enums.Screens;
+import galaxygameryt.cultivation_mastery.util.enums.Toasts;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -45,6 +49,17 @@ public class CultivationMasteryClient {
                 instance.setScreen(null);
             case SPIRITUAL_MIRROR:
                 instance.setScreen(new SpiritualMirrorScreen());
+        }
+    }
+
+    public static void addToast(Toasts toast) {
+        Minecraft instance = Minecraft.getInstance();
+        ToastComponent toastComponent = instance.getToasts();
+
+        switch (toast) {
+            case BREAKTROUGH:
+                toastComponent.addToast(new BreakthroughToast());
+                instance.player.sendSystemMessage(Component.literal("Sending Breakthrough Toast!"));
         }
     }
 }

@@ -168,15 +168,17 @@ dependencies {
 //    compileOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
 
     // Dev Dependencies
-//    implementation fg.deobf("curse.maven:patchouli-306770:6164575")
-//    implementation fg.deobf("curse.maven:jei-238222:6075247")
-//    implementation fg.deobf("curse.maven:spark-361579:4738952")
-//    implementation fg.deobf("curse.maven:Controlling-250398:4646682")
-//    implementation fg.deobf("curse.maven:Searchables-858542:5284015")
-//    implementation fg.deobf("curse.maven:jade-324717:6271651")
-//    implementation fg.deobf("curse.maven:betterf3-401648:4863626")
-//    implementation fg.deobf("curse.maven:cloth-config-348521:5729105")
-//    implementation fg.deobf("curse.maven:configured-457570:5180900")
+    implementation fg.deobf("curse.maven:patchouli-306770:6164575")
+    implementation fg.deobf("curse.maven:jei-238222:6075247")
+    implementation fg.deobf("curse.maven:spark-361579:4738952")
+    implementation fg.deobf("curse.maven:Controlling-250398:4646682")
+    implementation fg.deobf("curse.maven:Searchables-858542:5284015")
+    implementation fg.deobf("curse.maven:jade-324717:6271651")
+    implementation fg.deobf("curse.maven:betterf3-401648:4863626")
+    implementation fg.deobf("curse.maven:cloth-config-348521:5729105")
+    implementation fg.deobf("curse.maven:configured-457570:5180900")
+
+//    Breaks Data Gen!
 //    implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")
 }
 

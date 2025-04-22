@@ -51,7 +51,11 @@
   "message.cultivation_mastery.meditate": "Meditating!",
   "message.cultivation_mastery.not_meditate": "Not Meditating!",
 
+  "message.cultivation_mastery.max_realm": "§6Congratulations!§r You are currently at the maximum realm available in this version of the mod!",
+
   "effect.cultivation_mastery.breakthrough": "Breakthough",
   "effect.cultivation_mastery.qi_absorption": "Qi Absorption",
-  "effect.cultivation_mastery.environment_qi_absorption": "Environment Qi Absorption"
+  "effect.cultivation_mastery.environment_qi_absorption": "Environment Qi Absorption",
+
+  "misc.cultivation_mastery.toast.breakthrough.title": "Breakthrough"
 }

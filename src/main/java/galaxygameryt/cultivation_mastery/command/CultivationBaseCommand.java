@@ -4,18 +4,29 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.networking.ModMessages;
+import galaxygameryt.cultivation_mastery.networking.packet.S2C.BreakthroughS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class CultivationBaseCommand {
+    private static final String PLAYER_ERROR_MESSAGE = "You must specify a player for this command!";
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("cult")
                 .requires(commandSourceStack -> commandSourceStack.hasPermission(4))
+                .then(Commands.literal("toast")
+                        .requires(CommandSourceStack::isPlayer)
+                        .executes(CultivationBaseCommand::addToastSelf)
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .executes(CultivationBaseCommand::addToastOthers)))
                 .then(Commands.literal("help")
                         .requires(CommandSourceStack::isPlayer)
                         .executes(CultivationBaseCommand::help))
@@ -78,6 +89,27 @@ public class CultivationBaseCommand {
                         )
                 )
         );
+    }
+
+    private static int addToastSelf(CommandContext<CommandSourceStack> context) {
+        Player player = context.getSource().getPlayer();
+
+        if (player != null) {
+            addToast(player);
+        } else {
+            CultivationMastery.LOGGER.info(PLAYER_ERROR_MESSAGE);
+        }
+        return 1;
+    }
+
+    private static int addToastOthers(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        Player player = EntityArgument.getPlayer(context, "player");
+        addToast(player);
+        return 1;
+    }
+
+    private static void addToast(Player player) {
+        ModMessages.sendToPlayer(new BreakthroughS2CPacket(), (ServerPlayer) player);
     }
 
     public static int help(CommandContext<CommandSourceStack> context) {

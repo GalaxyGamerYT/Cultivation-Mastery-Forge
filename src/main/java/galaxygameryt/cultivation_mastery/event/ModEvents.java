@@ -5,11 +5,13 @@ import galaxygameryt.cultivation_mastery.realms.Realms;
 import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.S2C.*;
+import galaxygameryt.cultivation_mastery.realms.mortal.QiGatheringRealm;
 import galaxygameryt.cultivation_mastery.util.ModTags;
 import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapability;
 import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapabilityProvider;
 import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -155,8 +157,6 @@ public class ModEvents {
                 realmLogic(playerData, player);
 
                 if(playerData.getMeditating() && playerData.getRealm() >= 2 && playerData.getTickCounter() >= 100) {
-                    playerData.setTickCounter(0);
-
                     // Adds to the player's qi
                     playerData.increase_qi();
                 }
@@ -164,6 +164,14 @@ public class ModEvents {
 
             if (playerData.getTickCounter() >= 20) {
                 playerData.setBreakthrough(false);
+            }
+
+            if (playerData.getTickCounter() >= 1000) {
+                ModMessages.sendToPlayer(new BreakthroughS2CPacket(), (ServerPlayer) player);
+            }
+
+            if (playerData.getTickCounter() >= 1200) {
+                playerData.setTickCounter(0);
             }
 
             playerData2Capabilities(player);
@@ -205,8 +213,6 @@ public class ModEvents {
                 player.addEffect(instance);
             }
             playerData.setRealm(majorRealmValue+1);
-        } else {
-            playerData.setRealm(realm);
         }
     }
 
@@ -224,9 +230,20 @@ public class ModEvents {
     private static void realmQiGatheringLogic(ServerPlayerData playerData, Player player) {
         float qi = playerData.getQi();
         int maxQi = playerData.getMaxQi();
+        float realm = playerData.getRealm();
 
-        if (playerData.getBreakthrough() && qi == maxQi) {
+        int majorRealm = (int) Math.floor(realm);
+        int minorRealm = (int) Math.floor((realm*10)-(majorRealm*10));
 
+        if (playerData.getBreakthrough()) {
+            if (realm < Realms.REALMS[2].max) {
+                int realmMaxQi = QiGatheringRealm.getMaxQi(minorRealm);
+                if (qi >= realmMaxQi) {
+                    playerData.addRealm(0.1f);
+                }
+            } else {
+                player.sendSystemMessage(Component.translatable("message.cultivation_mastery.max_realm"));
+            }
         }
     }
 
