@@ -28,7 +28,7 @@ public class ModBlocks {
                     .strength(7.5F, 8.5F)));
 
     public static final RegistryObject<Block> PADDED_CUSHION = registerBlock("padded_cushion",
-            () -> new PaddedCushionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+            () -> new PaddedCushionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_SLAB)));
 
     public static final RegistryObject<Block> LOW_SPIRIT_STONE_ORE = registerBlock("low_spirit_stone_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)

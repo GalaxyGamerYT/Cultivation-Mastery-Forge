@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -20,12 +21,12 @@ import java.util.stream.Stream;
 
 public class PaddedCushionBlock extends Block {
     public PaddedCushionBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties.noOcclusion());
     }
 
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return shape();
+        return Block.box(0, 0, 0, 16, 8, 16);
     }
 
     @Override
