@@ -6,11 +6,14 @@ import galaxygameryt.cultivation_mastery.client.gui.overlays.custom.CultivationH
 import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuScreens;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.SpiritualMirrorScreen;
 import galaxygameryt.cultivation_mastery.client.gui.toasts.BreakthroughToast;
+import galaxygameryt.cultivation_mastery.entity.ModEntities;
+import galaxygameryt.cultivation_mastery.entity.client.SittingRenderer;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
 import galaxygameryt.cultivation_mastery.util.enums.Screens;
 import galaxygameryt.cultivation_mastery.util.enums.Toasts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -24,6 +27,8 @@ public class CultivationMasteryClient {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         ModMenuScreens.register(event);
+
+        EntityRenderers.register(ModEntities.SITTING.get(), SittingRenderer::new);
     }
 
     @SubscribeEvent
