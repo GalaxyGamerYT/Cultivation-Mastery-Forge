@@ -1,7 +1,6 @@
 package galaxygameryt.cultivation_mastery.mixin;
 
 import galaxygameryt.cultivation_mastery.entity.custom.SittingEntity;
-import galaxygameryt.cultivation_mastery.util.handlers.PlayerMeditationHandler;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -10,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -39,34 +37,37 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
         if (!(player.getVehicle() instanceof SittingEntity)) return;
 
-        float progress = PlayerMeditationHandler.meditateProgress.getOrDefault(player.getUUID(), 0f);
-        if (progress == 0f) return;
+        float breath = (float) Math.sin(ageInTicks * 0.1f) * 0.05f;
 
-        float breath = (float) Math.sin(ageInTicks * 0.1f) * 0.05f * progress;
+        // Posture
+        this.body.xRot = breath;
+        this.body.yRot = 0;
 
-        this.body.xRot = cultivation_Mastery_Forge$lerp(0, breath, progress);
+        // Arms (resting on knees or together)
+        this.leftArm.xRot = (float) -Math.toRadians(65) + breath;
+        this.leftArm.yRot = (float) -Math.toRadians(10);
+        this.leftArm.zRot = (float) Math.toRadians(5);
 
-        this.leftArm.xRot = cultivation_Mastery_Forge$lerp(this.leftArm.xRot, (float) -Math.toRadians(65), progress) + breath;
-        this.leftArm.yRot = cultivation_Mastery_Forge$lerp(this.leftArm.yRot, (float) -Math.toRadians(10), progress);
-        this.leftArm.zRot = cultivation_Mastery_Forge$lerp(this.leftArm.zRot, (float) Math.toRadians(5), progress);
+        this.rightArm.xRot = (float) -Math.toRadians(65) + breath;
+        this.rightArm.yRot = (float) Math.toRadians(10);
+        this.rightArm.zRot = (float) -Math.toRadians(5);
 
-        this.rightArm.xRot = cultivation_Mastery_Forge$lerp(this.rightArm.xRot, (float) -Math.toRadians(65), progress) + breath;
-        this.rightArm.yRot = cultivation_Mastery_Forge$lerp(this.rightArm.yRot, (float) Math.toRadians(10), progress);
-        this.rightArm.zRot = cultivation_Mastery_Forge$lerp(this.rightArm.zRot, (float) -Math.toRadians(5), progress);
+        // Legs (cross-legged)
+        this.leftLeg.xRot = (float) -Math.toRadians(90);
+        this.leftLeg.yRot = (float) Math.toRadians(30);
+        this.leftLeg.zRot = (float) Math.toRadians(20);
 
-        this.leftLeg.xRot = cultivation_Mastery_Forge$lerp(this.leftLeg.xRot, (float) -Math.toRadians(90), progress);
-        this.leftLeg.yRot = cultivation_Mastery_Forge$lerp(this.leftLeg.yRot, (float) Math.toRadians(30), progress);
-        this.leftLeg.zRot = cultivation_Mastery_Forge$lerp(this.leftLeg.zRot, (float) Math.toRadians(20), progress);
+        this.rightLeg.xRot = (float) -Math.toRadians(90);
+        this.rightLeg.yRot = (float) -Math.toRadians(30);
+        this.rightLeg.zRot = (float) -Math.toRadians(20);
 
-        this.rightLeg.xRot = cultivation_Mastery_Forge$lerp(this.rightLeg.xRot, (float) -Math.toRadians(90), progress);
-        this.rightLeg.yRot = cultivation_Mastery_Forge$lerp(this.rightLeg.yRot, (float) -Math.toRadians(30), progress);
-        this.rightLeg.zRot = cultivation_Mastery_Forge$lerp(this.rightLeg.zRot, (float) -Math.toRadians(20), progress);
-
-        this.head.xRot = cultivation_Mastery_Forge$lerp(this.head.xRot, (float) Math.toRadians(10), progress);
+        // Head - calm tilt
+        this.head.xRot = (float) Math.toRadians(10);
         this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 
         this.crouching = false;
 
+        // Sync second skin layer parts
         this.hat.copyFrom(this.head);
         this.jacket.copyFrom(this.body);
         this.leftSleeve.copyFrom(this.leftArm);
@@ -74,11 +75,8 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         this.leftPants.copyFrom(this.leftLeg);
         this.rightPants.copyFrom(this.rightLeg);
 
+        // Prevent vanilla animation override
         ci.cancel();
-    }
 
-    @Unique
-    private float cultivation_Mastery_Forge$lerp(float from, float to, float progress) {
-        return from + (to - from) * progress;
     }
 }
