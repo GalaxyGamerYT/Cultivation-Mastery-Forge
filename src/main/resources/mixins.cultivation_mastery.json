@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_17",
+  "package": "galaxygameryt.cultivation_mastery.mixin",
+  "mixins": [
+    "PlayerModelMixin"
+  ],
+  "client": [
+    "PlayerModelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
