@@ -1,8 +1,8 @@
 package galaxygameryt.cultivation_mastery.block.custom;
 
 import galaxygameryt.cultivation_mastery.entity.ModEntities;
-import galaxygameryt.cultivation_mastery.entity.custom.SittingEntity;
-import galaxygameryt.cultivation_mastery.item.ModCreativeModeTabs;
+import galaxygameryt.cultivation_mastery.entity.custom.MeditationEntity;
+import galaxygameryt.cultivation_mastery.entity.custom.SitableEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -16,7 +16,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -52,9 +51,9 @@ public class PaddedCushionBlock extends Block {
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (player.getItemInHand(hand) == ItemStack.EMPTY && !level.isClientSide()) {
             Entity entity = null;
-            List<SittingEntity> entities = level.getEntities(ModEntities.SITTING.get(), new AABB(pos), sitting -> true);
+            List<MeditationEntity> entities = level.getEntities(ModEntities.MEDITATION.get(), new AABB(pos), sitting -> true);
             if (entities.isEmpty()) {
-                entity = ModEntities.SITTING.get().spawn((ServerLevel) level, pos, MobSpawnType.TRIGGERED);
+                entity = ModEntities.MEDITATION.get().spawn((ServerLevel) level, pos, MobSpawnType.TRIGGERED);
             } else {
                 entity = entities.get(0);
             }

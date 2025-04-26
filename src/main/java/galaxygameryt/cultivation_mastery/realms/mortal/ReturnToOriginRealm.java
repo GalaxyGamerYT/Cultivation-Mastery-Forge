@@ -12,8 +12,8 @@ public class ReturnToOriginRealm extends MajorRealm {
     @Override
     public String displayRealm(int minor) {
         String output = "";
-        output += String.valueOf(minor);
-        switch (minor) {
+        output += String.valueOf(minor+1);
+        switch (minor+1) {
             case 1:
                 output += "st";
             case 2:

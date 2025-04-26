@@ -1,6 +1,7 @@
 package galaxygameryt.cultivation_mastery.mixin;
 
-import galaxygameryt.cultivation_mastery.entity.custom.SittingEntity;
+import galaxygameryt.cultivation_mastery.entity.custom.MeditationEntity;
+import galaxygameryt.cultivation_mastery.entity.custom.SitableEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,14 +31,22 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         super(root);
     }
 
-    @Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "setupAnim", at = @At("HEAD"), cancellable = true)
     public void injectMeditationPose(T entity, float limbSwing, float limbSwingAmount, float ageInTicks,
                                       float netHeadYaw, float headPitch, CallbackInfo ci) {
 
         if (!(entity instanceof Player player)) return;
 
-        if (!(player.getVehicle() instanceof SittingEntity)) return;
+        if (!(player.getVehicle() instanceof MeditationEntity)) return;
 
+        meditationPose(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+
+        // Prevent vanilla animation override
+        ci.cancel();
+    }
+
+    @Unique
+    private void meditationPose(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float breath = (float) Math.sin(ageInTicks * 0.1f) * 0.05f;
 
         // Posture
@@ -74,9 +84,5 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         this.rightSleeve.copyFrom(this.rightArm);
         this.leftPants.copyFrom(this.leftLeg);
         this.rightPants.copyFrom(this.rightLeg);
-
-        // Prevent vanilla animation override
-        ci.cancel();
-
     }
 }

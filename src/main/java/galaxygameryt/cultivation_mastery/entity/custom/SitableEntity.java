@@ -1,16 +1,13 @@
 package galaxygameryt.cultivation_mastery.entity.custom;
 
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class SittingEntity extends Entity {
-    public SittingEntity(EntityType<?> pEntityType, Level pLevel) {
+public class SitableEntity extends Entity {
+    public SitableEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 

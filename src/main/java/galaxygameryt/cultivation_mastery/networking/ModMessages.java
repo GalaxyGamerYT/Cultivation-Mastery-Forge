@@ -42,6 +42,8 @@ public class ModMessages {
                 .consumerMainThread(ExampleC2SPacket::handle)
                 .add();
 
+        C2SSync();
+
         INSTANCE.messageBuilder(MeditatingC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(MeditatingC2SPacket::new)
                 .encoder(MeditatingC2SPacket::toBytes)
@@ -57,6 +59,10 @@ public class ModMessages {
                 .encoder(BreakthroughKeyC2SPacket::toBytes)
                 .consumerMainThread(BreakthroughKeyC2SPacket::handle)
                 .add();
+    }
+
+    private static void C2SSync() {
+
     }
 
     private static void S2C() {

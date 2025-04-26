@@ -2,17 +2,21 @@ package galaxygameryt.cultivation_mastery.realms.base;
 
 import galaxygameryt.cultivation_mastery.util.helpers.IntHelper;
 
+import java.awt.*;
+
 public abstract class MajorRealm {
     public String name = "";
     public int levels = 9;
     public float max = 0;
+    public Color aura = null;
 
     public MajorRealm() {}
 
-    public MajorRealm(String name, int levels, float max) {
+    public MajorRealm(String name, int levels, float max, int aura) {
         this.name = name;
         this.levels = levels;
         this.max = max;
+        this.aura = new Color(aura);
     }
 
     public String displayRealm(int minor) {

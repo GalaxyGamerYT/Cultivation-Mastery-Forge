@@ -1,14 +1,17 @@
 package galaxygameryt.cultivation_mastery.event;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.entity.custom.MeditationEntity;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.BreakthroughKeyC2SPacket;
 import galaxygameryt.cultivation_mastery.networking.packet.C2S.MeditatingC2SPacket;
+import galaxygameryt.cultivation_mastery.particles.ModParticles;
 import galaxygameryt.cultivation_mastery.util.KeyBinding;
 import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -64,12 +67,53 @@ public class ClientEvents {
 
                 playerData.createTickCounter("general");
 
+//                if (player.getVehicle() instanceof MeditationEntity) {
+//                    generateDantianSwirl(player);
+//                }
+
                 if (playerData.getTickCounter("general") >= 20) {
                     playerData.resetTickCounter("general");
                 }
 
                 playerData.incrementAllTickCounters();
             }
+        }
+    }
+
+    private static void generateDantianSwirl(Player player) {
+        double offsetDistance = 0.4;
+        double heightOffset = -0.5;
+
+        float yaw = player.getYHeadRot();
+
+        double yawRad = Math.toRadians(yaw);
+        double xOffset = -Math.sin(yawRad) * offsetDistance;
+        double zOffset = Math.cos(yawRad) * offsetDistance;
+
+        double x = player.getX() + xOffset;
+        double y = player.getY() + player.getEyeHeight() + heightOffset;
+        double z = player.getZ() + zOffset;
+
+        player.level().addParticle(ModParticles.QI_PARTICLE.get(), x, y, z, 0, 0, 0);
+    }
+
+    private static void generateQiSwirl(Player player, ClientLevel level) {
+        double dantianY = player.getY() + 0.9; // Around belly area
+        double radius = 0.8;
+        int swirlPoints = 16;
+
+        for (int i = 0; i < swirlPoints; i++) {
+            double angle = (System.currentTimeMillis() / 100.0 + i * (360.0 / swirlPoints)) % 360;
+            double radians = Math.toRadians(angle);
+
+            double offsetX = radius * Math.cos(radians);
+            double offsetZ = radius * Math.sin(radians);
+
+            double x = player.getX() + offsetX;
+            double y = dantianY;
+            double z = player.getZ() + offsetZ;
+
+            player.level().addParticle(ModParticles.QI_PARTICLE.get(), x, y, z, 0, 0.01, 0);
         }
     }
 
