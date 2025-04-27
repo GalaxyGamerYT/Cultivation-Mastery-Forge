@@ -16,6 +16,7 @@ public class ModTags {
         public static final TagKey<Block> MEDIUM_SPIRIT_STONE_ORES = tag("medium_spirit_stone_ores");
         public static final TagKey<Block> HIGH_SPIRIT_STONE_ORES = tag("high_spirit_stone_ores");
 
+        public static final TagKey<Block> TRAINING_POSTS = tag("training_posts");
         public static final TagKey<Block> WOOD_TRAINING_POSTS = tag("wood_training_posts");
 
         public static TagKey<Block> tag(String name) {
@@ -31,6 +32,7 @@ public class ModTags {
         public static final TagKey<Item> SPIRITUAL_STONES = tag("spiritual_stones");
 
         public static final TagKey<Item> WOOD_TRAINING_POSTS = tag("wood_training_posts");
+        public static final TagKey<Item> TRAINING_POSTS = tag("wood_training_posts");
 
         public static TagKey<Item> tag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, name));

@@ -1,13 +1,14 @@
-// 1.20.1	2025-03-30T19:42:59.0903565	Tags for minecraft:block mod id cultivation_mastery
+// 1.20.1	2025-04-27T00:50:40.7946182	Tags for minecraft:block mod id cultivation_mastery
 7a691097b479c421db4b9299f9f507c779c8b886 data/cultivation_mastery/tags/blocks/high_spirit_stone_ores.json
 416f1f5f10a44d50d25a7e78d543dac433e88734 data/cultivation_mastery/tags/blocks/low_spirit_stone_ores.json
 832c67c33fd3ebaeedfef07afe7a6ceb71fd29f1 data/cultivation_mastery/tags/blocks/medium_spirit_stone_ores.json
-80e90c9ccc6d9b375476a73efdd15d459df1b228 data/cultivation_mastery/tags/blocks/wood_training_posts.json
-3fde77c4c21b1c6c0a263adfa1f051831a6689b9 data/forge/tags/blocks/needs_netherite_tool.json
-a67ac36129890c68363121c408aa5d1f1a35fb3a data/forge/tags/blocks/ores.json
+d038867bb549f3e5a5887e3b6138865afe7a3717 data/cultivation_mastery/tags/blocks/training_posts.json
+ae2bafa93df7b886cfd39e5a288e7128245b4e4b data/cultivation_mastery/tags/blocks/wood_training_posts.json
+7a691097b479c421db4b9299f9f507c779c8b886 data/forge/tags/blocks/needs_netherite_tool.json
+bd8f88943b7e51cd1626caf42ce28f5315f444bb data/forge/tags/blocks/ores.json
 5dea51bfa01f4ddfef4b300f6d10c2531dd1af93 data/forge/tags/blocks/ores_in_ground/deepslate.json
 988dca70e3f7dd569c3cb0317a0a41d739dbcf2d data/forge/tags/blocks/ores_in_ground/stone.json
-a67ac36129890c68363121c408aa5d1f1a35fb3a data/forge/tags/blocks/ore_rates/singular.json
-a67ac36129890c68363121c408aa5d1f1a35fb3a data/minecraft/tags/blocks/mineable/pickaxe.json
-ad9a645b47ec192b4cb29141aafbed9f82e51d11 data/minecraft/tags/blocks/needs_diamond_tool.json
-a5a5bd07230f0a783c308088b051b3886dbfde54 data/minecraft/tags/blocks/needs_iron_tool.json
+bd8f88943b7e51cd1626caf42ce28f5315f444bb data/forge/tags/blocks/ore_rates/singular.json
+bd8f88943b7e51cd1626caf42ce28f5315f444bb data/minecraft/tags/blocks/mineable/pickaxe.json
+832c67c33fd3ebaeedfef07afe7a6ceb71fd29f1 data/minecraft/tags/blocks/needs_diamond_tool.json
+416f1f5f10a44d50d25a7e78d543dac433e88734 data/minecraft/tags/blocks/needs_iron_tool.json

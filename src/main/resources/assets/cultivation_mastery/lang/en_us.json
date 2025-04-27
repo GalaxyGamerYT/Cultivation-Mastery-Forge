@@ -11,6 +11,21 @@
   "item.cultivation_mastery.low_spirit_stone": "Low Spirit Stone",
   "item.cultivation_mastery.medium_spirit_stone": "Medium Spirit Stone",
   "item.cultivation_mastery.high_spirit_stone": "High Spirit Stone",
+  "item.cultivation_mastery.immortal_spirit_stone": "Immortal Spirit Stone",
+
+  "item.cultivation_mastery.rune_stone.tooltip": "Used to add attributes to formations.",
+  "item.cultivation_mastery.basic_rune_stone.tooltip": "Basic attributes can be added with this.",
+  "item.cultivation_mastery.low_rune_stone.tooltip": "Low level attributes can be added with this.",
+  "item.cultivation_mastery.medium_rune_stone.tooltip": "Medium level attributes can be added with this.",
+  "item.cultivation_mastery.high_rune_stone.tooltip": "High level attributes can be added with this.",
+
+  "item.cultivation_mastery.rune_stone.named": "%1$s Rune Stone of %2$s",
+
+  "item.cultivation_mastery.blank_rune_stone": "Basic Rune Stone",
+  "item.cultivation_mastery.basic_rune_stone": "Basic Rune Stone",
+  "item.cultivation_mastery.low_rune_stone": "Basic Rune Stone",
+  "item.cultivation_mastery.medium_rune_stone": "Basic Rune Stone",
+  "item.cultivation_mastery.high_rune_stone": "Basic Rune Stone",
 
   "block.cultivation_mastery.low_spirit_stone_ore": "Low Spirit Stone Ore",
   "block.cultivation_mastery.deepslate_low_spirit_stone_ore": "Deeplsate Low Spirit Stone Ore",
@@ -40,6 +55,7 @@
 
   "creativetab.cultivation_mastery.cultivation_mastery_tab": "Cultivation Mastery",
   "creativetab.cultivation_mastery.training_post_tab": "Training Posts",
+  "creativetab.cultivation_mastery.rune_stone_tab": "Rune Stones",
   "creativetab.cultivation_mastery.debug_tab": "Debug",
 
   "screen.cultivation_mastery.custom_gui": "Custom GUI!!!",

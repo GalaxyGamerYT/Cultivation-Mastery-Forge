@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.block.custom;
+package galaxygameryt.cultivation_mastery.block.custom.training_posts;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.util.data.capability.PlayerCapabilityProvider;

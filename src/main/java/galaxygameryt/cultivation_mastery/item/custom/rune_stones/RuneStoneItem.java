@@ -1,0 +1,88 @@
+package galaxygameryt.cultivation_mastery.item.custom.rune_stones;
+
+import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class RuneStoneItem extends Item implements ICreativeRuneStone {
+
+    public static final String ATTRIBUTE_KEY = "RuneStoneAttribute";
+
+    public RuneStoneItem(Properties pProperties) {
+        super(pProperties);
+    }
+
+    public static void setAttribute(ItemStack stack, String attribute) {
+        stack.getOrCreateTag().putString(ATTRIBUTE_KEY, attribute);
+    }
+
+    public static String getAttribute(ItemStack stack) {
+        if (stack.hasTag() && stack.getTag().contains(ATTRIBUTE_KEY)) {
+            return stack.getTag().getString(ATTRIBUTE_KEY);
+        }
+        return "";
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+
+        tooltipComponents.add(Component.translatable("item.cultivation_mastery.rune_stone.tooltip"));
+    }
+
+    @Override
+    public Component getName(ItemStack stack) {
+        String attributeName = getAttribute(stack);
+
+        if (attributeName.isEmpty()) {
+            return super.getName(stack);
+        }
+
+        String prefix = getLevelPrefix();
+        String readableAttribute = formatAttributeName(attributeName);
+
+        MutableComponent name = Component.translatable("item.cultivation_mastery.rune_stone.named", prefix, readableAttribute);
+
+        return name.setStyle(Style.EMPTY.withColor(getLevelColor()));
+    }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return hasAtribute(stack);
+    }
+
+    public boolean hasAtribute(ItemStack stack) {
+        return getAttribute(stack) != null && !getAttribute(stack).isEmpty();
+    }
+
+    protected String getLevelPrefix() {
+        return "";
+    }
+
+    @Override
+    public int getLevelColor() {
+        return 0;
+    }
+
+    private String formatAttributeName(String rawName) {
+        String[] parts = rawName.toLowerCase().split("_");
+        return Arrays.stream(parts)
+                .map(part -> part.substring(0, 1).toUpperCase() + part.substring(1))
+                .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public void fillCreativeTab(List<ItemStack> items) {
+
+    }
+}

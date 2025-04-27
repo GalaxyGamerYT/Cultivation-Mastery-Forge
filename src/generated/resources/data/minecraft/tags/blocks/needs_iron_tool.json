@@ -1,5 +1,6 @@
 {
   "values": [
-    "#cultivation_mastery:low_spirit_stone_ores"
+    "cultivation_mastery:low_spirit_stone_ore",
+    "cultivation_mastery:deepslate_low_spirit_stone_ore"
   ]
 }
