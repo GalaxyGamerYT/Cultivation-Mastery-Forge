@@ -43,6 +43,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         // Spiritual Iron Training Post
         trainingPostBlock(ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get());
+
+        customModelBlockItem(ModBlocks.RUNE_INSCRIBING_TABLE);
     }
 
     private void customModelBlockItem(RegistryObject<Block> block) {

@@ -44,6 +44,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         registerRuneStones(ModItems.MEDIUM_RUNE_STONES, "medium_rune_stone");
         simpleItem(ModItems.HIGH_RUNE_STONE.get());
         registerRuneStones(ModItems.HIGH_RUNE_STONES, "high_rune_stone");
+        simpleItem(ModItems.IMMORTAL_RUNE_STONE.get());
+        registerRuneStones(ModItems.IMMORTAL_RUNE_STONES, "immortal_rune_stone");
     }
 
     private void registerRuneStones(List<RegistryObject<Item>> items, String texture) {

@@ -32,11 +32,9 @@ public class HighRuneStoneItem extends RuneStoneItem {
     }
 
     @Override
-    public void fillCreativeTab(List<ItemStack> items) {
-        for (RuneStoneAttributes.High attr : RuneStoneAttributes.High.values()) {
-            ItemStack stack = new ItemStack(this);
-            setAttribute(stack, attr.name());
-            items.add(stack);
-        }
+    public void fillCreativeTabItems(List<ItemStack> items, int index) {
+        ItemStack stack = new ItemStack(this);
+        setAttribute(stack, RuneStoneAttributes.High.values()[index].name());
+        items.add(stack);
     }
 }

@@ -1,6 +1,5 @@
 package galaxygameryt.cultivation_mastery.item.custom.rune_stones;
 
-import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -8,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -41,11 +41,11 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
     }
 
     @Override
-    public Component getName(ItemStack stack) {
+    public @NotNull Component getName(@NotNull ItemStack stack) {
         String attributeName = getAttribute(stack);
 
-        if (attributeName.isEmpty()) {
-            return super.getName(stack);
+        if (!hasAttribute(stack)) {
+            return Component.translatable(this.getDescriptionId(stack)).withStyle(Style.EMPTY.withColor(getLevelColor()));
         }
 
         String prefix = getLevelPrefix();
@@ -57,12 +57,12 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
     }
 
     @Override
-    public boolean isFoil(ItemStack stack) {
-        return hasAtribute(stack);
+    public boolean isFoil(@NotNull ItemStack stack) {
+        return hasAttribute(stack);
     }
 
-    public boolean hasAtribute(ItemStack stack) {
-        return getAttribute(stack) != null && !getAttribute(stack).isEmpty();
+    public boolean hasAttribute(ItemStack stack) {
+        return !getAttribute(stack).isEmpty();
     }
 
     protected String getLevelPrefix() {
@@ -71,7 +71,7 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
 
     @Override
     public int getLevelColor() {
-        return 0;
+        return 0xFFFFFF;
     }
 
     private String formatAttributeName(String rawName) {
@@ -81,8 +81,7 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
                 .collect(Collectors.joining(" "));
     }
 
-    @Override
-    public void fillCreativeTab(List<ItemStack> items) {
+    public void fillCreativeTabItems(List<ItemStack> items, int index) {
 
     }
 }

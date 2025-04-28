@@ -1,7 +1,9 @@
 package galaxygameryt.cultivation_mastery.block;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.block.custom.FormationCoreBlock;
 import galaxygameryt.cultivation_mastery.block.custom.PaddedCushionBlock;
+import galaxygameryt.cultivation_mastery.block.custom.RuneInscribingTableBlock;
 import galaxygameryt.cultivation_mastery.block.custom.ores.HighSpiritStoneOreBlock;
 import galaxygameryt.cultivation_mastery.block.custom.ores.LowSpiritStoneOreBlock;
 import galaxygameryt.cultivation_mastery.block.custom.ores.MediumSpiritStoneOreBlock;
@@ -73,6 +75,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> SPIRITUAL_IRON_TRAINING_POST = registerBlock("spiritual_iron_training_post",
             () -> new TrainingPostBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(-2.0F, 6.0F), 0.25f, 0.1f));
+
+    public static final RegistryObject<Block> RUNE_INSCRIBING_TABLE = registerBlock("rune_inscribing_table",
+            () -> new RuneInscribingTableBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
 
 
 

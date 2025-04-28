@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-27T01:26:47.3779339	Item Models: cultivation_mastery
+// 1.20.1	2025-04-27T23:42:12.6909151	Item Models: cultivation_mastery
 1a6f487e8e8724064c54505239a1e56592c04449 assets/cultivation_mastery/models/item/basic_rune_stone.json
 1a6f487e8e8724064c54505239a1e56592c04449 assets/cultivation_mastery/models/item/basic_rune_stone_defence.json
 1a6f487e8e8724064c54505239a1e56592c04449 assets/cultivation_mastery/models/item/basic_rune_stone_energy_gathering.json
@@ -8,6 +8,9 @@
 6b519b729949b6fa8f338c4f5cb2106ac9c55a8c assets/cultivation_mastery/models/item/high_rune_stone.json
 6b519b729949b6fa8f338c4f5cb2106ac9c55a8c assets/cultivation_mastery/models/item/high_rune_stone_tribulation.json
 c40d0b6545cc606a47d5f324618f430d0c13ee7d assets/cultivation_mastery/models/item/high_spirit_stone.json
+0e8666739437b304dd4e1182b7410d15c9fa6646 assets/cultivation_mastery/models/item/immortal_rune_stone.json
+0e8666739437b304dd4e1182b7410d15c9fa6646 assets/cultivation_mastery/models/item/immortal_rune_stone_ascension.json
+0e8666739437b304dd4e1182b7410d15c9fa6646 assets/cultivation_mastery/models/item/immortal_rune_stone_invulnerable.json
 e8011c8e8f91d35a6abb9463cdfcddbde2a97926 assets/cultivation_mastery/models/item/immortal_spirit_stone.json
 be67f2577e76091bb51bdefee9e6ff82aacc4230 assets/cultivation_mastery/models/item/low_rune_stone.json
 be67f2577e76091bb51bdefee9e6ff82aacc4230 assets/cultivation_mastery/models/item/low_rune_stone_earth.json

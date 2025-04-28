@@ -23,4 +23,9 @@ public class RuneStoneAttributes {
     public enum High {
         TRIBULATION
     }
+
+    public enum Immortal {
+        ASCENSION,
+        INVULNERABLE
+    }
 }

@@ -5,7 +5,7 @@ import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.block.custom.ores.SpiritStoneOreBlock;
 import galaxygameryt.cultivation_mastery.block.custom.training_posts.TrainingPostBlock;
 import galaxygameryt.cultivation_mastery.item.custom.SpiritStoneItem;
-import galaxygameryt.cultivation_mastery.item.custom.rune_stones.ICreativeRuneStone;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
 import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -19,7 +19,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ModCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
@@ -63,6 +62,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.SPIRITUAL_IRON_BLOCK.get().asItem());
 
                         output.accept(ModBlocks.PADDED_CUSHION.get().asItem());
+
+                        output.accept(ModBlocks.RUNE_INSCRIBING_TABLE.get().asItem());
                     })
                     .build());
 
@@ -91,44 +92,52 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.LOW_RUNE_STONE.get());
                         output.accept(ModItems.MEDIUM_RUNE_STONE.get());
                         output.accept(ModItems.HIGH_RUNE_STONE.get());
+                        output.accept(ModItems.IMMORTAL_RUNE_STONE.get());
 
-                        output.acceptAll(ModItems.BASIC_RUNE_STONES.stream()
-                                .map(RegistryObject::get)
-                                .filter(item -> item instanceof ICreativeRuneStone)
-                                .flatMap(item -> {
-                                    List<ItemStack> stacks = new ArrayList<>();
-                                    ((ICreativeRuneStone) item).fillCreativeTab(stacks);
-                                    return stacks.stream();
-                                }).collect(Collectors.toSet()));
-
-                        output.acceptAll(ModItems.LOW_RUNE_STONES.stream()
-                                .map(RegistryObject::get)
-                                .filter(item -> item instanceof ICreativeRuneStone)
-                                .flatMap(item -> {
-                                    List<ItemStack> stacks = new ArrayList<>();
-                                    ((ICreativeRuneStone) item).fillCreativeTab(stacks);
-                                    return stacks.stream();
-                                }).collect(Collectors.toSet()));
-
-                        output.acceptAll(ModItems.MEDIUM_RUNE_STONES.stream()
-                                .map(RegistryObject::get)
-                                .filter(item -> item instanceof ICreativeRuneStone)
-                                .flatMap(item -> {
-                                    List<ItemStack> stacks = new ArrayList<>();
-                                    ((ICreativeRuneStone) item).fillCreativeTab(stacks);
-                                    return stacks.stream();
-                                }).collect(Collectors.toSet()));
-
-                        output.acceptAll(ModItems.HIGH_RUNE_STONES.stream()
-                                .map(RegistryObject::get)
-                                .filter(item -> item instanceof ICreativeRuneStone)
-                                .flatMap(item -> {
-                                    List<ItemStack> stacks = new ArrayList<>();
-                                    ((ICreativeRuneStone) item).fillCreativeTab(stacks);
-                                    return stacks.stream();
-                                }).collect(Collectors.toSet()));
+                        populateRuneStones(output);
                     })
                     .build());
+
+    public static void populateRuneStones(CreativeModeTab.Output output) {
+        List<ItemStack> runeStoneStacks = new ArrayList<>();
+
+        // BASIC RUNE STONES
+        for (RegistryObject<Item> itemObj : ModItems.BASIC_RUNE_STONES) {
+            int index = ModItems.BASIC_RUNE_STONES.indexOf(itemObj);
+            BasicRuneStoneItem item = (BasicRuneStoneItem) itemObj.get();
+            item.fillCreativeTabItems(runeStoneStacks, index);
+        }
+
+        // LOW RUNE STONES
+        for (RegistryObject<Item> itemObj : ModItems.LOW_RUNE_STONES) {
+            int index = ModItems.LOW_RUNE_STONES.indexOf(itemObj);
+            LowRuneStoneItem item = (LowRuneStoneItem) itemObj.get();
+            item.fillCreativeTabItems(runeStoneStacks, index);
+        }
+
+        // MEDIUM RUNE STONES
+        for (RegistryObject<Item> itemObj : ModItems.MEDIUM_RUNE_STONES) {
+            int index = ModItems.MEDIUM_RUNE_STONES.indexOf(itemObj);
+            MediumRuneStoneItem item = (MediumRuneStoneItem) itemObj.get();
+            item.fillCreativeTabItems(runeStoneStacks, index);
+        }
+
+        // HIGH RUNE STONES
+        for (RegistryObject<Item> itemObj : ModItems.HIGH_RUNE_STONES) {
+            int index = ModItems.HIGH_RUNE_STONES.indexOf(itemObj);
+            HighRuneStoneItem item = (HighRuneStoneItem) itemObj.get();
+            item.fillCreativeTabItems(runeStoneStacks, index);
+        }
+
+        // IMMORTAL RUNE STONES
+        for (RegistryObject<Item> itemObj : ModItems.IMMORTAL_RUNE_STONES) {
+            int index = ModItems.IMMORTAL_RUNE_STONES.indexOf(itemObj);
+            ImmortalRuneStoneItem item = (ImmortalRuneStoneItem) itemObj.get();
+            item.fillCreativeTabItems(runeStoneStacks, index);
+        }
+
+        output.acceptAll(runeStoneStacks);
+    }
 
     public static void register(IEventBus eventBus) {
         Logger.info("Registering Creative Mode Tabs");

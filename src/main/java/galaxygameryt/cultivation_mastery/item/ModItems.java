@@ -25,6 +25,7 @@ public class ModItems {
     public static final List<RegistryObject<Item>> LOW_RUNE_STONES = new ArrayList<>();
     public static final List<RegistryObject<Item>> MEDIUM_RUNE_STONES = new ArrayList<>();
     public static final List<RegistryObject<Item>> HIGH_RUNE_STONES = new ArrayList<>();
+    public static final List<RegistryObject<Item>> IMMORTAL_RUNE_STONES = new ArrayList<>();
 
 
     public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("spiritual_mirror",
@@ -56,6 +57,8 @@ public class ModItems {
             () -> new MediumRuneStoneItem(new Item.Properties()));
     public static final RegistryObject<Item> HIGH_RUNE_STONE = ITEMS.register("high_rune_stone",
             () -> new HighRuneStoneItem(new Item.Properties()));
+    public static final RegistryObject<Item> IMMORTAL_RUNE_STONE = ITEMS.register("immortal_rune_stone",
+            () -> new ImmortalRuneStoneItem(new Item.Properties()));
 
 
     public static final RegistryObject<Item> SPIRITUAL_IRON_INGOT = ITEMS.register("spiritual_iron_ingot",
@@ -96,6 +99,14 @@ public class ModItems {
         }
     }
 
+    private static void registerImmortalRuneStones() {
+        for (RuneStoneAttributes.Immortal attr : RuneStoneAttributes.Immortal.values()) {
+            RegistryObject<Item> rune = ITEMS.register("immortal_rune_stone_" + attr.name().toLowerCase(),
+                    () -> new ImmortalRuneStoneItem(new Item.Properties()));
+            IMMORTAL_RUNE_STONES.add(rune);
+        }
+    }
+
     public static void register(IEventBus eventBus) {
         Logger.info("Registering Items");
         ITEMS.register(eventBus);
@@ -104,5 +115,6 @@ public class ModItems {
         registerLowRuneStones();
         registerMediumRuneStones();
         registerHighRuneStones();
+        registerImmortalRuneStones();
     }
 }

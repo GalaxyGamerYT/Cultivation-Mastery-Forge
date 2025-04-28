@@ -18,14 +18,16 @@
   "item.cultivation_mastery.low_rune_stone.tooltip": "Low level attributes can be added with this.",
   "item.cultivation_mastery.medium_rune_stone.tooltip": "Medium level attributes can be added with this.",
   "item.cultivation_mastery.high_rune_stone.tooltip": "High level attributes can be added with this.",
+  "item.cultivation_mastery.immortal_rune_stone.tooltip": "Immortal level attributes can be added with this.",
 
   "item.cultivation_mastery.rune_stone.named": "%1$s Rune Stone of %2$s",
 
-  "item.cultivation_mastery.blank_rune_stone": "Basic Rune Stone",
+  "item.cultivation_mastery.blank_rune_stone": "Blank Rune Stone",
   "item.cultivation_mastery.basic_rune_stone": "Basic Rune Stone",
-  "item.cultivation_mastery.low_rune_stone": "Basic Rune Stone",
-  "item.cultivation_mastery.medium_rune_stone": "Basic Rune Stone",
-  "item.cultivation_mastery.high_rune_stone": "Basic Rune Stone",
+  "item.cultivation_mastery.low_rune_stone": "Low Rune Stone",
+  "item.cultivation_mastery.medium_rune_stone": "Medium Rune Stone",
+  "item.cultivation_mastery.high_rune_stone": "High Rune Stone",
+  "item.cultivation_mastery.immortal_rune_stone": "Immortal Rune Stone",
 
   "block.cultivation_mastery.low_spirit_stone_ore": "Low Spirit Stone Ore",
   "block.cultivation_mastery.deepslate_low_spirit_stone_ore": "Deeplsate Low Spirit Stone Ore",
@@ -35,6 +37,8 @@
   "block.cultivation_mastery.deepslate_high_spirit_stone_ore": "Deeplsate High Spirit Stone Ore",
 
   "block.cultivation_mastery.spiritual_iron_block": "Spiritual Iron Block",
+
+  "block.cultivation_mastery.rune_inscribing_table": "Rune Inscribing Table",
 
   "block.cultivation_mastery.padded_cushion": "Padded Cushion",
   "block.cultivation_mastery.padded_cushion.tooltip": "Used to meditate on",

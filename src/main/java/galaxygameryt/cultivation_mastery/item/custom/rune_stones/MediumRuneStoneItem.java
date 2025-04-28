@@ -32,11 +32,9 @@ public class MediumRuneStoneItem extends RuneStoneItem {
     }
 
     @Override
-    public void fillCreativeTab(List<ItemStack> items) {
-        for (RuneStoneAttributes.Medium attr : RuneStoneAttributes.Medium.values()) {
-            ItemStack stack = new ItemStack(this);
-            setAttribute(stack, attr.name());
-            items.add(stack);
-        }
+    public void fillCreativeTabItems(List<ItemStack> items, int index) {
+        ItemStack stack = new ItemStack(this);
+        setAttribute(stack, RuneStoneAttributes.Medium.values()[index].name());
+        items.add(stack);
     }
 }

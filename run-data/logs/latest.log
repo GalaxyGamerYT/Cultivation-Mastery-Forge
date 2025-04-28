@@ -1,98 +1,98 @@
-[27Apr2025 01:26:37.731] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\oliwo\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, cultivation_mastery, --all, --output, B:\MyMods\Cultivation_Mastery_Forge\src\generated\resources, --existing, B:\MyMods\Cultivation_Mastery_Forge\src\main\resources, --mixin.config, mixins.cultivation_mastery.json]
-[27Apr2025 01:26:37.736] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.9 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
-[27Apr2025 01:26:37.870] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[27Apr2025 01:26:37.932] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/oliwo/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23129!/ Service=ModLauncher Env=CLIENT
-[27Apr2025 01:26:38.298] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.0\f0c0b352173d0a378cbdcec9cfc4ba65899a721\javafmllanguage-1.20.1-47.4.0.jar is missing mods.toml file
-[27Apr2025 01:26:38.310] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.0\e862740d8c84d08dbfedea412bef88fe42e727c5\lowcodelanguage-1.20.1-47.4.0.jar is missing mods.toml file
-[27Apr2025 01:26:38.321] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.0\5719b3a297a33f877ed5dde4cb4bd75c859096af\mclanguage-1.20.1-47.4.0.jar is missing mods.toml file
-[27Apr2025 01:26:38.331] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.0\235975dafa4309945b59c56b53f31dc5b65a6051\fmlcore-1.20.1-47.4.0.jar is missing mods.toml file
-[27Apr2025 01:26:38.617] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[27Apr2025 01:26:40.445] [main/WARN] [mixin/]: Compatibility level JAVA_17 specified by mixins.cultivation_mastery.json is higher than the maximum level supported by this version of mixin (JAVA_13).
-[27Apr2025 01:26:40.445] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[27Apr2025 01:26:40.446] [main/ERROR] [mixin/]: Mixin config mixins.cultivation_mastery.json does not specify "minVersion" property
-[27Apr2025 01:26:40.460] [main/WARN] [mixin/]: Compatibility level JAVA_16 specified by jade.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
-[27Apr2025 01:26:40.473] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\oliwo\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, cultivation_mastery, --all, --output, B:\MyMods\Cultivation_Mastery_Forge\src\generated\resources, --existing, B:\MyMods\Cultivation_Mastery_Forge\src\main\resources]
-[27Apr2025 01:26:40.672] [main/INFO] [mixin/]: Attempting to load Fernflower decompiler (Threaded mode)
-[27Apr2025 01:26:40.673] [main/INFO] [mixin/]: Fernflower could not be loaded, exported classes will not be decompiled. NoClassDefFoundError: org/jetbrains/java/decompiler/main/extern/IResultSaver
-[27Apr2025 01:26:40.702] [main/INFO] [mixin/]: Preparing mixins for MixinEnvironment[DEFAULT]
-[27Apr2025 01:26:40.702] [main/INFO] [mixin/]: Selecting config mixins.cultivation_mastery.json
-[27Apr2025 01:26:40.708] [main/WARN] [mixin/]: Reference map 'mixins.cultivation_mastery.refmap.json' for mixins.cultivation_mastery.json could not be read. If this is a development environment you can ignore this message
-[27Apr2025 01:26:40.709] [main/INFO] [mixin/]: Selecting config configured.common.mixins.json
-[27Apr2025 01:26:40.955] [main/INFO] [mixin/]: Remapping refMap configured.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.955] [main/INFO] [mixin/]: Selecting config betterf3.mixins.json
-[27Apr2025 01:26:40.956] [main/INFO] [mixin/]: Remapping refMap BetterF3-common-refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.956] [main/INFO] [mixin/]: Selecting config betterf3.forge.mixins.json
-[27Apr2025 01:26:40.957] [main/INFO] [mixin/]: Remapping refMap BetterF3-forge-refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.957] [main/INFO] [mixin/]: Selecting config jade.mixins.json
-[27Apr2025 01:26:40.959] [main/INFO] [mixin/]: Remapping refMap jade.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.959] [main/INFO] [mixin/]: Selecting config patchouli_xplat.mixins.json
-[27Apr2025 01:26:40.960] [main/INFO] [mixin/]: Remapping refMap patchouli.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.960] [main/INFO] [mixin/]: Selecting config controlling.mixins.json
-[27Apr2025 01:26:40.961] [main/INFO] [mixin/]: Remapping refMap controlling.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.961] [main/INFO] [mixin/]: Selecting config controlling.forge.mixins.json
-[27Apr2025 01:26:40.962] [main/INFO] [mixin/]: Remapping refMap controlling.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.962] [main/INFO] [mixin/]: Selecting config searchables.mixins.json
-[27Apr2025 01:26:40.963] [main/INFO] [mixin/]: Remapping refMap searchables.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.963] [main/INFO] [mixin/]: Selecting config searchables.forge.mixins.json
-[27Apr2025 01:26:40.963] [main/INFO] [mixin/]: Remapping refMap searchables.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
-[27Apr2025 01:26:40.963] [main/INFO] [mixin/]: Preparing mixins.cultivation_mastery.json (2)
-[27Apr2025 01:26:40.990] [main/INFO] [mixin/]: Preparing configured.common.mixins.json (2)
-[27Apr2025 01:26:41.004] [main/INFO] [mixin/]: Preparing betterf3.mixins.json (10)
-[27Apr2025 01:26:41.051] [main/INFO] [mixin/]: Preparing betterf3.forge.mixins.json (1)
-[27Apr2025 01:26:41.056] [main/INFO] [mixin/]: Preparing jade.mixins.json (2)
-[27Apr2025 01:26:41.060] [main/INFO] [mixin/]: Preparing patchouli_xplat.mixins.json (10)
-[27Apr2025 01:26:41.091] [main/INFO] [mixin/]: Preparing controlling.mixins.json (5)
-[27Apr2025 01:26:41.096] [main/INFO] [mixin/]: Preparing controlling.forge.mixins.json (0)
-[27Apr2025 01:26:41.096] [main/INFO] [mixin/]: Preparing searchables.mixins.json (1)
-[27Apr2025 01:26:41.100] [main/INFO] [mixin/]: Preparing searchables.forge.mixins.json (0)
-[27Apr2025 01:26:41.135] [main/INFO] [mixin/]: Prepared 32 mixins in 0.433 sec (13.5ms avg) (0ms load, 0ms transform, 0ms plugin)
-[27Apr2025 01:26:41.379] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [cultivation_mastery]
-[27Apr2025 01:26:46.030] [modloading-worker-0/INFO] [me.treyruffy.betterf3.BetterF3Forge/]: [BetterF3] Starting...
-[27Apr2025 01:26:46.032] [modloading-worker-0/INFO] [me.treyruffy.betterf3.BetterF3Forge/]: [BetterF3] Loading...
-[27Apr2025 01:26:46.042] [modloading-worker-0/INFO] [mixin/]: Mixing client.ScreenMixin from configured.common.mixins.json into net.minecraft.client.gui.screens.Screen
-[27Apr2025 01:26:46.046] [modloading-worker-0/INFO] [mixin/]: Mixing client.AccessorScreen from patchouli_xplat.mixins.json into net.minecraft.client.gui.screens.Screen
-[27Apr2025 01:26:46.077] [modloading-worker-0/INFO] [mixin/]: Mixing AccessScreen from controlling.mixins.json into net.minecraft.client.gui.screens.Screen
-[27Apr2025 01:26:46.195] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Creative Mode Tabs
-[27Apr2025 01:26:46.196] [modloading-worker-0/INFO] [me.treyruffy.betterf3.BetterF3Forge/]: [BetterF3] All done!
-[27Apr2025 01:26:46.200] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.0, for MC 1.20.1 with MCP 20230612.114412
-[27Apr2025 01:26:46.201] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.0 Initialized
-[27Apr2025 01:26:46.212] [modloading-worker-0/INFO] [mixin/]: Mixing autof3.DebugOptionMixin from betterf3.mixins.json into net.minecraft.client.Options
-[27Apr2025 01:26:46.270] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Items
-[27Apr2025 01:26:46.287] [modloading-worker-0/INFO] [mixin/]: Mixing client.AccessorKeyMapping from patchouli_xplat.mixins.json into net.minecraft.client.KeyMapping
-[27Apr2025 01:26:46.287] [modloading-worker-0/INFO] [mixin/]: Renaming @Accessor method getAllKeyMappings()Ljava/util/Map; to getAllKeyMappings_$md$0962c2$0 in patchouli_xplat.mixins.json:client.AccessorKeyMapping
-[27Apr2025 01:26:46.295] [modloading-worker-0/INFO] [mixin/]: Mixing AccessKeyMapping from controlling.mixins.json into net.minecraft.client.KeyMapping
-[27Apr2025 01:26:46.311] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Blocks
-[27Apr2025 01:26:46.316] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Menu Types
-[27Apr2025 01:26:46.323] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Mob Effects
-[27Apr2025 01:26:46.332] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Entities
-[27Apr2025 01:26:46.348] [modloading-worker-0/INFO] [mixin/]: Mixing AccessInputConstantsKey from controlling.mixins.json into com.mojang.blaze3d.platform.InputConstants$Key
-[27Apr2025 01:26:46.348] [modloading-worker-0/INFO] [mixin/]: Renaming @Accessor method controlling$getNAME_MAP()Ljava/util/Map; to controlling$getNAME_MAP_$md$0962c2$0 in controlling.mixins.json:AccessInputConstantsKey
-[27Apr2025 01:26:46.380] [modloading-worker-0/INFO] [mixin/]: Mixing autof3.AutomaticDebugMixin from betterf3.mixins.json into net.minecraft.client.gui.Gui
-[27Apr2025 01:26:46.381] [modloading-worker-0/INFO] [mixin/]: Mixing scoreboard.ScoreboardMixin from betterf3.mixins.json into net.minecraft.client.gui.Gui
-[27Apr2025 01:26:46.382] [modloading-worker-0/INFO] [mixin/]: Mixing debugcrosshair.DebugCrosshairMixin from betterf3.mixins.json into net.minecraft.client.gui.Gui
-[27Apr2025 01:26:46.441] [modloading-worker-0/INFO] [mixin/]: Mixing ForgeGuiMixin from betterf3.forge.mixins.json into net.minecraftforge.client.gui.overlay.ForgeGui
-[27Apr2025 01:26:46.482] [modloading-worker-0/INFO] [mixin/]: Mixing client.MixinInventoryScreen from patchouli_xplat.mixins.json into net.minecraft.client.gui.screens.inventory.InventoryScreen
-[27Apr2025 01:26:46.622] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
-[27Apr2025 01:26:46.629] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 5.752 ms
-[27Apr2025 01:26:46.919] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/oliwo/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[27Apr2025 01:26:46.920] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/oliwo/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[27Apr2025 01:26:47.076] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[27Apr2025 01:26:47.127] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 50 ms
-[27Apr2025 01:26:47.127] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
-[27Apr2025 01:26:47.175] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 47 ms
-[27Apr2025 01:26:47.175] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: cultivation_mastery
-[27Apr2025 01:26:47.303] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: cultivation_mastery finished after 128 ms
-[27Apr2025 01:26:47.303] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: cultivation_mastery
-[27Apr2025 01:26:47.322] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: cultivation_mastery finished after 18 ms
-[27Apr2025 01:26:47.322] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id cultivation_mastery
-[27Apr2025 01:26:47.359] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id cultivation_mastery finished after 36 ms
-[27Apr2025 01:26:47.359] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id cultivation_mastery
-[27Apr2025 01:26:47.361] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id cultivation_mastery finished after 1 ms
-[27Apr2025 01:26:47.361] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:worldgen/biome mod id cultivation_mastery
-[27Apr2025 01:26:47.362] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:worldgen/biome mod id cultivation_mastery finished after 0 ms
-[27Apr2025 01:26:47.362] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
-[27Apr2025 01:26:47.375] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 12 ms
-[27Apr2025 01:26:47.375] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Cultivation Mastery Particles
-[27Apr2025 01:26:47.376] [main/INFO] [net.minecraft.data.DataGenerator/]: Cultivation Mastery Particles finished after 0 ms
-[27Apr2025 01:26:47.376] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 299 ms
-[27Apr2025 01:26:47.388] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 176, old count: 165, new count: 177, removed stale: 0, written: 11
+[28Apr2025 00:54:10.825] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\oliwo\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, cultivation_mastery, --all, --output, B:\MyMods\Cultivation_Mastery_Forge\src\generated\resources, --existing, B:\MyMods\Cultivation_Mastery_Forge\src\main\resources, --mixin.config, mixins.cultivation_mastery.json]
+[28Apr2025 00:54:10.830] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.9 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[28Apr2025 00:54:10.945] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[28Apr2025 00:54:11.003] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/oliwo/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23129!/ Service=ModLauncher Env=CLIENT
+[28Apr2025 00:54:11.326] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.0\f0c0b352173d0a378cbdcec9cfc4ba65899a721\javafmllanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[28Apr2025 00:54:11.334] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.0\e862740d8c84d08dbfedea412bef88fe42e727c5\lowcodelanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[28Apr2025 00:54:11.342] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.0\5719b3a297a33f877ed5dde4cb4bd75c859096af\mclanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[28Apr2025 00:54:11.349] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\oliwo\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.0\235975dafa4309945b59c56b53f31dc5b65a6051\fmlcore-1.20.1-47.4.0.jar is missing mods.toml file
+[28Apr2025 00:54:11.620] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[28Apr2025 00:54:13.115] [main/WARN] [mixin/]: Compatibility level JAVA_17 specified by mixins.cultivation_mastery.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[28Apr2025 00:54:13.115] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[28Apr2025 00:54:13.116] [main/ERROR] [mixin/]: Mixin config mixins.cultivation_mastery.json does not specify "minVersion" property
+[28Apr2025 00:54:13.126] [main/WARN] [mixin/]: Compatibility level JAVA_16 specified by jade.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[28Apr2025 00:54:13.137] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\oliwo\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, cultivation_mastery, --all, --output, B:\MyMods\Cultivation_Mastery_Forge\src\generated\resources, --existing, B:\MyMods\Cultivation_Mastery_Forge\src\main\resources]
+[28Apr2025 00:54:13.210] [main/INFO] [mixin/]: Attempting to load Fernflower decompiler (Threaded mode)
+[28Apr2025 00:54:13.211] [main/INFO] [mixin/]: Fernflower could not be loaded, exported classes will not be decompiled. NoClassDefFoundError: org/jetbrains/java/decompiler/main/extern/IResultSaver
+[28Apr2025 00:54:13.223] [main/INFO] [mixin/]: Preparing mixins for MixinEnvironment[DEFAULT]
+[28Apr2025 00:54:13.223] [main/INFO] [mixin/]: Selecting config mixins.cultivation_mastery.json
+[28Apr2025 00:54:13.226] [main/WARN] [mixin/]: Reference map 'mixins.cultivation_mastery.refmap.json' for mixins.cultivation_mastery.json could not be read. If this is a development environment you can ignore this message
+[28Apr2025 00:54:13.227] [main/INFO] [mixin/]: Selecting config configured.common.mixins.json
+[28Apr2025 00:54:13.496] [main/INFO] [mixin/]: Remapping refMap configured.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.496] [main/INFO] [mixin/]: Selecting config betterf3.mixins.json
+[28Apr2025 00:54:13.498] [main/INFO] [mixin/]: Remapping refMap BetterF3-common-refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.498] [main/INFO] [mixin/]: Selecting config betterf3.forge.mixins.json
+[28Apr2025 00:54:13.498] [main/INFO] [mixin/]: Remapping refMap BetterF3-forge-refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.499] [main/INFO] [mixin/]: Selecting config jade.mixins.json
+[28Apr2025 00:54:13.499] [main/INFO] [mixin/]: Remapping refMap jade.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.500] [main/INFO] [mixin/]: Selecting config patchouli_xplat.mixins.json
+[28Apr2025 00:54:13.501] [main/INFO] [mixin/]: Remapping refMap patchouli.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.501] [main/INFO] [mixin/]: Selecting config controlling.mixins.json
+[28Apr2025 00:54:13.501] [main/INFO] [mixin/]: Remapping refMap controlling.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.502] [main/INFO] [mixin/]: Selecting config controlling.forge.mixins.json
+[28Apr2025 00:54:13.502] [main/INFO] [mixin/]: Remapping refMap controlling.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.502] [main/INFO] [mixin/]: Selecting config searchables.mixins.json
+[28Apr2025 00:54:13.504] [main/INFO] [mixin/]: Remapping refMap searchables.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.504] [main/INFO] [mixin/]: Selecting config searchables.forge.mixins.json
+[28Apr2025 00:54:13.505] [main/INFO] [mixin/]: Remapping refMap searchables.refmap.json using B:\MyMods\Cultivation_Mastery_Forge\build\createSrgToMcp\output.srg
+[28Apr2025 00:54:13.505] [main/INFO] [mixin/]: Preparing mixins.cultivation_mastery.json (2)
+[28Apr2025 00:54:13.534] [main/INFO] [mixin/]: Preparing configured.common.mixins.json (2)
+[28Apr2025 00:54:13.549] [main/INFO] [mixin/]: Preparing betterf3.mixins.json (10)
+[28Apr2025 00:54:13.585] [main/INFO] [mixin/]: Preparing betterf3.forge.mixins.json (1)
+[28Apr2025 00:54:13.588] [main/INFO] [mixin/]: Preparing jade.mixins.json (2)
+[28Apr2025 00:54:13.591] [main/INFO] [mixin/]: Preparing patchouli_xplat.mixins.json (10)
+[28Apr2025 00:54:13.628] [main/INFO] [mixin/]: Preparing controlling.mixins.json (5)
+[28Apr2025 00:54:13.631] [main/INFO] [mixin/]: Preparing controlling.forge.mixins.json (0)
+[28Apr2025 00:54:13.632] [main/INFO] [mixin/]: Preparing searchables.mixins.json (1)
+[28Apr2025 00:54:13.634] [main/INFO] [mixin/]: Preparing searchables.forge.mixins.json (0)
+[28Apr2025 00:54:13.667] [main/INFO] [mixin/]: Prepared 32 mixins in 0.444 sec (13.9ms avg) (0ms load, 0ms transform, 0ms plugin)
+[28Apr2025 00:54:13.922] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [cultivation_mastery]
+[28Apr2025 00:54:18.367] [modloading-worker-0/INFO] [me.treyruffy.betterf3.BetterF3Forge/]: [BetterF3] Starting...
+[28Apr2025 00:54:18.370] [modloading-worker-0/INFO] [me.treyruffy.betterf3.BetterF3Forge/]: [BetterF3] Loading...
+[28Apr2025 00:54:18.377] [modloading-worker-0/INFO] [mixin/]: Mixing client.ScreenMixin from configured.common.mixins.json into net.minecraft.client.gui.screens.Screen
+[28Apr2025 00:54:18.382] [modloading-worker-0/INFO] [mixin/]: Mixing client.AccessorScreen from patchouli_xplat.mixins.json into net.minecraft.client.gui.screens.Screen
+[28Apr2025 00:54:18.411] [modloading-worker-0/INFO] [mixin/]: Mixing AccessScreen from controlling.mixins.json into net.minecraft.client.gui.screens.Screen
+[28Apr2025 00:54:18.497] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Creative Mode Tabs
+[28Apr2025 00:54:18.503] [modloading-worker-0/INFO] [me.treyruffy.betterf3.BetterF3Forge/]: [BetterF3] All done!
+[28Apr2025 00:54:18.509] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.0, for MC 1.20.1 with MCP 20230612.114412
+[28Apr2025 00:54:18.510] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.0 Initialized
+[28Apr2025 00:54:18.511] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Items
+[28Apr2025 00:54:18.563] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Blocks
+[28Apr2025 00:54:18.567] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Menu Types
+[28Apr2025 00:54:18.575] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Mob Effects
+[28Apr2025 00:54:18.585] [modloading-worker-0/INFO] [galaxygameryt.cultivation_mastery.util.Logger/]: [Cultivation Mastery] Registering Entities
+[28Apr2025 00:54:18.592] [modloading-worker-0/INFO] [mixin/]: Mixing autof3.DebugOptionMixin from betterf3.mixins.json into net.minecraft.client.Options
+[28Apr2025 00:54:18.701] [modloading-worker-0/INFO] [mixin/]: Mixing client.AccessorKeyMapping from patchouli_xplat.mixins.json into net.minecraft.client.KeyMapping
+[28Apr2025 00:54:18.701] [modloading-worker-0/INFO] [mixin/]: Renaming @Accessor method getAllKeyMappings()Ljava/util/Map; to getAllKeyMappings_$md$c54e82$0 in patchouli_xplat.mixins.json:client.AccessorKeyMapping
+[28Apr2025 00:54:18.705] [modloading-worker-0/INFO] [mixin/]: Mixing AccessKeyMapping from controlling.mixins.json into net.minecraft.client.KeyMapping
+[28Apr2025 00:54:18.745] [modloading-worker-0/INFO] [mixin/]: Mixing AccessInputConstantsKey from controlling.mixins.json into com.mojang.blaze3d.platform.InputConstants$Key
+[28Apr2025 00:54:18.745] [modloading-worker-0/INFO] [mixin/]: Renaming @Accessor method controlling$getNAME_MAP()Ljava/util/Map; to controlling$getNAME_MAP_$md$c54e82$0 in controlling.mixins.json:AccessInputConstantsKey
+[28Apr2025 00:54:18.771] [modloading-worker-0/INFO] [mixin/]: Mixing autof3.AutomaticDebugMixin from betterf3.mixins.json into net.minecraft.client.gui.Gui
+[28Apr2025 00:54:18.773] [modloading-worker-0/INFO] [mixin/]: Mixing scoreboard.ScoreboardMixin from betterf3.mixins.json into net.minecraft.client.gui.Gui
+[28Apr2025 00:54:18.774] [modloading-worker-0/INFO] [mixin/]: Mixing debugcrosshair.DebugCrosshairMixin from betterf3.mixins.json into net.minecraft.client.gui.Gui
+[28Apr2025 00:54:18.808] [modloading-worker-0/INFO] [mixin/]: Mixing ForgeGuiMixin from betterf3.forge.mixins.json into net.minecraftforge.client.gui.overlay.ForgeGui
+[28Apr2025 00:54:18.852] [modloading-worker-0/INFO] [mixin/]: Mixing client.MixinInventoryScreen from patchouli_xplat.mixins.json into net.minecraft.client.gui.screens.inventory.InventoryScreen
+[28Apr2025 00:54:18.964] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[28Apr2025 00:54:18.969] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 3.268 ms
+[28Apr2025 00:54:19.322] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/oliwo/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[28Apr2025 00:54:19.323] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/oliwo/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[28Apr2025 00:54:19.506] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[28Apr2025 00:54:19.558] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 51 ms
+[28Apr2025 00:54:19.559] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
+[28Apr2025 00:54:19.626] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 66 ms
+[28Apr2025 00:54:19.626] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: cultivation_mastery
+[28Apr2025 00:54:19.763] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: cultivation_mastery finished after 136 ms
+[28Apr2025 00:54:19.763] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: cultivation_mastery
+[28Apr2025 00:54:19.782] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: cultivation_mastery finished after 18 ms
+[28Apr2025 00:54:19.782] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id cultivation_mastery
+[28Apr2025 00:54:19.797] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id cultivation_mastery finished after 14 ms
+[28Apr2025 00:54:19.797] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id cultivation_mastery
+[28Apr2025 00:54:19.800] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id cultivation_mastery finished after 2 ms
+[28Apr2025 00:54:19.800] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:worldgen/biome mod id cultivation_mastery
+[28Apr2025 00:54:19.801] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:worldgen/biome mod id cultivation_mastery finished after 0 ms
+[28Apr2025 00:54:19.801] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
+[28Apr2025 00:54:19.814] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 13 ms
+[28Apr2025 00:54:19.815] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Cultivation Mastery Particles
+[28Apr2025 00:54:19.816] [main/INFO] [net.minecraft.data.DataGenerator/]: Cultivation Mastery Particles finished after 1 ms
+[28Apr2025 00:54:19.816] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 310 ms
+[28Apr2025 00:54:19.826] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 182, old count: 182, new count: 183, removed stale: 0, written: 0
