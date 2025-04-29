@@ -9,6 +9,7 @@ import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.networking.ModMessages;
 import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.particles.ModParticles;
+import galaxygameryt.cultivation_mastery.recipe.ModRecipes;
 import galaxygameryt.cultivation_mastery.util.data.player.ClientPlayerData;
 import galaxygameryt.cultivation_mastery.util.data.player.ServerPlayerData;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,6 +47,7 @@ public class CultivationMastery
         ModEffects.register(modEventBus);
         ModEntities.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

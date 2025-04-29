@@ -1,6 +1,6 @@
 package galaxygameryt.cultivation_mastery.item.custom;
 
-import galaxygameryt.cultivation_mastery.client.gui.screens.custom.ContainerMenu;
+import galaxygameryt.cultivation_mastery.client.gui.screens.custom.container.ContainerMenu;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;

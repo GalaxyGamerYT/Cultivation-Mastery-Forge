@@ -30,7 +30,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(ModBlocks.SPIRITUAL_IRON_BLOCK.get());
 
-        customModelBlockItem(ModBlocks.PADDED_CUSHION);
+        customModelBlockWithItem(ModBlocks.PADDED_CUSHION.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/padded_cushion")));
 
         trainingPostBlock(ModBlocks.OAK_TRAINING_POST.get());
         trainingPostBlock(ModBlocks.JUNGLE_TRAINING_POST.get());
@@ -44,48 +45,28 @@ public class ModBlockStateProvider extends BlockStateProvider {
         // Spiritual Iron Training Post
         trainingPostBlock(ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get());
 
-        customModelBlockItem(ModBlocks.RUNE_INSCRIBING_TABLE);
+        customModelBlockWithItem(ModBlocks.RUNE_INSCRIBING_TABLE.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/rune_inscribing_table")));
     }
 
-    private void customModelBlockItem(RegistryObject<Block> block) {
-        ModelFile model = new ModelFile(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "block/"+block.getId().getPath())) {
-            @Override
-            protected boolean exists() {
-                return true;
-            }
-        };
-        getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
-        simpleBlockItem(block.get(), model);
+    private void customModelBlockWithItem(Block block, ModelFile model) {
+        simpleBlock(block, model);
+        simpleBlockItem(block, model);
     }
 
     private void trainingPostBlock(Block block) {
         getVariantBuilder(block).forAllStatesExcept(state -> {
             boolean lower = state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER;
 
-            ModelFile model = new ModelFile(ResourceLocation.fromNamespaceAndPath(
-                    CultivationMastery.MOD_ID,
-                    "training_posts/block/"+ForgeRegistries.BLOCKS.getKey(block).getPath()+"_"+(
+            ModelFile model = new ModelFile.UncheckedModelFile(modLoc("training_posts/block/"+ForgeRegistries.BLOCKS.getKey(block).getPath()+"_"+(
                     lower ? "bottom" : "top")
-            )) {
-                @Override
-                protected boolean exists() {
-                    return true;
-                }
-            };
+                    ));
 
             return ConfiguredModel.builder()
                     .modelFile(model)
                     .build();
         });
-        simpleBlockItem(block, new ModelFile(ResourceLocation.fromNamespaceAndPath(
-                CultivationMastery.MOD_ID,
-                "training_posts/item/"+ForgeRegistries.BLOCKS.getKey(block).getPath()
-        )) {
-            @Override
-            protected boolean exists() {
-                return true;
-            }
-        });
+        simpleBlockItem(block, new ModelFile.UncheckedModelFile(modLoc("training_posts/item/"+ForgeRegistries.BLOCKS.getKey(block).getPath())));
     }
 
     private void blockWithItem(Block block) {

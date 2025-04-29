@@ -10,8 +10,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class MediumRuneStoneItem extends RuneStoneItem {
-    public MediumRuneStoneItem(Properties pProperties) {
-        super(pProperties);
+    public MediumRuneStoneItem(Properties properties) {
+        this(properties, "");
+    }
+
+    public MediumRuneStoneItem(Properties properties, String attribute) {
+        super(properties, attribute);
     }
 
     @Override

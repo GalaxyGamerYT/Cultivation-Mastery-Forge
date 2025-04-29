@@ -15,15 +15,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RuneStoneItem extends Item implements ICreativeRuneStone {
+    private static final String ATTRIBUTE_KEY = "RuneStoneAttribute";
+    private String attribute = null;
 
-    public static final String ATTRIBUTE_KEY = "RuneStoneAttribute";
+    public RuneStoneItem(Properties properties) {
+        this(properties, "");
+    }
 
-    public RuneStoneItem(Properties pProperties) {
-        super(pProperties);
+    public RuneStoneItem(Properties properties, String attribute) {
+        super(properties);
+        this.attribute = attribute;
+    }
+
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
+
+    public String getAttribute() {
+        return attribute;
     }
 
     public static void setAttribute(ItemStack stack, String attribute) {
         stack.getOrCreateTag().putString(ATTRIBUTE_KEY, attribute);
+        ((RuneStoneItem) stack.getItem()).attribute = attribute;
     }
 
     public static String getAttribute(ItemStack stack) {
@@ -33,8 +47,14 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
         return "";
     }
 
+    public static ItemStack createWithAttribute(RuneStoneItem runeStone, String attribute) {
+        ItemStack stack = new ItemStack(runeStone);
+        RuneStoneItem.setAttribute(stack, attribute);
+        return stack;
+    }
+
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
 
         tooltipComponents.add(Component.translatable("item.cultivation_mastery.rune_stone.tooltip"));

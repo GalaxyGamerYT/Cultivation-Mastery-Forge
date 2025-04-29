@@ -1,7 +1,8 @@
 package galaxygameryt.cultivation_mastery.client.gui.screens;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.client.gui.screens.custom.ContainerMenu;
+import galaxygameryt.cultivation_mastery.client.gui.screens.custom.container.ContainerMenu;
+import galaxygameryt.cultivation_mastery.client.gui.screens.custom.rune_inscribing_table.RuneInscribingTableMenu;
 import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -18,6 +19,8 @@ public class ModMenuTypes {
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, CultivationMastery.MOD_ID);
 
     public static final RegistryObject<MenuType<ContainerMenu>> CONTAINER_MENU = registerFactoryMenuType("container_menu", ContainerMenu::new);
+
+    public static final RegistryObject<MenuType<RuneInscribingTableMenu>> RUNE_INSCRIBING_TABLE_MENU = registerMenuType("rune_inscribing_table", RuneInscribingTableMenu::new);
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, MenuType.MenuSupplier<T> supplier) {
         return MENUS.register(name, () -> new MenuType(supplier, FeatureFlags.DEFAULT_FLAGS));

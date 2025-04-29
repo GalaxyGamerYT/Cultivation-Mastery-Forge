@@ -1,4 +1,4 @@
-package galaxygameryt.cultivation_mastery.client.gui.screens.custom;
+package galaxygameryt.cultivation_mastery.client.gui.screens.custom.container;
 
 import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.client.gui.screens.slots.ProtectedSlot;

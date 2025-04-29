@@ -3,10 +3,14 @@ package galaxygameryt.cultivation_mastery.datagen;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.item.ModItems;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
+import galaxygameryt.cultivation_mastery.recipe.builders.RuneInscribingRecipeBuilder;
 import galaxygameryt.cultivation_mastery.util.ModTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -14,6 +18,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -42,11 +47,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         oreBlasting(pWriter, HIGH_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.HIGH_SPIRIT_STONE.get(), 0.25f, 100, "high_spirit_stone");
 
         // Spiritual Stones
-        packableRecipes(pWriter, RecipeCategory.MISC, ModItems.LOW_SPIRIT_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
-        packableRecipes(pWriter, RecipeCategory.MISC, ModItems.MEDIUM_SPIRIT_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
+        packableRecipe(pWriter, RecipeCategory.MISC, ModItems.LOW_SPIRIT_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
+        packableRecipe(pWriter, RecipeCategory.MISC, ModItems.MEDIUM_SPIRIT_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
 
         // Spiritual Iron
-        packableRecipes(pWriter, RecipeCategory.MISC, ModItems.SPIRITUAL_IRON_INGOT.get(), ModBlocks.SPIRITUAL_IRON_BLOCK.get());
+        packableRecipe(pWriter, RecipeCategory.MISC, ModItems.SPIRITUAL_IRON_INGOT.get(), ModBlocks.SPIRITUAL_IRON_BLOCK.get());
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.SPIRITUAL_IRON_INGOT.get(), 2)
                 .requires(ModItems.LOW_SPIRIT_STONE.get())
                 .requires(Items.IRON_INGOT, 2)
@@ -96,7 +101,68 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModBlocks.SPIRITUAL_IRON_BLOCK.get()), has(ModBlocks.SPIRITUAL_IRON_BLOCK.get()))
                 .save(pWriter);
 
+        // BASIC RUNE STONES
+        for (RegistryObject<Item> runeStoneObj : ModItems.BASIC_RUNE_STONES) {
+            Item runeStone = runeStoneObj.get();
+            if (runeStone instanceof RuneStoneItem rune) {
+                String attribute = rune.getAttribute();
+                if (attribute != null) {
+                    runeInscribingRecipes(pWriter, rune, Items.REDSTONE);
+                }
+            }
+        }
 
+        // LOW RUNE STONES
+        for (RegistryObject<Item> runeStoneObj : ModItems.LOW_RUNE_STONES) {
+            Item runeStone = runeStoneObj.get();
+            if (runeStone instanceof RuneStoneItem rune) {
+                String attribute = rune.getAttribute();
+                if (attribute != null) {
+                    runeInscribingRecipes(pWriter, rune, ModItems.LOW_SPIRIT_STONE.get());
+                }
+            }
+        }
+
+        // MEDIUM RUNE STONES
+        for (RegistryObject<Item> runeStoneObj : ModItems.MEDIUM_RUNE_STONES) {
+            Item runeStone = runeStoneObj.get();
+            if (runeStone instanceof RuneStoneItem rune) {
+                String attribute = rune.getAttribute();
+                if (attribute != null) {
+                    runeInscribingRecipes(pWriter, rune, ModItems.MEDIUM_SPIRIT_STONE.get());
+                }
+            }
+        }
+
+        // HIGH RUNE STONES
+        for (RegistryObject<Item> runeStoneObj : ModItems.HIGH_RUNE_STONES) {
+            Item runeStone = runeStoneObj.get();
+            if (runeStone instanceof RuneStoneItem rune) {
+                String attribute = rune.getAttribute();
+                if (attribute != null) {
+                    runeInscribingRecipes(pWriter, rune, ModItems.HIGH_SPIRIT_STONE.get());
+                }
+            }
+        }
+
+        // IMMORTAL RUNE STONES
+        for (RegistryObject<Item> runeStoneObj : ModItems.IMMORTAL_RUNE_STONES) {
+            Item runeStone = runeStoneObj.get();
+            if (runeStone instanceof RuneStoneItem rune) {
+                String attribute = rune.getAttribute();
+                if (attribute != null) {
+                    runeInscribingRecipes(pWriter, rune, ModItems.IMMORTAL_SPIRIT_STONE.get());
+                }
+            }
+        }
+    }
+
+    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, ItemLike input) {
+        RuneInscribingRecipeBuilder.runeInscribing(RecipeCategory.MISC, result)
+                .requires(input)
+                .requires(ModItems.BLANK_RUNE_STONE.get())
+                .unlockedBy(getHasName(input), has(input))
+                .save(writer, ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, result.toString() + "_crafting"));
     }
 
     protected static void basicTrainingPostRecipes(Consumer<FinishedRecipe> pWriter, ItemLike outputItem, ItemLike baseItem, ItemLike pillarItem) {
@@ -110,7 +176,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(pWriter);
     }
 
-    protected static void packableRecipes(Consumer<FinishedRecipe> pWriter, RecipeCategory category, ItemLike unpackedItem, ItemLike packedItem) {
+    protected static void packableRecipe(Consumer<FinishedRecipe> pWriter, RecipeCategory category, ItemLike unpackedItem, ItemLike packedItem) {
         ShapedRecipeBuilder.shaped(category, packedItem)
                 .pattern("###")
                 .pattern("###")

@@ -9,6 +9,7 @@ import galaxygameryt.cultivation_mastery.util.Logger;
 import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -60,7 +61,6 @@ public class ModItems {
     public static final RegistryObject<Item> IMMORTAL_RUNE_STONE = ITEMS.register("immortal_rune_stone",
             () -> new ImmortalRuneStoneItem(new Item.Properties()));
 
-
     public static final RegistryObject<Item> SPIRITUAL_IRON_INGOT = ITEMS.register("spiritual_iron_ingot",
             () -> new Item(new Item.Properties()));
 
@@ -70,7 +70,7 @@ public class ModItems {
     private static void registerBasicRuneStones() {
         for (RuneStoneAttributes.Basic attr : RuneStoneAttributes.Basic.values()) {
             RegistryObject<Item> rune = ITEMS.register("basic_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new BasicRuneStoneItem(new Item.Properties()));
+                    () -> new BasicRuneStoneItem(new Item.Properties(), attr.name()));
             BASIC_RUNE_STONES.add(rune);
         }
     }
@@ -78,7 +78,7 @@ public class ModItems {
     private static void registerLowRuneStones() {
         for (RuneStoneAttributes.Low attr : RuneStoneAttributes.Low.values()) {
             RegistryObject<Item> rune = ITEMS.register("low_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new LowRuneStoneItem(new Item.Properties()));
+                    () -> new LowRuneStoneItem(new Item.Properties(), attr.name()));
             LOW_RUNE_STONES.add(rune);
         }
     }
@@ -86,7 +86,7 @@ public class ModItems {
     private static void registerMediumRuneStones() {
         for (RuneStoneAttributes.Medium attr : RuneStoneAttributes.Medium.values()) {
             RegistryObject<Item> rune = ITEMS.register("medium_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new MediumRuneStoneItem(new Item.Properties()));
+                    () -> new MediumRuneStoneItem(new Item.Properties(), attr.name()));
             MEDIUM_RUNE_STONES.add(rune);
         }
     }
@@ -94,7 +94,7 @@ public class ModItems {
     private static void registerHighRuneStones() {
         for (RuneStoneAttributes.High attr : RuneStoneAttributes.High.values()) {
             RegistryObject<Item> rune = ITEMS.register("high_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new HighRuneStoneItem(new Item.Properties()));
+                    () -> new HighRuneStoneItem(new Item.Properties(), attr.name()));
             HIGH_RUNE_STONES.add(rune);
         }
     }
@@ -102,7 +102,7 @@ public class ModItems {
     private static void registerImmortalRuneStones() {
         for (RuneStoneAttributes.Immortal attr : RuneStoneAttributes.Immortal.values()) {
             RegistryObject<Item> rune = ITEMS.register("immortal_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new ImmortalRuneStoneItem(new Item.Properties()));
+                    () -> new ImmortalRuneStoneItem(new Item.Properties(), attr.name()));
             IMMORTAL_RUNE_STONES.add(rune);
         }
     }
