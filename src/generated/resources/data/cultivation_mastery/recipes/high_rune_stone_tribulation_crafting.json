@@ -1,0 +1,15 @@
+{
+  "type": "cultivation_mastery:rune_inscribing_table",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "cultivation_mastery:high_spirit_stone"
+    },
+    {
+      "item": "cultivation_mastery:blank_rune_stone"
+    }
+  ],
+  "result": {
+    "item": "cultivation_mastery:high_rune_stone_tribulation"
+  }
+}
