@@ -20,7 +20,7 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<ContainerMenu>> CONTAINER_MENU = registerFactoryMenuType("container_menu", ContainerMenu::new);
 
-    public static final RegistryObject<MenuType<RuneInscribingTableMenu>> RUNE_INSCRIBING_TABLE_MENU = registerMenuType("rune_inscribing_table", RuneInscribingTableMenu::new);
+    public static final RegistryObject<MenuType<RuneInscribingTableMenu>> RUNE_INSCRIBING_TABLE_MENU = registerFactoryMenuType("rune_inscribing_table", RuneInscribingTableMenu::new);
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, MenuType.MenuSupplier<T> supplier) {
         return MENUS.register(name, () -> new MenuType(supplier, FeatureFlags.DEFAULT_FLAGS));

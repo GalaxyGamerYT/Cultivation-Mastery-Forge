@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class RuneInscribingTableScreen extends AbstractContainerScreen<RuneInscribingTableMenu> {
-    private static final ResourceLocation BG_LOCATION = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "textures/gui/container/rune_inscribing_table.png");
+    private static final ResourceLocation BG_LOCATION = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, "textures/gui/containers/rune_inscribing_table.png");
     private static final int SCROLLER_WIDTH = 12;
     private static final int SCROLLER_HEGIHT = 15;
     private static final int RECIPES_COLUMNS = 4;
@@ -35,6 +35,14 @@ public class RuneInscribingTableScreen extends AbstractContainerScreen<RuneInscr
         super(menu, playerInventory, title);
         menu.registerUpdateListener(this::containerChanged);
         --this.titleLabelY;
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        String[] title = this.title.getString().split(" ");
+        pGuiGraphics.drawString(this.font, title[0], this.titleLabelX, this.titleLabelY, 4210752, false);
+        pGuiGraphics.drawString(this.font, title[1], this.titleLabelX + 100, this.titleLabelY, 4210752, false);
+        pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
     }
 
     @Override
@@ -119,10 +127,14 @@ public class RuneInscribingTableScreen extends AbstractContainerScreen<RuneInscr
                 int i1 = l - this.startIndex;
                 double d0 = mouseX - (double)(i + i1 % 4 * 16);
                 double d1 = mouseY - (double)(j + i1 / 4 * 18);
-                if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.menu.clickMenuButton(this.minecraft.player, l)) {
-                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-                    this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
-                    return true;
+                if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D) {
+                    assert this.minecraft != null;
+                    if (this.menu.clickMenuButton(this.minecraft.player, l)) {
+                        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+                        assert this.minecraft.gameMode != null;
+                        this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
+                        return true;
+                    }
                 }
             }
 

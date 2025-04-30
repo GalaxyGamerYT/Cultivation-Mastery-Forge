@@ -41,7 +41,7 @@ public class RuneInscribingTableBlock extends Block {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
-            player.openMenu(state.getMenuProvider(level, pos));
+            player.openMenu(getMenuProvider(state, level, pos));
             return InteractionResult.CONSUME;
         }
     }
@@ -49,7 +49,7 @@ public class RuneInscribingTableBlock extends Block {
     @Nullable
     @Override
     public MenuProvider getMenuProvider(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
-        return new SimpleMenuProvider((containerId, playerInventory, player) -> new RuneInscribingTableMenu(containerId, playerInventory, ContainerLevelAccess.create(level, pos)), CONTAINER_TITLE);
+        return new RuneInscribingTableMenu.Provider(CONTAINER_TITLE, ContainerLevelAccess.create(level, pos));
     }
 
     @Override
