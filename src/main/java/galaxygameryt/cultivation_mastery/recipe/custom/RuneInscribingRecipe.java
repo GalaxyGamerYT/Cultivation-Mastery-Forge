@@ -68,6 +68,9 @@ public class RuneInscribingRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<RuneInscribingRecipe> {
         public static final Type INSTANCE = new Type();
         public static final String ID = "rune_inscribing";
+        public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, ID);
+        public static final mezz.jei.api.recipe.RecipeType<RuneInscribingRecipe> JEI_TYPE =
+                new mezz.jei.api.recipe.RecipeType<>(UID, RuneInscribingRecipe.class);
     }
 
     public static class Serializer implements RecipeSerializer<RuneInscribingRecipe> {

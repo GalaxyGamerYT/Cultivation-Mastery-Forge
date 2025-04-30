@@ -16,7 +16,7 @@ public class ModRecipes {
                 DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, CultivationMastery.MOD_ID);
 
         public static final RegistryObject<RecipeSerializer<RuneInscribingRecipe>> RUNE_INSCRIBING_TABLE_SERIALIZER =
-                SERIALIZERS.register("rune_inscribing_table", () -> RuneInscribingRecipe.Serializer.INSTANCE);
+                SERIALIZERS.register("rune_inscribing", () -> RuneInscribingRecipe.Serializer.INSTANCE);
     }
 
     public static class Types {
@@ -24,7 +24,7 @@ public class ModRecipes {
                 DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, CultivationMastery.MOD_ID);
 
         public static final RegistryObject<RecipeType<RuneInscribingRecipe>> RUNE_INSCRIBING_TABLE_TYPE =
-                TYPES.register("rune_inscribing_table", () -> RuneInscribingRecipe.Type.INSTANCE);
+                TYPES.register("rune_inscribing", () -> RuneInscribingRecipe.Type.INSTANCE);
     }
 
     public static void register(IEventBus event) {
