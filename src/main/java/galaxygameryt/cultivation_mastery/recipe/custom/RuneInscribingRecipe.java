@@ -3,19 +3,22 @@ package galaxygameryt.cultivation_mastery.recipe.custom;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class RuneInscribingRecipe implements Recipe<SimpleContainer> {
+public class RuneInscribingRecipe implements Recipe<Container> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack result;
     private final ResourceLocation id;
@@ -27,17 +30,15 @@ public class RuneInscribingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(@NotNull SimpleContainer container, @NotNull Level level) {
-        if (level.isClientSide()) {
-            return false;
-        }
-
-        return inputItems.get(0).test(container.getItem(0));
+    public boolean matches(@NotNull Container container, @NotNull Level level) {
+        ItemStack ingredient = container.getItem(0);
+        ItemStack rune = container.getItem(1);
+        return this.inputItems.get(0).test(ingredient) && this.inputItems.get(1).test(rune);
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer container, @NotNull RegistryAccess registryAccess) {
-        return result.copy();
+    public @NotNull ItemStack assemble(@NotNull Container container, @NotNull RegistryAccess registryAccess) {
+        return getResultItem(registryAccess);
     }
 
     @Override
@@ -47,7 +48,15 @@ public class RuneInscribingRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
-        return result.copy();
+        ItemStack stack = result.copy();
+        if (stack.getItem() instanceof RuneStoneItem runeItem) {
+            RuneStoneItem.setAttribute(stack, runeItem.getAttribute());
+        }
+        return stack;
+    }
+
+    public NonNullList<Ingredient> getInputItems() {
+        return inputItems;
     }
 
     @Override
@@ -68,9 +77,6 @@ public class RuneInscribingRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<RuneInscribingRecipe> {
         public static final Type INSTANCE = new Type();
         public static final String ID = "rune_inscribing";
-        public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, ID);
-        public static final mezz.jei.api.recipe.RecipeType<RuneInscribingRecipe> JEI_TYPE =
-                new mezz.jei.api.recipe.RecipeType<>(UID, RuneInscribingRecipe.class);
     }
 
     public static class Serializer implements RecipeSerializer<RuneInscribingRecipe> {

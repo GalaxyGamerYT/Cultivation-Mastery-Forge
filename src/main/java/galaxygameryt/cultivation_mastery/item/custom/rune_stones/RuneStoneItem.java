@@ -28,7 +28,7 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
     }
 
     public void setAttribute(String attribute) {
-        this.attribute = attribute;
+        RuneStoneItem.setAttribute(new ItemStack(this), attribute);
     }
 
     public String getAttribute() {
@@ -103,5 +103,10 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
 
     public void fillCreativeTabItems(List<ItemStack> items, int index) {
 
+    }
+
+    @Override
+    public int getMaxStackSize(ItemStack stack) {
+        return hasAttribute(stack) ? 1 : 64;
     }
 }

@@ -2,6 +2,7 @@ package galaxygameryt.cultivation_mastery.client.gui.screens.custom.rune_inscrib
 
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
+import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.recipe.ModRecipes;
 import galaxygameryt.cultivation_mastery.recipe.custom.RuneInscribingRecipe;
 import galaxygameryt.cultivation_mastery.util.Logger;
@@ -121,49 +122,107 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            Item item = itemstack1.getItem();
-            itemstack = itemstack1.copy();
-            if (index == 1) {
-                item.onCraftedBy(itemstack1, player.level(), player);
-                if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
-                    return ItemStack.EMPTY;
-                }
+        if (!slot.hasItem()) return ItemStack.EMPTY;
 
-                slot.onQuickCraft(itemstack1, itemstack);
-            } else if (index == 0) {
-                if (!this.moveItemStackTo(itemstack1, 2, 38, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (this.level.getRecipeManager().getRecipeFor(RecipeType.STONECUTTING, new SimpleContainer(itemstack1), this.level).isPresent()) {
-                if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (index >= 2 && index < 29) {
-                if (!this.moveItemStackTo(itemstack1, 29, 38, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (index >= 29 && index < 38 && !this.moveItemStackTo(itemstack1, 2, 29, false)) {
+        ItemStack originalStack = slot.getItem();
+        ItemStack stackToMove = originalStack.copy();
+
+        // Clicked slot is output slot
+        if (index == 2) {
+            if (!this.moveItemStackTo(originalStack, 3, 39, true)) {
                 return ItemStack.EMPTY;
             }
-
-            if (itemstack1.isEmpty()) {
-                slot.setByPlayer(ItemStack.EMPTY);
-            }
-
-            slot.setChanged();
-            if (itemstack1.getCount() == itemstack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTake(player, itemstack1);
-            this.broadcastChanges();
+            slot.onQuickCraft(originalStack, stackToMove);
         }
 
-        return itemstack;
+        // Clicked slot is in player inventory
+        else if (index >= 3) {
+            if (originalStack.getItem() == ModItems.BLANK_RUNE_STONE.get()) {
+                // move to blank rune input slot
+                if (!this.moveItemStackTo(originalStack, 1, 2, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
+                // recipe check
+                boolean validForRecipe = this.level.getRecipeManager()
+                        .getAllRecipesFor(ModRecipes.Types.RUNE_INSCRIBING_TABLE_TYPE.get()).stream()
+                        .anyMatch(recipe -> recipe.getInputItems().get(0).test(originalStack));
+
+                if (!validForRecipe) {
+                    return ItemStack.EMPTY;
+                }
+
+                if (!this.moveItemStackTo(originalStack, 0, 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+        }
+
+        // Clicked slot is an input slot
+        else {
+            // Send back to player inventory
+            if (!this.moveItemStackTo(originalStack, 3, 39, false)) {
+                return ItemStack.EMPTY;
+            }
+        }
+
+        if (originalStack.isEmpty()) {
+            slot.set(ItemStack.EMPTY);
+        } else {
+            slot.setChanged();
+        }
+
+        if (originalStack.getCount() == stackToMove.getCount()) {
+            return ItemStack.EMPTY;
+        }
+
+        slot.onTake(player, originalStack);
+        return stackToMove;
+
+//        ItemStack itemstack = ItemStack.EMPTY;
+//        Slot slot = this.slots.get(index);
+//        if (slot != null && slot.hasItem()) {
+//            ItemStack itemstack1 = slot.getItem();
+//            Item item = itemstack1.getItem();
+//            itemstack = itemstack1.copy();
+//            if (index == 1) {
+//                item.onCraftedBy(itemstack1, player.level(), player);
+//                if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
+//                    return ItemStack.EMPTY;
+//                }
+//
+//                slot.onQuickCraft(itemstack1, itemstack);
+//            } else if (index == 0) {
+//                if (!this.moveItemStackTo(itemstack1, 2, 38, false)) {
+//                    return ItemStack.EMPTY;
+//                }
+//            } else if (this.level.getRecipeManager().getRecipeFor(ModRecipes.Types.RUNE_INSCRIBING_TABLE_TYPE.get(), new SimpleContainer(itemstack1), this.level).isPresent()) {
+//                if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
+//                    return ItemStack.EMPTY;
+//                }
+//            } else if (index >= 2 && index < 29) {
+//                if (!this.moveItemStackTo(itemstack1, 29, 38, false)) {
+//                    return ItemStack.EMPTY;
+//                }
+//            } else if (index >= 29 && index < 38 && !this.moveItemStackTo(itemstack1, 2, 29, false)) {
+//                return ItemStack.EMPTY;
+//            }
+//
+//            if (itemstack1.isEmpty()) {
+//                slot.setByPlayer(ItemStack.EMPTY);
+//            }
+//
+//            slot.setChanged();
+//            if (itemstack1.getCount() == itemstack.getCount()) {
+//                return ItemStack.EMPTY;
+//            }
+//
+//            slot.onTake(player, itemstack1);
+//            this.broadcastChanges();
+//        }
+//
+//        return itemstack;
     }
 
     @Override
@@ -188,41 +247,50 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
     @Override
     public void slotsChanged(@NotNull Container inventory) {
         ItemStack itemStack1 = this.input1Slot.getItem();
-        if (!itemStack1.is(this.input.get(0).getItem())) {
-            this.input.set(0, itemStack1.copy());
-            this.setupRecipeList((SimpleContainer) inventory, itemStack1);
-        }
-
         ItemStack itemStack2 = this.input2Slot.getItem();
-        if (!itemStack2.is(this.input.get(1).getItem())) {
+        if (!ItemStack.matches(itemStack1, this.input.get(0)) || !ItemStack.matches(itemStack2, this.input.get(1))) {
+            this.input.set(0, itemStack1.copy());
             this.input.set(1, itemStack2.copy());
-            this.setupRecipeList((SimpleContainer) inventory, itemStack2);
+            this.setupRecipeList(inventory);
+            this.setupResultSlot();
         }
     }
 
-    private void setupRecipeList(SimpleContainer container, ItemStack stack) {
+    private void setupRecipeList(Container container) {
         this.recipes.clear();
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
-        if (!stack.isEmpty()) {
+        if (!input.isEmpty()) {
             this.recipes = this.level.getRecipeManager().getRecipesFor(ModRecipes.Types.RUNE_INSCRIBING_TABLE_TYPE.get(), container, this.level);
             Logger.info(recipes.toString());
         }
     }
 
     void setupResultSlot() {
-        if (this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            RuneInscribingRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
-            ItemStack itemstack = recipe.assemble((SimpleContainer) this.container, this.level.registryAccess());
-            if (itemstack.isItemEnabled(this.level.enabledFeatures())) {
-                this.resultContainer.setRecipeUsed(recipe);
-                this.resultSlot.set(itemstack);
-            } else {
-                this.resultSlot.set(ItemStack.EMPTY);
-            }
+//        if (this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
+//            RuneInscribingRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
+//            ItemStack itemstack = recipe.assemble((SimpleContainer) this.container, this.level.registryAccess());
+//            if (itemstack.isItemEnabled(this.level.enabledFeatures())) {
+//                this.resultContainer.setRecipeUsed(recipe);
+//                this.resultSlot.set(itemstack);
+//            } else {
+//                this.resultSlot.set(ItemStack.EMPTY);
+//            }
+//
+//            this.broadcastChanges();
+//        }
+        int selectedRecipeIndex = this.selectedRecipeIndex.get();
+        if (this.recipes != null && selectedRecipeIndex >= 0 && selectedRecipeIndex < this.recipes.size()) {
+            RuneInscribingRecipe recipe = this.recipes.get(selectedRecipeIndex);
+            ItemStack result = recipe.assemble(this.container, this.level.registryAccess());
 
-            this.broadcastChanges();
+            Logger.info("Setting result slot to: "+result);
+            this.resultSlot.set(result);
+        } else {
+            this.resultSlot.set(ItemStack.EMPTY);
+            Logger.info("Clearing result slot.");
         }
+        this.broadcastChanges();
     }
 
     @Override

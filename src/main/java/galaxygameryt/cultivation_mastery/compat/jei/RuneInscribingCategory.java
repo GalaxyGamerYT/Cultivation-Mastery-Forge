@@ -8,11 +8,13 @@ import galaxygameryt.cultivation_mastery.util.Logger;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +36,7 @@ public class RuneInscribingCategory implements IRecipeCategory<RuneInscribingRec
 
     @Override
     public @NotNull RecipeType<RuneInscribingRecipe> getRecipeType() {
-        return RuneInscribingRecipe.Type.JEI_TYPE;
+        return JEICultivationMasteryPlugin.RUNE_INSCRIBING_RECIPE_TYPE;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class RuneInscribingCategory implements IRecipeCategory<RuneInscribingRec
 
     @Override
     public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RuneInscribingRecipe recipe, @NotNull IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 20, 10).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 20, 10).addIngredients(recipe.getInputItems().get(0));
 
         ItemStack outputStack = new ItemStack(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
         if (outputStack.getItem() instanceof RuneStoneItem runeStone) {
