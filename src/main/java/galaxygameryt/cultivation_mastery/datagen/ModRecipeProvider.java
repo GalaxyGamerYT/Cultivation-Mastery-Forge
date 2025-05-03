@@ -19,6 +19,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.RegistryObject;
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -38,14 +39,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
-        // Ores
-        oreSmelting(pWriter, LOW_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.LOW_SPIRIT_STONE.get(), 0.25f, 200, "low_spirit_stone");
-        oreBlasting(pWriter, LOW_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.LOW_SPIRIT_STONE.get(), 0.25f, 100, "low_spirit_stone");
-        oreSmelting(pWriter, MEDIUM_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.MEDIUM_SPIRIT_STONE.get(), 0.25f, 200, "medium_spirit_stone");
-        oreBlasting(pWriter, MEDIUM_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.MEDIUM_SPIRIT_STONE.get(), 0.25f, 100, "medium_spirit_stone");
-        oreSmelting(pWriter, HIGH_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.HIGH_SPIRIT_STONE.get(), 0.25f, 200, "high_spirit_stone");
-        oreBlasting(pWriter, HIGH_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.HIGH_SPIRIT_STONE.get(), 0.25f, 100, "high_spirit_stone");
-
         // Spiritual Stones
         packableRecipe(pWriter, RecipeCategory.MISC, ModItems.LOW_SPIRIT_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
         packableRecipe(pWriter, RecipeCategory.MISC, ModItems.MEDIUM_SPIRIT_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
@@ -79,8 +72,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_spritual_stone", has(ModTags.Items.SPIRITUAL_STONES))
                 .save(pWriter);
 
-        // Training Posts
-        // Basic Training Posts
+        buildOreRecipes(pWriter);
+        buildTrainingPostRecipes(pWriter);
+        buildRuneRecipes(pWriter);
+    }
+
+    private void buildOreRecipes(Consumer<FinishedRecipe> pWriter) {
+        oreSmelting(pWriter, LOW_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.LOW_SPIRIT_STONE.get(), 0.25f, 200, "low_spirit_stone");
+        oreBlasting(pWriter, LOW_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.LOW_SPIRIT_STONE.get(), 0.25f, 100, "low_spirit_stone");
+        oreSmelting(pWriter, MEDIUM_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.MEDIUM_SPIRIT_STONE.get(), 0.25f, 200, "medium_spirit_stone");
+        oreBlasting(pWriter, MEDIUM_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.MEDIUM_SPIRIT_STONE.get(), 0.25f, 100, "medium_spirit_stone");
+        oreSmelting(pWriter, HIGH_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.HIGH_SPIRIT_STONE.get(), 0.25f, 200, "high_spirit_stone");
+        oreBlasting(pWriter, HIGH_SPIRIT_STONE_SMELTABLES, RecipeCategory.MISC, ModItems.HIGH_SPIRIT_STONE.get(), 0.25f, 100, "high_spirit_stone");
+    }
+
+    private void buildTrainingPostRecipes(Consumer<FinishedRecipe> pWriter) {
         basicTrainingPostRecipes(pWriter, ModBlocks.OAK_TRAINING_POST.get(), Blocks.OAK_PLANKS, Blocks.OAK_LOG);
         basicTrainingPostRecipes(pWriter, ModBlocks.SPRUCE_TRAINING_POST.get(), Blocks.SPRUCE_PLANKS, Blocks.SPRUCE_LOG);
         basicTrainingPostRecipes(pWriter, ModBlocks.BIRCH_TRAINING_POST.get(), Blocks.BIRCH_PLANKS, Blocks.BIRCH_LOG);
@@ -100,6 +106,23 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('T', ModTags.Items.WOOD_TRAINING_POSTS)
                 .unlockedBy(getHasName(ModBlocks.SPIRITUAL_IRON_BLOCK.get()), has(ModBlocks.SPIRITUAL_IRON_BLOCK.get()))
                 .save(pWriter);
+    }
+
+    private void buildRuneRecipes(Consumer<FinishedRecipe> pWriter) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.BLANK_RUNE_STONE.get(), 2)
+                .requires(Items.CHISELED_STONE_BRICKS)
+                .requires(Items.AMETHYST_SHARD)
+                .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
+                .save(pWriter, ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, getItemName(ModItems.BLANK_RUNE_STONE.get())+"_single"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.BLANK_RUNE_STONE.get(), 8)
+                .pattern(" A ")
+                .pattern("ASA")
+                .pattern(" A ")
+                .define('A', Items.AMETHYST_SHARD)
+                .define('S', Items.CHISELED_STONE_BRICKS)
+                .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
+                .save(pWriter, ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, getItemName(ModItems.BLANK_RUNE_STONE.get())+"_multiple"));
 
         runeInscribingRecipes(pWriter, ModItems.BASIC_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
         runeInscribingRecipes(pWriter, ModItems.LOW_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
