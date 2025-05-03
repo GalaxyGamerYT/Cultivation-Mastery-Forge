@@ -2,6 +2,7 @@ package galaxygameryt.cultivation_mastery.compat.jei;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
+import galaxygameryt.cultivation_mastery.client.gui.screens.custom.rune_inscribing_table.RuneInscribingTableMenu;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
 import galaxygameryt.cultivation_mastery.recipe.custom.RuneInscribingRecipe;
 import galaxygameryt.cultivation_mastery.util.Logger;
@@ -24,14 +25,27 @@ import org.jetbrains.annotations.Nullable;
 
 public class RuneInscribingCategory implements IRecipeCategory<RuneInscribingRecipe>  {
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
-            "textures/gui/containers/rune_inscribing_table");
+            "textures/gui/jei/rune_inscribing_category.png");
+
+    private final int width = 122;
+    private final int height = 42;
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public RuneInscribingCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
+        this.background = helper.createDrawable(TEXTURE, 0, 0, width, height);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.RUNE_INSCRIBING_TABLE.get()));
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     @Override
@@ -56,13 +70,14 @@ public class RuneInscribingCategory implements IRecipeCategory<RuneInscribingRec
 
     @Override
     public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RuneInscribingRecipe recipe, @NotNull IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 20, 10).addIngredients(recipe.getInputItems().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 6, 13).addIngredients(recipe.getInputItems().get(RuneInscribingTableMenu.BASE_ITEM_SLOT_INDEX));
+        builder.addSlot(RecipeIngredientRole.INPUT, 45, 13).addIngredients(recipe.getInputItems().get(RuneInscribingTableMenu.INSCRIBING_ITEM_SLOT_INDEX));
 
         ItemStack outputStack = new ItemStack(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
         if (outputStack.getItem() instanceof RuneStoneItem runeStone) {
             RuneStoneItem.setAttribute(outputStack, runeStone.getAttribute());
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 10).addItemStack(outputStack);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 13).addItemStack(outputStack);
     }
 }

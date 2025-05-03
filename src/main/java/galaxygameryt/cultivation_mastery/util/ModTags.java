@@ -34,6 +34,12 @@ public class ModTags {
         public static final TagKey<Item> WOOD_TRAINING_POSTS = tag("wood_training_posts");
         public static final TagKey<Item> TRAINING_POSTS = tag("wood_training_posts");
 
+        public static final TagKey<Item> BASIC_RUNE_STONES = tag("basic_rune_stones");
+        public static final TagKey<Item> LOW_RUNE_STONES = tag("low_rune_stones");
+        public static final TagKey<Item> MEDIUM_RUNE_STONES = tag("medium_rune_stones");
+        public static final TagKey<Item> HIGH_RUNE_STONES = tag("high_rune_stones");
+        public static final TagKey<Item> IMMORTAL_RUNE_STONES = tag("immortal_rune_stones");
+
         public static TagKey<Item> tag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, name));
         }

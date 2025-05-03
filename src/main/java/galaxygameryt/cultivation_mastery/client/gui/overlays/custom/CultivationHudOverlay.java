@@ -17,7 +17,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class CultivationHudOverlay implements IGuiOverlay {
     public static final ResourceLocation SCROLL_TEXTURE = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID,
-            "textures/hud/background_scroll.png");
+            "textures/gui/hud/background_scroll.png");
 
     @Override
     public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {

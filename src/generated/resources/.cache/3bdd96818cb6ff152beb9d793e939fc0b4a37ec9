@@ -1,6 +1,11 @@
-// 1.20.1	2025-04-27T00:50:40.7916421	Tags for minecraft:item mod id cultivation_mastery
+// 1.20.1	2025-05-03T00:37:35.3839206	Tags for minecraft:item mod id cultivation_mastery
+9ecd7707fafaa53b85ef37b3a910318568fdb92c data/cultivation_mastery/tags/items/basic_rune_stones.json
+109f99bde716c3f9cdb30878ff50a36dc4d780ee data/cultivation_mastery/tags/items/high_rune_stones.json
 7a691097b479c421db4b9299f9f507c779c8b886 data/cultivation_mastery/tags/items/high_spirit_stone_ores.json
+b8317676602d89e88a1d54f626453855cf4c0d38 data/cultivation_mastery/tags/items/immortal_rune_stones.json
+6bbdd41dde2d088b3804330d54059a09ac7349bf data/cultivation_mastery/tags/items/low_rune_stones.json
 416f1f5f10a44d50d25a7e78d543dac433e88734 data/cultivation_mastery/tags/items/low_spirit_stone_ores.json
+e48b0060fd136516101ad23b1c77f4e9535ce0a2 data/cultivation_mastery/tags/items/medium_rune_stones.json
 832c67c33fd3ebaeedfef07afe7a6ceb71fd29f1 data/cultivation_mastery/tags/items/medium_spirit_stone_ores.json
 d81c5b1ee3e1e3b0f6e211a4959e1f614efc614b data/cultivation_mastery/tags/items/spiritual_stones.json
 1d36b4119faadc2625f2b97e6a9773892a011afb data/cultivation_mastery/tags/items/wood_training_posts.json

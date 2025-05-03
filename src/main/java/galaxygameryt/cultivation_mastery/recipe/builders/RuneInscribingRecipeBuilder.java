@@ -16,7 +16,6 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -32,7 +31,8 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
     private final RecipeCategory category;
     private final Item result;
     private final int count;
-    private final List<Ingredient> ingredients = Lists.newArrayList();
+    private Ingredient baseItem = Ingredient.EMPTY;
+    private Ingredient inscribingItem = Ingredient.EMPTY;
     private final Advancement.Builder advancement = Advancement.Builder.recipeAdvancement();
     private String group;
 
@@ -50,31 +50,29 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
         return new RuneInscribingRecipeBuilder(category, result, count);
     }
 
-    public RuneInscribingRecipeBuilder requires(TagKey<Item> tag) {
-        return this.requires(Ingredient.of(tag));
+    public RuneInscribingRecipeBuilder inscriber(TagKey<Item> tag) {
+        return this.inscriber(Ingredient.of(tag));
     }
 
-    public RuneInscribingRecipeBuilder requires(ItemLike item) {
-        return this.requires(item, 1);
+    public RuneInscribingRecipeBuilder inscriber(ItemLike item) {
+        return this.inscriber(Ingredient.of(item));
     }
 
-    public RuneInscribingRecipeBuilder requires(ItemLike item, int quantity) {
-        for (int i = 0; i < quantity; ++i) {
-            this.requires(Ingredient.of(item));
-        }
-
+    public RuneInscribingRecipeBuilder inscriber(Ingredient ingredient) {
+        this.inscribingItem = ingredient;
         return this;
     }
 
-    public RuneInscribingRecipeBuilder requires(Ingredient ingredient) {
-        return this.requires(ingredient, 1);
+    public RuneInscribingRecipeBuilder base(TagKey<Item> tag) {
+        return this.base(Ingredient.of(tag));
     }
 
-    public RuneInscribingRecipeBuilder requires(Ingredient ingredient, int quantity) {
-        for (int i = 0; i < quantity; ++i) {
-            this.ingredients.add(ingredient);
-        }
+    public RuneInscribingRecipeBuilder base(ItemLike item) {
+        return this.base(Ingredient.of(item));
+    }
 
+    public RuneInscribingRecipeBuilder base(Ingredient ingredient) {
+        this.baseItem = ingredient;
         return this;
     }
 
@@ -103,7 +101,7 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(RequirementsStrategy.OR);
         finishedRecipeConsumer.accept(new RuneInscribingRecipeBuilder.Result(recipeId, this.result, this.count,
-                this.group == null ? "" : this.group, determineBookCategory(this.category), this.ingredients,
+                this.group == null ? "" : this.group, determineBookCategory(this.category), this.baseItem, this.inscribingItem,
                 this.advancement, recipeId.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
@@ -118,17 +116,19 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
         private final Item result;
         private final int count;
         private final String group;
-        private final List<Ingredient> ingredients;
+        private final Ingredient baseItem;
+        private final Ingredient inscribingItem;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
 
-        protected Result(ResourceLocation id, Item result, int count, String group, CraftingBookCategory category, List<Ingredient> ingredients, Advancement.Builder advancement, ResourceLocation advancementId) {
+        protected Result(ResourceLocation id, Item result, int count, String group, CraftingBookCategory category, Ingredient baseItem, Ingredient inscribingItem, Advancement.Builder advancement, ResourceLocation advancementId) {
             super(category);
             this.id = id;
             this.result = result;
             this.count = count;
             this.group = group;
-            this.ingredients = ingredients;
+            this.baseItem = baseItem;
+            this.inscribingItem = inscribingItem;
             this.advancement = advancement;
             this.advancementId = advancementId;
         }
@@ -142,7 +142,7 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
 
             JsonArray jsonArray = new JsonArray();
 
-            for (Ingredient ingredient : this.ingredients) {
+            for (Ingredient ingredient : List.of(baseItem, inscribingItem)) {
                 jsonArray.add(ingredient.toJson());
             }
 

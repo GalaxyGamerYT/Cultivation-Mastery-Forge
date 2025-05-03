@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "cultivation_mastery:low_spirit_stone"
+      "item": "cultivation_mastery:blank_rune_stone"
     },
     {
-      "item": "cultivation_mastery:blank_rune_stone"
+      "item": "cultivation_mastery:low_spirit_stone"
     }
   ],
   "result": {

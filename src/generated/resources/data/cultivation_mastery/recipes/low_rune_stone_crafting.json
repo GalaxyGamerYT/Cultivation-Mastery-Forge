@@ -6,10 +6,10 @@
       "item": "cultivation_mastery:blank_rune_stone"
     },
     {
-      "item": "minecraft:redstone"
+      "item": "cultivation_mastery:low_spirit_stone"
     }
   ],
   "result": {
-    "item": "cultivation_mastery:basic_rune_stone_defence"
+    "item": "cultivation_mastery:low_rune_stone"
   }
 }

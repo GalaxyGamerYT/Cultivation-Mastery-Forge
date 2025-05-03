@@ -15,21 +15,17 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
 import java.util.List;
 
 public class RuneInscribingTableMenu extends AbstractContainerMenu {
-    public static final int RUNE_SLOT = 1;
-    public static final int RESOURCE_SLOT = 2;
+    public static final int BASE_ITEM_SLOT_INDEX = 0;
+    public static final int INSCRIBING_ITEM_SLOT_INDEX = 1;
     public static final int RESULT_SLOT = 2;
     public static final int INV_SLOT_START = 3;
     public static final int INV_SLOT_END = 30;
@@ -40,10 +36,9 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
     private final DataSlot selectedRecipeIndex = DataSlot.standalone();
     private final Level level;
     private List<RuneInscribingRecipe> recipes = Lists.newArrayList();
-//    private ItemStack input = ItemStack.EMPTY;
-    private NonNullList<ItemStack> input = NonNullList.withSize(2, ItemStack.EMPTY);
-    final Slot input1Slot;
-    final Slot input2Slot;
+    private final NonNullList<ItemStack> input = NonNullList.withSize(2, ItemStack.EMPTY);
+    final Slot BaseItemSlot;
+    final Slot InscribingItemSlot;
     final Slot resultSlot;
     Runnable slotUpdateListener = () -> {};
     public final Container container = new SimpleContainer(2) {
@@ -65,9 +60,9 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
         super(ModMenuTypes.RUNE_INSCRIBING_TABLE_MENU.get(), containerId);
         this.access = access;
         this.level = playerInventory.player.level();
-        this.input1Slot = this.addSlot(new Slot(this.container, 0, 20, 16));
-        this.input2Slot = this.addSlot(new Slot(this.container, 1, 20, 53));
-        this.resultSlot = this.addSlot(new Slot(this.resultContainer, 2, 143, 33) {
+        this.BaseItemSlot = this.addSlot(new Slot(this.container, BASE_ITEM_SLOT_INDEX, 20, 53));
+        this.InscribingItemSlot = this.addSlot(new Slot(this.container, INSCRIBING_ITEM_SLOT_INDEX, 20, 16));
+        this.resultSlot = this.addSlot(new Slot(this.resultContainer, RESULT_SLOT, 143, 33) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
                 return false;
@@ -77,9 +72,9 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
             public void onTake(@NotNull Player player, @NotNull ItemStack stack) {
                 stack.onCraftedBy(player.level(), player, stack.getCount());
                 RuneInscribingTableMenu.this.resultContainer.awardUsedRecipes(player, this.getRelevantItems());
-                ItemStack itemStack1 = RuneInscribingTableMenu.this.input1Slot.remove(1);
-                ItemStack itemStack2 = RuneInscribingTableMenu.this.input2Slot.remove(1);
-                if (!itemStack1.isEmpty() && !itemStack2.isEmpty()) {
+                ItemStack baseItemStack = RuneInscribingTableMenu.this.BaseItemSlot.remove(1);
+                ItemStack inscribingItemStack = RuneInscribingTableMenu.this.InscribingItemSlot.remove(1);
+                if (!baseItemStack.isEmpty() && !inscribingItemStack.isEmpty()) {
                     RuneInscribingTableMenu.this.setupResultSlot();
                 }
 
@@ -87,7 +82,7 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
             }
 
             private List<ItemStack> getRelevantItems() {
-                return List.of(RuneInscribingTableMenu.this.input2Slot.getItem());
+                return List.of(RuneInscribingTableMenu.this.InscribingItemSlot.getItem());
             }
         });
 
@@ -117,7 +112,7 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
     }
 
     public boolean hasInputItem() {
-        return this.input1Slot.hasItem() && this.input2Slot.hasItem() && !this.recipes.isEmpty();
+        return this.BaseItemSlot.hasItem() && this.InscribingItemSlot.hasItem() && !this.recipes.isEmpty();
     }
 
     @Override
@@ -129,31 +124,33 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
         ItemStack stackToMove = originalStack.copy();
 
         // Clicked slot is output slot
-        if (index == 2) {
-            if (!this.moveItemStackTo(originalStack, 3, 39, true)) {
+        if (index == RESULT_SLOT) {
+            if (!this.moveItemStackTo(originalStack, INV_SLOT_START, USE_ROW_SLOT_END, true)) {
                 return ItemStack.EMPTY;
             }
             slot.onQuickCraft(originalStack, stackToMove);
         }
 
         // Clicked slot is in player inventory
-        else if (index >= 3) {
-            if (originalStack.getItem() == ModItems.BLANK_RUNE_STONE.get()) {
-                // move to blank rune input slot
-                if (!this.moveItemStackTo(originalStack, 1, 2, false)) {
+        else if (index >= INV_SLOT_START) {
+            boolean baseItemValidForRecipe = this.level.getRecipeManager()
+                    .getAllRecipesFor(ModRecipes.Types.RUNE_INSCRIBING_TABLE_TYPE.get()).stream()
+                    .anyMatch(recipe -> recipe.getInputItems().get(BASE_ITEM_SLOT_INDEX).test(originalStack));
+
+            if (baseItemValidForRecipe) {
+                if (!this.moveItemStackTo(originalStack, BASE_ITEM_SLOT_INDEX, INSCRIBING_ITEM_SLOT_INDEX, false)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                // recipe check
-                boolean validForRecipe = this.level.getRecipeManager()
+                boolean inscribingItemValidForRecipe = this.level.getRecipeManager()
                         .getAllRecipesFor(ModRecipes.Types.RUNE_INSCRIBING_TABLE_TYPE.get()).stream()
-                        .anyMatch(recipe -> recipe.getInputItems().get(0).test(originalStack));
+                        .anyMatch(recipe -> recipe.getInputItems().get(INSCRIBING_ITEM_SLOT_INDEX).test(originalStack));
 
-                if (!validForRecipe) {
+                if (!inscribingItemValidForRecipe) {
                     return ItemStack.EMPTY;
                 }
 
-                if (!this.moveItemStackTo(originalStack, 0, 1, false)) {
+                if (!this.moveItemStackTo(originalStack, BASE_ITEM_SLOT_INDEX, INSCRIBING_ITEM_SLOT_INDEX + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }
@@ -162,7 +159,7 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
         // Clicked slot is an input slot
         else {
             // Send back to player inventory
-            if (!this.moveItemStackTo(originalStack, 3, 39, false)) {
+            if (!this.moveItemStackTo(originalStack, INV_SLOT_START, USE_ROW_SLOT_END, false)) {
                 return ItemStack.EMPTY;
             }
         }
@@ -179,50 +176,6 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
 
         slot.onTake(player, originalStack);
         return stackToMove;
-
-//        ItemStack itemstack = ItemStack.EMPTY;
-//        Slot slot = this.slots.get(index);
-//        if (slot != null && slot.hasItem()) {
-//            ItemStack itemstack1 = slot.getItem();
-//            Item item = itemstack1.getItem();
-//            itemstack = itemstack1.copy();
-//            if (index == 1) {
-//                item.onCraftedBy(itemstack1, player.level(), player);
-//                if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
-//                    return ItemStack.EMPTY;
-//                }
-//
-//                slot.onQuickCraft(itemstack1, itemstack);
-//            } else if (index == 0) {
-//                if (!this.moveItemStackTo(itemstack1, 2, 38, false)) {
-//                    return ItemStack.EMPTY;
-//                }
-//            } else if (this.level.getRecipeManager().getRecipeFor(ModRecipes.Types.RUNE_INSCRIBING_TABLE_TYPE.get(), new SimpleContainer(itemstack1), this.level).isPresent()) {
-//                if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
-//                    return ItemStack.EMPTY;
-//                }
-//            } else if (index >= 2 && index < 29) {
-//                if (!this.moveItemStackTo(itemstack1, 29, 38, false)) {
-//                    return ItemStack.EMPTY;
-//                }
-//            } else if (index >= 29 && index < 38 && !this.moveItemStackTo(itemstack1, 2, 29, false)) {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            if (itemstack1.isEmpty()) {
-//                slot.setByPlayer(ItemStack.EMPTY);
-//            }
-//
-//            slot.setChanged();
-//            if (itemstack1.getCount() == itemstack.getCount()) {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            slot.onTake(player, itemstack1);
-//            this.broadcastChanges();
-//        }
-//
-//        return itemstack;
     }
 
     @Override
@@ -246,11 +199,11 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
 
     @Override
     public void slotsChanged(@NotNull Container inventory) {
-        ItemStack itemStack1 = this.input1Slot.getItem();
-        ItemStack itemStack2 = this.input2Slot.getItem();
-        if (!ItemStack.matches(itemStack1, this.input.get(0)) || !ItemStack.matches(itemStack2, this.input.get(1))) {
-            this.input.set(0, itemStack1.copy());
-            this.input.set(1, itemStack2.copy());
+        ItemStack baseItemStack = this.BaseItemSlot.getItem();
+        ItemStack InscribingItemStack = this.InscribingItemSlot.getItem();
+        if (!ItemStack.matches(baseItemStack, this.input.get(BASE_ITEM_SLOT_INDEX)) || !ItemStack.matches(InscribingItemStack, this.input.get(INSCRIBING_ITEM_SLOT_INDEX))) {
+            this.input.set(BASE_ITEM_SLOT_INDEX, baseItemStack.copy());
+            this.input.set(INSCRIBING_ITEM_SLOT_INDEX, InscribingItemStack.copy());
             this.setupRecipeList(inventory);
             this.setupResultSlot();
         }
@@ -267,18 +220,6 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
     }
 
     void setupResultSlot() {
-//        if (this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-//            RuneInscribingRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
-//            ItemStack itemstack = recipe.assemble((SimpleContainer) this.container, this.level.registryAccess());
-//            if (itemstack.isItemEnabled(this.level.enabledFeatures())) {
-//                this.resultContainer.setRecipeUsed(recipe);
-//                this.resultSlot.set(itemstack);
-//            } else {
-//                this.resultSlot.set(ItemStack.EMPTY);
-//            }
-//
-//            this.broadcastChanges();
-//        }
         int selectedRecipeIndex = this.selectedRecipeIndex.get();
         if (this.recipes != null && selectedRecipeIndex >= 0 && selectedRecipeIndex < this.recipes.size()) {
             RuneInscribingRecipe recipe = this.recipes.get(selectedRecipeIndex);

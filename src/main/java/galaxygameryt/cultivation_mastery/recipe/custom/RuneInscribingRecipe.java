@@ -10,8 +10,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -23,6 +21,9 @@ public class RuneInscribingRecipe implements Recipe<Container> {
     private final ItemStack result;
     private final ResourceLocation id;
 
+    private final int baseItemIndex = 0;
+    private final int inscribingItemIndex = 1;
+
     public RuneInscribingRecipe(NonNullList<Ingredient> inputItems, ItemStack result, ResourceLocation id) {
         this.inputItems = inputItems;
         this.result = result;
@@ -31,9 +32,9 @@ public class RuneInscribingRecipe implements Recipe<Container> {
 
     @Override
     public boolean matches(@NotNull Container container, @NotNull Level level) {
-        ItemStack ingredient = container.getItem(0);
-        ItemStack rune = container.getItem(1);
-        return this.inputItems.get(0).test(ingredient) && this.inputItems.get(1).test(rune);
+        ItemStack baseItem = container.getItem(baseItemIndex);
+        ItemStack inscribingItem = container.getItem(inscribingItemIndex);
+        return this.inputItems.get(baseItemIndex).test(baseItem) && this.inputItems.get(inscribingItemIndex).test(inscribingItem);
     }
 
     @Override

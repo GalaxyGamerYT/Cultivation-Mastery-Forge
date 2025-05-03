@@ -10,6 +10,7 @@ import galaxygameryt.cultivation_mastery.block.custom.training_posts.TrainingPos
 import galaxygameryt.cultivation_mastery.block.custom.training_posts.WoodenTrainingPostBlock;
 import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.item.custom.SpiritStoneItem;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
 import galaxygameryt.cultivation_mastery.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -39,6 +40,21 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 
             if (item instanceof SpiritStoneItem) {
                 tag(ModTags.Items.SPIRITUAL_STONES).add(item);
+            }
+            if (item instanceof BasicRuneStoneItem) {
+                tag(ModTags.Items.BASIC_RUNE_STONES).add(item);
+            }
+            if (item instanceof LowRuneStoneItem) {
+                tag(ModTags.Items.LOW_RUNE_STONES).add(item);
+            }
+            if (item instanceof MediumRuneStoneItem) {
+                tag(ModTags.Items.MEDIUM_RUNE_STONES).add(item);
+            }
+            if (item instanceof HighRuneStoneItem) {
+                tag(ModTags.Items.HIGH_RUNE_STONES).add(item);
+            }
+            if (item instanceof ImmortalRuneStoneItem) {
+                tag(ModTags.Items.IMMORTAL_RUNE_STONES).add(item);
             }
         }
 

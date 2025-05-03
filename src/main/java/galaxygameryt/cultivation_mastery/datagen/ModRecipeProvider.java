@@ -101,13 +101,19 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModBlocks.SPIRITUAL_IRON_BLOCK.get()), has(ModBlocks.SPIRITUAL_IRON_BLOCK.get()))
                 .save(pWriter);
 
+        runeInscribingRecipes(pWriter, ModItems.BASIC_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
+        runeInscribingRecipes(pWriter, ModItems.LOW_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
+        runeInscribingRecipes(pWriter, ModItems.MEDIUM_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
+        runeInscribingRecipes(pWriter, ModItems.HIGH_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
+        runeInscribingRecipes(pWriter, ModItems.IMMORTAL_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.IMMORTAL_SPIRIT_STONE.get());
+
         // BASIC RUNE STONES
         for (RegistryObject<Item> runeStoneObj : ModItems.BASIC_RUNE_STONES) {
             Item runeStone = runeStoneObj.get();
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, Items.REDSTONE);
+                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
                 }
             }
         }
@@ -118,7 +124,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.LOW_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
                 }
             }
         }
@@ -129,7 +135,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.MEDIUM_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
                 }
             }
         }
@@ -140,7 +146,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.HIGH_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
                 }
             }
         }
@@ -151,17 +157,17 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.IMMORTAL_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.IMMORTAL_SPIRIT_STONE.get());
                 }
             }
         }
     }
 
-    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, ItemLike input) {
+    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, ItemLike baseItem, ItemLike inscribingItem) {
         RuneInscribingRecipeBuilder.runeInscribing(RecipeCategory.MISC, result)
-                .requires(input)
-                .requires(ModItems.BLANK_RUNE_STONE.get())
-                .unlockedBy(getHasName(input), has(input))
+                .base(baseItem)
+                .inscriber(inscribingItem)
+                .unlockedBy(getHasName(inscribingItem), has(inscribingItem))
                 .save(writer, ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, result.toString() + "_crafting"));
     }
 
