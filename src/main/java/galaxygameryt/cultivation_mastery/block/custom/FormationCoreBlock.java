@@ -2,8 +2,11 @@ package galaxygameryt.cultivation_mastery.block.custom;
 
 import galaxygameryt.cultivation_mastery.block.entity.ModBlockEntities;
 import galaxygameryt.cultivation_mastery.block.entity.custom.FormationCoreBlockEntity;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,11 +19,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,8 +35,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.stream.Stream;
 
 public class FormationCoreBlock extends BaseEntityBlock {
+    public static final BooleanProperty ACTIVE_STATE = BooleanProperty.create("active");
+
     public FormationCoreBlock(Properties pProperties) {
         super(pProperties);
+
     }
 
     @Nullable
@@ -37,6 +47,8 @@ public class FormationCoreBlock extends BaseEntityBlock {
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new FormationCoreBlockEntity(pos, state);
     }
+
+
 
     @Override
     public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
@@ -65,10 +77,16 @@ public class FormationCoreBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
-        if (level.isClientSide()) return null;
+        if (level.isClientSide()) return createTickerHelper(blockEntityType, ModBlockEntities.FORMATION_CORE_BE.get(),
+                (level1, pos1, state1, blockEntity) -> blockEntity.ClientTick(level1, pos1, state1));
 
         return createTickerHelper(blockEntityType, ModBlockEntities.FORMATION_CORE_BE.get(),
-                (level1, pos1, state1, blockEntity) -> blockEntity.tick(level1, pos1, state1));
+                (level1, pos1, state1, blockEntity) -> blockEntity.ServerTick(level1, pos1, state1));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(ACTIVE_STATE);
     }
 
     @Override

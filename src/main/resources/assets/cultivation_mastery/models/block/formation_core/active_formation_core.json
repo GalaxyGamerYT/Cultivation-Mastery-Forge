@@ -1,0 +1,7 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "cultivation_mastery:block/formation_core/base_formation_core",
+	"textures": {
+		"array": "cultivation_mastery:block/formation_core/active_array"
+	}
+}

@@ -4,20 +4,16 @@ import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.block.entity.custom.FormationCoreBlockEntity;
 import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
 import galaxygameryt.cultivation_mastery.client.gui.screens.slots.FormationCoreFuelSlot;
-import galaxygameryt.cultivation_mastery.client.gui.screens.slots.FormationCoreRuneSlot;
-import galaxygameryt.cultivation_mastery.item.ModItems;
-import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
+import galaxygameryt.cultivation_mastery.client.gui.screens.slots.FormationCoreSlot;
 import galaxygameryt.cultivation_mastery.util.ModTags;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class FormationCoreMenu extends AbstractContainerMenu {
@@ -100,14 +96,14 @@ public class FormationCoreMenu extends AbstractContainerMenu {
 
     private void addSlots() {
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 0, 79, 7, data));
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 1, 117, 22, data));
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 2, 132, 60, data));
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 3, 117, 98, data));
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 4, 79, 113, data));
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 5, 41, 98, data));
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 6, 26, 60, data));
-            this.addSlot(new FormationCoreRuneSlot(iItemHandler, 7, 41, 22, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 0, 79, 7, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 1, 117, 22, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 2, 132, 60, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 3, 117, 98, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 4, 79, 113, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 5, 41, 98, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 6, 26, 60, data));
+            this.addSlot(new FormationCoreSlot(iItemHandler, 7, 41, 22, data));
             this.addSlot(new FormationCoreFuelSlot(iItemHandler, 8, 79, 60, data));
         });
     }

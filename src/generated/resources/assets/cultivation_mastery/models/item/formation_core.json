@@ -1,3 +1,3 @@
 {
-  "parent": "cultivation_mastery:block/formation_core"
+  "parent": "cultivation_mastery:block/formation_core/inactive_formation_core"
 }

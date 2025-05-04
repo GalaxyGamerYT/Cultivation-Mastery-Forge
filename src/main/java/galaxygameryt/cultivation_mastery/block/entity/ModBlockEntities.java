@@ -3,6 +3,7 @@ package galaxygameryt.cultivation_mastery.block.entity;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.block.entity.custom.FormationCoreBlockEntity;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -19,6 +20,7 @@ public class ModBlockEntities {
                             ModBlocks.FORMATION_CORE.get()).build(null));
 
     public static void register(IEventBus event) {
+        Logger.info("Registering Block Entities");
         BLOCK_ENTITIES.register(event);
     }
 }

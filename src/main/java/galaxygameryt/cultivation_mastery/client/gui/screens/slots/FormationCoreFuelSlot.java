@@ -7,12 +7,9 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class FormationCoreFuelSlot extends SlotItemHandler {
-    private final ContainerData data;
-
+public class FormationCoreFuelSlot extends FormationCoreSlot {
     public FormationCoreFuelSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, ContainerData data) {
-        super(itemHandler, index, xPosition, yPosition);
-        this.data = data;
+        super(itemHandler, index, xPosition, yPosition, data);
     }
 
     @Override
@@ -23,14 +20,14 @@ public class FormationCoreFuelSlot extends SlotItemHandler {
             for (int i = 0; i < 7; i++) {
                 ItemStack stack = getItemHandler().getStackInSlot(i);
                 if (!stack.isEmpty()) {
-                    data.set(0, 1);
+                    setData(1);
                     break;
                 } else {
-                    data.set(0, 0);
+                    setData(0);
                 }
             }
         } else {
-            data.set(0, 0);
+            setData(0);
         }
     }
 

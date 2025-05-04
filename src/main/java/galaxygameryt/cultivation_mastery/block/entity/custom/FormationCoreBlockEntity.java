@@ -1,11 +1,14 @@
 package galaxygameryt.cultivation_mastery.block.entity.custom;
 
+import galaxygameryt.cultivation_mastery.block.custom.FormationCoreBlock;
 import galaxygameryt.cultivation_mastery.block.entity.ModBlockEntities;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.formation_core.FormationCoreMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -15,7 +18,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -56,6 +58,10 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
         };
     }
 
+    public boolean isActive() {
+        return this.active != 0;
+    }
+
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
@@ -87,7 +93,7 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("block.cultivation_mastery.formation_core.title");
+        return Component.translatable("menu.title.cultivation_mastery.formation_core");
     }
 
     @Nullable
@@ -105,12 +111,47 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    public void load(@NotNull CompoundTag tag) {
         super.load(tag);
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         active = tag.getInt("formation_core.active");
     }
 
-    public void tick(Level level, BlockPos pos, BlockState state) {
+    public void ServerTick(Level level, BlockPos pos, BlockState state) {
+        boolean active = isActive();
+        if (active != state.getValue(FormationCoreBlock.ACTIVE_STATE)) {
+            level.setBlock(pos, state.setValue(FormationCoreBlock.ACTIVE_STATE, active), 2);
+        }
+    }
+
+    public void ClientTick(Level level, BlockPos pos, BlockState state) {
+        if (!level.isClientSide()) return;
+
+        if (state.getValue(FormationCoreBlock.ACTIVE_STATE)) spawnParticles(level, pos);
+    }
+
+    private void spawnParticles(Level level, BlockPos pos) {
+        double x = pos.getX() + 0.5;
+        double y = pos.getY() + 1.0;
+        double z = pos.getZ() + 0.5;
+
+        RandomSource random = level.random;
+        int randTick = random.nextIntBetweenInclusive(1, 10);
+        if (randTick > 3 && randTick < 6) {
+            level.addParticle(ParticleTypes.END_ROD,
+                    x + (Math.random() - 0.5),
+                    y + Math.random(),
+                    z + (Math.random() - 0.5),
+                    0, 0.02, 0
+            );
+        }
+        if (randTick > 5 && randTick < 8) {
+            level.addParticle(ParticleTypes.ENCHANT,
+                    x + (Math.random() - 0.5),
+                    y + Math.random(),
+                    z + (Math.random() - 0.5),
+                    0, 0.02, 0
+            );
+        }
     }
 }

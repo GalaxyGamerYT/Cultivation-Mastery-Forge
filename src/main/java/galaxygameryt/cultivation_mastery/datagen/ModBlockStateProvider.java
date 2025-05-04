@@ -2,11 +2,14 @@ package galaxygameryt.cultivation_mastery.datagen;
 
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
+import galaxygameryt.cultivation_mastery.block.custom.FormationCoreBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -48,8 +51,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
         customModelBlockWithItem(ModBlocks.RUNE_INSCRIBING_TABLE.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/rune_inscribing_table")));
 
-        customModelBlockWithItem(ModBlocks.FORMATION_CORE.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/formation_core")));
+        formationCoreBlock(ModBlocks.FORMATION_CORE.get());
+    }
+
+    private void formationCoreBlock(Block block) {
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            boolean active = state.getValue(FormationCoreBlock.ACTIVE_STATE);
+
+            ModelFile model = new ModelFile.UncheckedModelFile(modLoc("block/formation_core/inactive_formation_core"));
+            if (active) model = new ModelFile.UncheckedModelFile(modLoc("block/formation_core/active_formation_core"));
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+        });
+        simpleBlockItem(block, new ModelFile.UncheckedModelFile(modLoc("block/formation_core/inactive_formation_core")));
     }
 
     private void customModelBlockWithItem(Block block, ModelFile model) {

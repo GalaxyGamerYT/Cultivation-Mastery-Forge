@@ -2,10 +2,8 @@ package galaxygameryt.cultivation_mastery.client.gui.screens.custom.rune_inscrib
 
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.client.gui.screens.ModMenuTypes;
-import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.recipe.ModRecipes;
 import galaxygameryt.cultivation_mastery.recipe.custom.RuneInscribingRecipe;
-import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -52,7 +50,7 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
 
     final ResultContainer resultContainer = new ResultContainer();
 
-    public RuneInscribingTableMenu(int containerId, Inventory playerInventory, FriendlyByteBuf friendlyByteBuf) {
+    public RuneInscribingTableMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
         this(containerId, playerInventory, ContainerLevelAccess.NULL);
     }
 
@@ -215,7 +213,6 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
         this.resultSlot.set(ItemStack.EMPTY);
         if (!input.isEmpty()) {
             this.recipes = this.level.getRecipeManager().getRecipesFor(ModRecipes.Types.RUNE_INSCRIBING_TABLE_TYPE.get(), container, this.level);
-            Logger.info(recipes.toString());
         }
     }
 
@@ -225,11 +222,9 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
             RuneInscribingRecipe recipe = this.recipes.get(selectedRecipeIndex);
             ItemStack result = recipe.assemble(this.container, this.level.registryAccess());
 
-            Logger.info("Setting result slot to: "+result);
             this.resultSlot.set(result);
         } else {
             this.resultSlot.set(ItemStack.EMPTY);
-            Logger.info("Clearing result slot.");
         }
         this.broadcastChanges();
     }

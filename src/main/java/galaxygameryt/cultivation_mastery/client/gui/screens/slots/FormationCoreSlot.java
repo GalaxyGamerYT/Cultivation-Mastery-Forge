@@ -7,13 +7,21 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class FormationCoreRuneSlot extends SlotItemHandler {
+public class FormationCoreSlot extends SlotItemHandler {
     private final ContainerData data;
 
 
-    public FormationCoreRuneSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, ContainerData data) {
+    public FormationCoreSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, ContainerData data) {
         super(itemHandler, index, xPosition, yPosition);
         this.data = data;
+    }
+
+    public int getData() {
+        return this.data.get(0);
+    }
+
+    public void setData(int value) {
+        this.data.set(0, value);
     }
 
     @Override
@@ -33,18 +41,18 @@ public class FormationCoreRuneSlot extends SlotItemHandler {
         if (!this.getItem().isEmpty()) {
             ItemStack stack = getItemHandler().getStackInSlot(8);
             if (stack.isEmpty()) {
-                data.set(0, 0);
+                setData(0);
             } else {
-                data.set(0, 1);
+                setData(1);
             }
         } else {
             for (int i = 0; i < 7; i++) {
                 ItemStack stack = getItemHandler().getStackInSlot(i);
                 if (!stack.isEmpty()) {
-                    data.set(0, 1);
+                    setData(1);
                     break;
                 } else {
-                    data.set(0, 0);
+                    setData(0);
                 }
             }
         }

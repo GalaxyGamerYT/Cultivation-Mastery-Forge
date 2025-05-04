@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "cultivation_mastery:block/formation_core"
+    "active=false": {
+      "model": "cultivation_mastery:block/formation_core/inactive_formation_core"
+    },
+    "active=true": {
+      "model": "cultivation_mastery:block/formation_core/active_formation_core"
     }
   }
 }
