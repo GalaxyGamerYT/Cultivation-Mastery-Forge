@@ -60,10 +60,9 @@ public class ModCreativeModeTabs {
                         }
 
                         output.accept(ModBlocks.SPIRITUAL_IRON_BLOCK.get().asItem());
-
                         output.accept(ModBlocks.PADDED_CUSHION.get().asItem());
-
                         output.accept(ModBlocks.RUNE_INSCRIBING_TABLE.get().asItem());
+                        output.accept(ModBlocks.FORMATION_CORE.get().asItem());
                     })
                     .build());
 

@@ -34,6 +34,8 @@ public class ModTags {
         public static final TagKey<Item> WOOD_TRAINING_POSTS = tag("wood_training_posts");
         public static final TagKey<Item> TRAINING_POSTS = tag("wood_training_posts");
 
+        public static final TagKey<Item> USABLE_RUNE_STONES = tag("usable_rune_stones");
+        public static final TagKey<Item> ATTRIBUTE_RUNE_STONES = tag("attribute_rune_stones");
         public static final TagKey<Item> BASIC_RUNE_STONES = tag("basic_rune_stones");
         public static final TagKey<Item> LOW_RUNE_STONES = tag("low_rune_stones");
         public static final TagKey<Item> MEDIUM_RUNE_STONES = tag("medium_rune_stones");

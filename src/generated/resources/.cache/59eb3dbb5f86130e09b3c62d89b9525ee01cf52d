@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-28T00:06:20.522403	Loot Tables
+// 1.20.1	2025-05-03T16:03:51.3041106	Loot Tables
 8057d218cbb935606093f8fd312e2d0ffe94193f data/cultivation_mastery/loot_tables/blocks/acacia_training_post.json
 063e2a5cbee9b1c76bcd5ef0dc74c513e9572617 data/cultivation_mastery/loot_tables/blocks/birch_training_post.json
 226a5223fbb30c0816f4a9fcb8d843e46da82534 data/cultivation_mastery/loot_tables/blocks/cherry_training_post.json
@@ -6,6 +6,7 @@ c7a2ea3f9b057738bfe02fe605a6d97fd4b906aa data/cultivation_mastery/loot_tables/bl
 283ebb65ca88f142625643f878a5a3a0205b42a6 data/cultivation_mastery/loot_tables/blocks/deepslate_high_spirit_stone_ore.json
 fdf4e97ef07e4b1d6e406ddb92ecb5500bef3910 data/cultivation_mastery/loot_tables/blocks/deepslate_low_spirit_stone_ore.json
 e0af903b32167a67a18057614cf3ee4fc91d6876 data/cultivation_mastery/loot_tables/blocks/deepslate_medium_spirit_stone_ore.json
+4b3241f8f9e6ba26a6bc588c82886cb8de9c1f34 data/cultivation_mastery/loot_tables/blocks/formation_core.json
 41b7d6d410db4d45e41f913dff026b20f2d65557 data/cultivation_mastery/loot_tables/blocks/high_spirit_stone_ore.json
 f5a95b72fc9fa317d24ed5d0180ed92738bcc806 data/cultivation_mastery/loot_tables/blocks/jungle_training_post.json
 8423ad299cc15638975a747435995a584af454bd data/cultivation_mastery/loot_tables/blocks/low_spirit_stone_ore.json

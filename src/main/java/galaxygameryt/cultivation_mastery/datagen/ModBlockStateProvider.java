@@ -47,6 +47,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         customModelBlockWithItem(ModBlocks.RUNE_INSCRIBING_TABLE.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/rune_inscribing_table")));
+
+        customModelBlockWithItem(ModBlocks.FORMATION_CORE.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/formation_core")));
     }
 
     private void customModelBlockWithItem(Block block, ModelFile model) {

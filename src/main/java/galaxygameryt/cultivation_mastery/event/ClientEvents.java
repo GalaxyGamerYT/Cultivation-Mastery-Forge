@@ -74,6 +74,11 @@ public class ClientEvents {
                 if (playerData.getTickCounter("general") >= 20) {
                     playerData.resetTickCounter("general");
                 }
+                if (playerData.tickCounterExists("formation_core_gui_array")) {
+                    if (playerData.getTickCounter("formation_core_gui_array") >= 30) {
+                        playerData.resetTickCounter("formation_core_gui_array");
+                    }
+                }
 
                 playerData.incrementAllTickCounters();
             }

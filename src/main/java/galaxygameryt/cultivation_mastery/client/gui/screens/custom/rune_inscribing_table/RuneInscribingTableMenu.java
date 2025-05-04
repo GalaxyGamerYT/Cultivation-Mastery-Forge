@@ -150,7 +150,7 @@ public class RuneInscribingTableMenu extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
 
-                if (!this.moveItemStackTo(originalStack, BASE_ITEM_SLOT_INDEX, INSCRIBING_ITEM_SLOT_INDEX + 1, false)) {
+                if (!this.moveItemStackTo(originalStack, INSCRIBING_ITEM_SLOT_INDEX, INSCRIBING_ITEM_SLOT_INDEX + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }

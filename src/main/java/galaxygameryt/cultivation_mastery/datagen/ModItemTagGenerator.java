@@ -41,20 +41,30 @@ public class ModItemTagGenerator extends ItemTagsProvider {
             if (item instanceof SpiritStoneItem) {
                 tag(ModTags.Items.SPIRITUAL_STONES).add(item);
             }
-            if (item instanceof BasicRuneStoneItem) {
+            if (item instanceof BasicRuneStoneItem runeItem) {
                 tag(ModTags.Items.BASIC_RUNE_STONES).add(item);
+                tag(ModTags.Items.USABLE_RUNE_STONES).add(item);
+                if (!runeItem.getAttribute().isEmpty()) tag(ModTags.Items.ATTRIBUTE_RUNE_STONES).add(item);
             }
-            if (item instanceof LowRuneStoneItem) {
+            if (item instanceof LowRuneStoneItem runeItem) {
                 tag(ModTags.Items.LOW_RUNE_STONES).add(item);
+                tag(ModTags.Items.USABLE_RUNE_STONES).add(item);
+                if (!runeItem.getAttribute().isEmpty()) tag(ModTags.Items.ATTRIBUTE_RUNE_STONES).add(item);
             }
-            if (item instanceof MediumRuneStoneItem) {
+            if (item instanceof MediumRuneStoneItem runeItem) {
                 tag(ModTags.Items.MEDIUM_RUNE_STONES).add(item);
+                tag(ModTags.Items.USABLE_RUNE_STONES).add(item);
+                if (!runeItem.getAttribute().isEmpty()) tag(ModTags.Items.ATTRIBUTE_RUNE_STONES).add(item);
             }
-            if (item instanceof HighRuneStoneItem) {
+            if (item instanceof HighRuneStoneItem runeItem) {
                 tag(ModTags.Items.HIGH_RUNE_STONES).add(item);
+                tag(ModTags.Items.USABLE_RUNE_STONES).add(item);
+                if (!runeItem.getAttribute().isEmpty()) tag(ModTags.Items.ATTRIBUTE_RUNE_STONES).add(item);
             }
-            if (item instanceof ImmortalRuneStoneItem) {
+            if (item instanceof ImmortalRuneStoneItem runeItem) {
                 tag(ModTags.Items.IMMORTAL_RUNE_STONES).add(item);
+                tag(ModTags.Items.USABLE_RUNE_STONES).add(item);
+                if (!runeItem.getAttribute().isEmpty()) tag(ModTags.Items.ATTRIBUTE_RUNE_STONES).add(item);
             }
         }
 

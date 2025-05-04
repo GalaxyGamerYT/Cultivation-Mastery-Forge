@@ -40,6 +40,9 @@
 
   "block.cultivation_mastery.rune_inscribing_table": "Rune Inscribing Table",
 
+  "block.cultivation_mastery.formation_core": "Formation Core",
+  "block.cultivation_mastery.formation_core.title": "Formation",
+
   "block.cultivation_mastery.padded_cushion": "Padded Cushion",
   "block.cultivation_mastery.padded_cushion.tooltip": "Used to meditate on",
 

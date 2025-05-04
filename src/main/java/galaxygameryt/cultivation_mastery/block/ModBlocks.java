@@ -79,6 +79,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> RUNE_INSCRIBING_TABLE = registerBlock("rune_inscribing_table",
             () -> new RuneInscribingTableBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
 
+    public static final RegistryObject<Block> FORMATION_CORE = registerBlock("formation_core",
+            () -> new FormationCoreBlock(BlockBehaviour.Properties.of()));
+
 
 
     private static RegistryObject<Block> registerWoodenTrainingPostBlock(String name, Block propertiesCopyFromBlock) {

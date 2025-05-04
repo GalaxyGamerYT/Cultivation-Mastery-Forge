@@ -2,6 +2,7 @@ package galaxygameryt.cultivation_mastery;
 
 import com.mojang.logging.LogUtils;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
+import galaxygameryt.cultivation_mastery.block.entity.ModBlockEntities;
 import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.entity.ModEntities;
 import galaxygameryt.cultivation_mastery.item.ModCreativeModeTabs;
@@ -48,6 +49,7 @@ public class CultivationMastery
         ModEntities.register(modEventBus);
         ModParticles.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
