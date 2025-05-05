@@ -22,7 +22,7 @@ public class FormationCoreMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public FormationCoreMenu(int containerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(1));
+        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
     public FormationCoreMenu(int containerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -40,6 +40,10 @@ public class FormationCoreMenu extends AbstractContainerMenu {
 
     public int getActive() {
         return data.get(0);
+    }
+
+    public int getLevelInt() {
+        return data.get(1);
     }
 
     public static final int RUNE_SLOT_START= 0;

@@ -4,8 +4,10 @@ public class RuneStoneAttributes {
     public enum Basic {
         ENERGY_GATHERING,
         HEALING,
-        DEFENCE,
-        OFFENSE
+        PROTECTION,
+        OFFENSE,
+        DEFENSE,
+        UTILITY
     }
 
     public enum Low {

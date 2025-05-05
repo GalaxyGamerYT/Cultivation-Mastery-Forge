@@ -1,0 +1,15 @@
+{
+  "type": "cultivation_mastery:rune_inscribing",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "cultivation_mastery:blank_rune_stone"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "result": {
+    "item": "cultivation_mastery:basic_rune_stone_defense"
+  }
+}

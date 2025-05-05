@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cultivation_mastery:basic_rune_stone_defence_crafting"
+        "recipe": "cultivation_mastery:basic_rune_stone_utility_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "cultivation_mastery:basic_rune_stone_defence_crafting"
+      "cultivation_mastery:basic_rune_stone_utility_crafting"
     ]
   },
   "sends_telemetry_event": false

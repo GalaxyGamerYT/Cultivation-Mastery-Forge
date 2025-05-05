@@ -2,8 +2,10 @@
   "values": [
     "cultivation_mastery:basic_rune_stone_energy_gathering",
     "cultivation_mastery:basic_rune_stone_healing",
-    "cultivation_mastery:basic_rune_stone_defence",
+    "cultivation_mastery:basic_rune_stone_protection",
     "cultivation_mastery:basic_rune_stone_offense",
+    "cultivation_mastery:basic_rune_stone_defense",
+    "cultivation_mastery:basic_rune_stone_utility",
     "cultivation_mastery:low_rune_stone_fire",
     "cultivation_mastery:low_rune_stone_water",
     "cultivation_mastery:low_rune_stone_earth",

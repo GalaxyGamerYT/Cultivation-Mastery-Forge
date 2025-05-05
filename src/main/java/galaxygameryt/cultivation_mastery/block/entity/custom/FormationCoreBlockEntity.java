@@ -3,19 +3,29 @@ package galaxygameryt.cultivation_mastery.block.entity.custom;
 import galaxygameryt.cultivation_mastery.block.custom.FormationCoreBlock;
 import galaxygameryt.cultivation_mastery.block.entity.ModBlockEntities;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.formation_core.FormationCoreMenu;
+import galaxygameryt.cultivation_mastery.event.handlers.FormationEffectHandler;
+import galaxygameryt.cultivation_mastery.item.ModItems;
+import galaxygameryt.cultivation_mastery.util.SavedData.FormationCoreSavedData;
+import galaxygameryt.cultivation_mastery.util.data.FormationEffectData;
+import galaxygameryt.cultivation_mastery.util.helpers.RuneEffectResolver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,6 +37,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FormationCoreBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(9);
 
@@ -34,14 +47,18 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
 
     protected final ContainerData data;
     private int active = 0;
+    private int levelInt = 0;
+
+    private final List<MobEffectInstance> effects = new ArrayList<>();
 
     public FormationCoreBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.FORMATION_CORE_BE.get(), pos, blockState);
         this.data = new ContainerData() {
             @Override
             public int get(int index) {
-                if (index != 0) return 0;
-                return FormationCoreBlockEntity.this.active;
+                if (index == 0) return FormationCoreBlockEntity.this.active;
+                if (index == 1) return FormationCoreBlockEntity.this.levelInt;
+                return 0;
             }
 
             @Override
@@ -49,17 +66,24 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
                 if (index == 0) {
                     FormationCoreBlockEntity.this.active = value;
                 }
+                if (index == 1) {
+                    FormationCoreBlockEntity.this.levelInt = value;
+                }
             }
 
             @Override
             public int getCount() {
-                return 1;
+                return 2;
             }
         };
     }
 
     public boolean isActive() {
         return this.active != 0;
+    }
+
+    public int getLevelInt() {
+        return this.levelInt;
     }
 
     @Override
@@ -75,12 +99,27 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        if (!level.isClientSide) {
+            FormationCoreSavedData data = FormationCoreSavedData.get(level);
+            data.addFormation(worldPosition, new FormationEffectData(effects, levelInt));
+        }
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
+    }
+
+    @Override
+    public void setRemoved() {
+        super.setRemoved();
+        if (level != null) {
+            if (!level.isClientSide) {
+                FormationCoreSavedData data = FormationCoreSavedData.get(level);
+                data.removeFormation(worldPosition);
+            }
+        }
     }
 
     public void drops() {
@@ -104,10 +143,18 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.put("inventory", itemHandler.serializeNBT());
         tag.putInt("formation_core.active", active);
 
-        super.saveAdditional(tag);
+        ListTag listTag = new ListTag();
+        for (MobEffectInstance effect : effects) {
+            CompoundTag effectTag = new CompoundTag();
+            effect.save(effectTag);
+            listTag.add(effectTag);
+        }
+        tag.put("effects", listTag);
+        tag.putInt("levelInt", levelInt);
     }
 
     @Override
@@ -115,9 +162,41 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
         super.load(tag);
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         active = tag.getInt("formation_core.active");
+
+        effects.clear();
+        if (tag.contains("effects", Tag.TAG_LIST)) {
+            ListTag listTag = tag.getList("effects", Tag.TAG_COMPOUND);
+            for (Tag t : listTag) {
+                CompoundTag effectTag = (CompoundTag) t;
+                effects.add(MobEffectInstance.load(effectTag));
+            }
+        }
+        levelInt = tag.getInt("levelInt");
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        saveAdditional(tag);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        load(tag);
     }
 
     public void ServerTick(Level level, BlockPos pos, BlockState state) {
+        if (level.isClientSide()) return;
+
+        ItemStack spiritStoneStack = itemHandler.getStackInSlot(8);
+        if (spiritStoneStack.is(ModItems.LOW_SPIRIT_STONE.get())) this.data.set(1,1);
+        if (spiritStoneStack.is(ModItems.MEDIUM_SPIRIT_STONE.get())) this.data.set(1,2);
+        if (spiritStoneStack.is(ModItems.HIGH_SPIRIT_STONE.get())) this.data.set(1,3);
+        if (spiritStoneStack.is(ModItems.IMMORTAL_SPIRIT_STONE.get())) this.data.set(1,4);
+
+        evaluateRunesAndSetEffects();
+
         boolean active = isActive();
         if (active != state.getValue(FormationCoreBlock.ACTIVE_STATE)) {
             level.setBlock(pos, state.setValue(FormationCoreBlock.ACTIVE_STATE, active), 2);
@@ -153,5 +232,25 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
                     0, 0.02, 0
             );
         }
+    }
+
+    public void setEffects(List<MobEffectInstance> newEffects) {
+        effects.clear();
+        effects.addAll(newEffects);
+        setChanged();
+    }
+
+    public List<MobEffectInstance> getEffects() {
+        return effects;
+    }
+
+    public void evaluateRunesAndSetEffects() {
+        List<ItemStack> runes = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            runes.add(itemHandler.getStackInSlot(i));
+        }
+
+        List<MobEffectInstance> newEffects = RuneEffectResolver.resolveEffectsFromRunes(runes, itemHandler.getStackInSlot(8), this.levelInt);
+        setEffects(newEffects);
     }
 }
