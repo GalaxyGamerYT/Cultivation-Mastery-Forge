@@ -1,7 +1,6 @@
 package galaxygameryt.cultivation_mastery.util.helpers;
 
 import galaxygameryt.cultivation_mastery.effect.ModEffects;
-import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
 import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
 import net.minecraft.world.effect.MobEffect;
@@ -19,7 +18,6 @@ public class RuneEffectResolver {
         List<MobEffectInstance> effectInstances = new ArrayList<>();
 
         ItemStack slot1 = runes.get(0);
-        levelInt = 1;
 
         int duration = 600;
         if (spiritStone.isEmpty()) return effectInstances;

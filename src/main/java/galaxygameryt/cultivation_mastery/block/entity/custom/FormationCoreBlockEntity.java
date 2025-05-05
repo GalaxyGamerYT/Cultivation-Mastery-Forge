@@ -3,10 +3,7 @@ package galaxygameryt.cultivation_mastery.block.entity.custom;
 import galaxygameryt.cultivation_mastery.block.custom.FormationCoreBlock;
 import galaxygameryt.cultivation_mastery.block.entity.ModBlockEntities;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.formation_core.FormationCoreMenu;
-import galaxygameryt.cultivation_mastery.event.handlers.FormationEffectHandler;
 import galaxygameryt.cultivation_mastery.item.ModItems;
-import galaxygameryt.cultivation_mastery.util.SavedData.FormationCoreSavedData;
-import galaxygameryt.cultivation_mastery.util.data.FormationEffectData;
 import galaxygameryt.cultivation_mastery.util.helpers.RuneEffectResolver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,11 +21,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -99,10 +97,6 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        if (!level.isClientSide) {
-            FormationCoreSavedData data = FormationCoreSavedData.get(level);
-            data.addFormation(worldPosition, new FormationEffectData(effects, levelInt));
-        }
     }
 
     @Override
@@ -115,10 +109,6 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
     public void setRemoved() {
         super.setRemoved();
         if (level != null) {
-            if (!level.isClientSide) {
-                FormationCoreSavedData data = FormationCoreSavedData.get(level);
-                data.removeFormation(worldPosition);
-            }
         }
     }
 
@@ -196,6 +186,21 @@ public class FormationCoreBlockEntity extends BlockEntity implements MenuProvide
         if (spiritStoneStack.is(ModItems.IMMORTAL_SPIRIT_STONE.get())) this.data.set(1,4);
 
         evaluateRunesAndSetEffects();
+
+        List<Player> playersInRange = level.getEntitiesOfClass(Player.class, AABB.of(new BoundingBox(pos).inflatedBy(5*levelInt)));
+        if (!playersInRange.isEmpty() && isActive()) {
+            playersInRange.forEach(player -> {
+                for (MobEffectInstance instance : effects) {
+                    MobEffectInstance existing = player.getEffect(instance.getEffect());
+                    if (existing == null || existing.getDuration() < Math.max(instance.getDuration()-50, 200)) {
+                        if (existing != null) {
+                            player.removeEffect(existing.getEffect());
+                        }
+                        player.addEffect(instance);
+                    }
+                }
+            });
+        }
 
         boolean active = isActive();
         if (active != state.getValue(FormationCoreBlock.ACTIVE_STATE)) {
