@@ -32,7 +32,7 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
     }
 
     public String getAttribute() {
-        return RuneStoneItem.getAttribute(new ItemStack(this));
+        return attribute;
     }
 
     public static void setAttribute(ItemStack stack, String attribute) {

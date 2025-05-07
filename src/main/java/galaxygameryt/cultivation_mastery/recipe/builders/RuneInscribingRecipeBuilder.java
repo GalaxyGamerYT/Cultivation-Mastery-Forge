@@ -2,7 +2,9 @@ package galaxygameryt.cultivation_mastery.recipe.builders;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
 import galaxygameryt.cultivation_mastery.recipe.ModRecipes;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -30,6 +32,7 @@ import java.util.function.Consumer;
 public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implements RecipeBuilder {
     private final RecipeCategory category;
     private final Item result;
+    private String attribute;
     private final int count;
     private Ingredient baseItem = Ingredient.EMPTY;
     private Ingredient inscribingItem = Ingredient.EMPTY;
@@ -76,6 +79,11 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
         return this;
     }
 
+    public RuneInscribingRecipeBuilder attribute(String attribute) {
+        this.attribute = attribute;
+        return this;
+    }
+
     @Override
     public @NotNull RecipeBuilder unlockedBy(@NotNull String criterionName, @NotNull CriterionTriggerInstance criterionTrigger) {
         this.advancement.addCriterion(criterionName, criterionTrigger);
@@ -102,7 +110,8 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
                 .requirements(RequirementsStrategy.OR);
         finishedRecipeConsumer.accept(new RuneInscribingRecipeBuilder.Result(recipeId, this.result, this.count,
                 this.group == null ? "" : this.group, determineBookCategory(this.category), this.baseItem, this.inscribingItem,
-                this.advancement, recipeId.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+                this.attribute == null ? "" : this.attribute , this.advancement,
+                recipeId.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     private void ensureValid(ResourceLocation id) {
@@ -118,10 +127,11 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
         private final String group;
         private final Ingredient baseItem;
         private final Ingredient inscribingItem;
+        private final String attribute;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
 
-        protected Result(ResourceLocation id, Item result, int count, String group, CraftingBookCategory category, Ingredient baseItem, Ingredient inscribingItem, Advancement.Builder advancement, ResourceLocation advancementId) {
+        protected Result(ResourceLocation id, Item result, int count, String group, CraftingBookCategory category, Ingredient baseItem, Ingredient inscribingItem, String attribute, Advancement.Builder advancement, ResourceLocation advancementId) {
             super(category);
             this.id = id;
             this.result = result;
@@ -129,6 +139,7 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
             this.group = group;
             this.baseItem = baseItem;
             this.inscribingItem = inscribingItem;
+            this.attribute = attribute;
             this.advancement = advancement;
             this.advancementId = advancementId;
         }
@@ -155,6 +166,7 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
             }
 
             json.add("result", jsonObject);
+            json.addProperty("attribute", this.attribute);
         }
 
         @Override

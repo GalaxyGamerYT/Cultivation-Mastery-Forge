@@ -5,12 +5,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
-import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
 import galaxygameryt.cultivation_mastery.util.Logger;
+import me.lucko.spark.lib.adventure.text.TextComponent;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
@@ -25,13 +27,16 @@ public class RuneInscribingRecipe implements Recipe<Container> {
     private final ItemStack result;
     private final ResourceLocation id;
 
+    private final String attribute;
+
     private final int baseItemIndex = 0;
     private final int inscribingItemIndex = 1;
 
-    public RuneInscribingRecipe(NonNullList<Ingredient> inputItems, ItemStack result, ResourceLocation id) {
+    public RuneInscribingRecipe(NonNullList<Ingredient> inputItems, ItemStack result, ResourceLocation id, String attribute) {
         this.inputItems = inputItems;
         this.result = result;
         this.id = id;
+        this.attribute = attribute;
     }
 
     @Override
@@ -43,7 +48,7 @@ public class RuneInscribingRecipe implements Recipe<Container> {
 
     @Override
     public @NotNull ItemStack assemble(@NotNull Container container, @NotNull RegistryAccess registryAccess) {
-        return getResultItem(registryAccess);
+        return getResultItem(RegistryAccess.EMPTY);
     }
 
     @Override
@@ -55,7 +60,7 @@ public class RuneInscribingRecipe implements Recipe<Container> {
     public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
         ItemStack stack = result.copy();
         if (stack.getItem() instanceof RuneStoneItem runeItem) {
-            RuneStoneItem.setAttribute(stack, runeItem.getAttribute());
+            RuneStoneItem.setAttribute(stack, attribute);
         }
         return stack;
     }
@@ -96,7 +101,6 @@ public class RuneInscribingRecipe implements Recipe<Container> {
         @Override
         public @NotNull RuneInscribingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject serializedRecipe) {
             JsonArray ingredients = GsonHelper.getAsJsonArray(serializedRecipe, "ingredients");
-            if (ingredients.size() != 2) throw new JsonParseException("RuneInscribingRecipe must have exactly 2 ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
@@ -105,32 +109,25 @@ public class RuneInscribingRecipe implements Recipe<Container> {
 
             ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(serializedRecipe, "result"));
 
-            return new RuneInscribingRecipe(inputs, result, recipeId);
+            String attribute = GsonHelper.getAsString(serializedRecipe, "attribute");
+
+            return new RuneInscribingRecipe(inputs, result, recipeId, attribute);
         }
 
         @Override
         public @Nullable RuneInscribingRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-            try {
-                int size = buffer.readInt();
-                NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+            int size = buffer.readInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
 
-                Logger.info(String.valueOf(size));
-                for (int i = 0; i < size; i++) {
-                    try {
-                        inputs.set(i, Ingredient.fromNetwork(buffer));
-                    } catch (Exception e) {
-                        Logger.info("Failed to decode ingredient " + i + " in recipe: " + recipeId);
-                        throw e;
-                    }
-                }
-
-                ItemStack output = buffer.readItem();
-                return new RuneInscribingRecipe(inputs, output, recipeId);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("Error reading RuneInscribingRecipe from network!", e);
+            for (int i = 0; i < size; i++) {
+                inputs.set(i, Ingredient.fromNetwork(buffer));
             }
 
+            ItemStack output = buffer.readItem();
+
+            String attribute = buffer.readUtf();
+
+            return new RuneInscribingRecipe(inputs, output, recipeId, attribute);
         }
 
         @Override
@@ -138,18 +135,11 @@ public class RuneInscribingRecipe implements Recipe<Container> {
             buffer.writeInt(recipe.inputItems.size());
 
             for (Ingredient ingredient : recipe.getInputItems()) {
-                try {
-                    JsonElement json = ingredient.toJson();
-                    Logger.info("[RuneInscribingRecipe] Ingredient JSON: " + json);
-                    ingredient.toNetwork(buffer);
-                } catch (Exception e) {
-                    Logger.info("[RuneInscribingRecipe] Failed to write ingredient to network!");
-                    e.printStackTrace();
-                }
+                ingredient.toNetwork(buffer);
             }
 
-//            buffer.writeItemStack(recipe.getResultItem(RegistryAccess.EMPTY), false);
             buffer.writeItemStack(recipe.result, false);
+            buffer.writeUtf(recipe.attribute);
         }
     }
 }

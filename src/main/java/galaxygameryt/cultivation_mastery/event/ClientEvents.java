@@ -74,8 +74,10 @@ public class ClientEvents {
                 if (playerData.getTickCounter("general") >= 20) {
                     playerData.resetTickCounter("general");
                 }
+
+                int frameRate = 2;
                 if (playerData.tickCounterExists("formation_core_gui_array")) {
-                    if (playerData.getTickCounter("formation_core_gui_array") >= 30) {
+                    if (playerData.getTickCounter("formation_core_gui_array") > frameRate*5) {
                         playerData.resetTickCounter("formation_core_gui_array");
                     }
                 }

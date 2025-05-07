@@ -1,5 +1,6 @@
 {
   "type": "cultivation_mastery:rune_inscribing",
+  "attribute": "ENERGY_GATHERING",
   "category": "misc",
   "ingredients": [
     {

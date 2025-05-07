@@ -55,7 +55,9 @@ public class FormationCoreScreen extends AbstractContainerScreen<FormationCoreMe
         } else if (menu.getActive() == 1) {
             if (!playerData.tickCounterExists("formation_core_gui_array")) playerData.createTickCounter("formation_core_gui_array");
 
-            int index = Math.min((int) Math.floor((double) playerData.getTickCounter("formation_core_gui_array") / 5), 5);
+            int frameRate = 2;
+            double frame = Math.floor((double) playerData.getTickCounter("formation_core_gui_array") / frameRate);
+            int index = (int) Math.min(frame, 5);
             guiGraphics.blit(ACTIVE_ARRAY_TEXTURES.get(index), x, y, 0, 0, this.imageWidth, this.imageHeight);
         }
         guiGraphics.blit(ARRAY_SLOTS, x, y, 0, 0, this.imageWidth, this.imageHeight);

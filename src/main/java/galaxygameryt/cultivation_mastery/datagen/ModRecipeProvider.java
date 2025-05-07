@@ -5,6 +5,7 @@ import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
 import galaxygameryt.cultivation_mastery.recipe.builders.RuneInscribingRecipeBuilder;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import galaxygameryt.cultivation_mastery.util.ModTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -136,7 +137,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
+                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
                 }
             }
         }
@@ -147,7 +148,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
                 }
             }
         }
@@ -158,7 +159,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
                 }
             }
         }
@@ -169,7 +170,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
                 }
             }
         }
@@ -180,18 +181,23 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             if (runeStone instanceof RuneStoneItem rune) {
                 String attribute = rune.getAttribute();
                 if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, ModItems.BLANK_RUNE_STONE.get(), ModItems.IMMORTAL_SPIRIT_STONE.get());
+                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.IMMORTAL_SPIRIT_STONE.get());
                 }
             }
         }
     }
 
-    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, ItemLike baseItem, ItemLike inscribingItem) {
+    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, String attribute, ItemLike baseItem, ItemLike inscribingItem) {
         RuneInscribingRecipeBuilder.runeInscribing(RecipeCategory.MISC, result)
                 .base(baseItem)
                 .inscriber(inscribingItem)
+                .attribute(attribute)
                 .unlockedBy(getHasName(inscribingItem), has(inscribingItem))
                 .save(writer, ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, result.toString() + "_crafting"));
+    }
+
+    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, ItemLike baseItem, ItemLike inscribingItem) {
+        runeInscribingRecipes(writer, result, "", baseItem, inscribingItem);
     }
 
     protected static void basicTrainingPostRecipes(Consumer<FinishedRecipe> pWriter, ItemLike outputItem, ItemLike baseItem, ItemLike pillarItem) {

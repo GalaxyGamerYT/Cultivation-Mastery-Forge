@@ -4,6 +4,7 @@ import galaxygameryt.cultivation_mastery.block.custom.FormationCoreBlock;
 import galaxygameryt.cultivation_mastery.block.entity.ModBlockEntities;
 import galaxygameryt.cultivation_mastery.client.gui.screens.custom.formation_core.FormationCoreMenu;
 import galaxygameryt.cultivation_mastery.item.ModItems;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import galaxygameryt.cultivation_mastery.util.helpers.RuneEffectResolver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,6 +35,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jline.utils.Log;
 
 import java.util.ArrayList;
 import java.util.List;

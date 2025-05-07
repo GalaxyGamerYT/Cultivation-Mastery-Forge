@@ -36,17 +36,13 @@ public class JEICultivationMasteryPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        Logger.info("BOB!!!! - Categories registering");
         registration.addRecipeCategories(
                 new RuneInscribingCategory(registration.getJeiHelpers().getGuiHelper())
         );
-        Logger.info("BOB!!!! - Categories registered");
     }
 
     @Override
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
-        Logger.info("BOB!!!! - Recipes registering");
-
         if (Minecraft.getInstance().level == null) {
             Logger.warn("JEI: noe level loaded. Skipping recipe registration");
             return;
@@ -62,9 +58,7 @@ public class JEICultivationMasteryPlugin implements IModPlugin {
 
         List<RuneInscribingRecipe> runeInscribingRecipes = recipeManager.getAllRecipesFor(RuneInscribingRecipe.Type.INSTANCE);
 
-        Logger.info("BOB!!!! - Found " + runeInscribingRecipes.size() + " rune inscribing recipes");
         registration.addRecipes(RUNE_INSCRIBING_RECIPE_TYPE, runeInscribingRecipes);
-        Logger.info("BOB!!!! - Recipes registered");
     }
 
     @Override
@@ -75,9 +69,7 @@ public class JEICultivationMasteryPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
-        Logger.info("BOB!!!! - Recipe Catalysts registering");
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.RUNE_INSCRIBING_TABLE.get()), RUNE_INSCRIBING_RECIPE_TYPE);
-        Logger.info("BOB!!!! - Recipe Catalysts registered");
     }
 
     @Override

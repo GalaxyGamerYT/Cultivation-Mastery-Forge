@@ -1,4 +1,5 @@
-// 1.20.1	2025-05-07T01:41:40.6676217	Tags for minecraft:item mod id cultivation_mastery
+// 1.20.1	2025-05-07T16:23:22.9785077	Tags for minecraft:item mod id cultivation_mastery
+d88e3818b5d5b66ae5d30bfa9a5f4314009ba35c data/cultivation_mastery/tags/items/attribute_rune_stones.json
 409e0da971110462145c0178b05fa339e4c275fc data/cultivation_mastery/tags/items/basic_rune_stones.json
 109f99bde716c3f9cdb30878ff50a36dc4d780ee data/cultivation_mastery/tags/items/high_rune_stones.json
 7a691097b479c421db4b9299f9f507c779c8b886 data/cultivation_mastery/tags/items/high_spirit_stone_ores.json

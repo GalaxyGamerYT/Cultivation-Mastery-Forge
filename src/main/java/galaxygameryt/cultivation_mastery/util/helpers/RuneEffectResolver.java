@@ -2,6 +2,7 @@ package galaxygameryt.cultivation_mastery.util.helpers;
 
 import galaxygameryt.cultivation_mastery.effect.ModEffects;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,37 +17,52 @@ public class RuneEffectResolver {
 
     public static List<MobEffectInstance> resolveEffectsFromRunes(List<ItemStack> runes, ItemStack spiritStone, int levelInt) {
         List<MobEffectInstance> effectInstances = new ArrayList<>();
+        List<ItemStack> basicRunes = new ArrayList<>();
+        List<ItemStack> otherRunes = new ArrayList<>();
 
-        ItemStack slot1 = runes.get(0);
+        for (ItemStack runeStack : runes) {
+            Item item = runeStack.getItem();
+            if (item instanceof RuneStoneItem runeItem) {
+                if (runeItem instanceof BasicRuneStoneItem) {
+                    basicRunes.add(runeStack);
+                } else {
+                    otherRunes.add(runeStack);
+                }
+            }
+        }
 
         int duration = 600;
         if (spiritStone.isEmpty()) return effectInstances;
 
-        if (slot1.isEmpty()) return effectInstances;
+        if (basicRunes.isEmpty()) return effectInstances;
 
         List<EffectObject> effects = new ArrayList<>();
-        Item basicRune = slot1.getItem();
 
-        List<EffectObject> basicEffects = getBasicEffects(basicRune, levelInt);
+        List<EffectObject> basicEffects = getBasicEffects(basicRunes, levelInt);
         if (!basicEffects.isEmpty()) effects.addAll(basicEffects);
 
-        for (ItemStack runeStack : runes) {
-            if (runeStack.getItem() instanceof LowRuneStoneItem runeItem) {
-                // Low
-                List<EffectObject> lowEffects = getLowEffects(runeItem, basicRune, levelInt);
-                if (!lowEffects.isEmpty()) effects.addAll(lowEffects);
-            } else if (runeStack.getItem() instanceof MediumRuneStoneItem runeItem) {
-                // Medium
-                List<EffectObject> mediumEffects = getMediumEffects(runeItem, basicRune, levelInt);
-                if (!mediumEffects.isEmpty()) effects.addAll(mediumEffects);
-            } else if (runeStack.getItem() instanceof HighRuneStoneItem runeItem) {
-                // High
-                List<EffectObject> highEffects = getHighEffects(runeItem, basicRune, levelInt);
-                if (!highEffects.isEmpty()) effects.addAll(highEffects);
-            } else if (runeStack.getItem() instanceof ImmortalRuneStoneItem runeItem) {
-                // Immortal
-                List<EffectObject> immortalEffects = getImmortalEffects(runeItem, basicRune, levelInt);
-                if (!immortalEffects.isEmpty()) effects.addAll(immortalEffects);
+        for (ItemStack runeStack : otherRunes) {
+            Item runeItem = runeStack.getItem();
+            if (!runeStack.isEmpty()) {
+                for (ItemStack basicStack : basicRunes) {
+                    if (runeItem instanceof LowRuneStoneItem) {
+                        // Low
+                        List<EffectObject> lowEffects = getLowEffects(runeStack, basicStack, levelInt);
+                        if (!lowEffects.isEmpty()) effects.addAll(lowEffects);
+                    } else if (runeItem instanceof MediumRuneStoneItem) {
+                        // Medium
+                        List<EffectObject> mediumEffects = getMediumEffects(runeStack, basicStack, levelInt);
+                        if (!mediumEffects.isEmpty()) effects.addAll(mediumEffects);
+                    } else if (runeItem instanceof HighRuneStoneItem) {
+                        // High
+                        List<EffectObject> highEffects = getHighEffects(runeStack, basicStack, levelInt);
+                        if (!highEffects.isEmpty()) effects.addAll(highEffects);
+                    } else if (runeItem instanceof ImmortalRuneStoneItem) {
+                        // Immortal
+                        List<EffectObject> immortalEffects = getImmortalEffects(runeStack, basicStack, levelInt);
+                        if (!immortalEffects.isEmpty()) effects.addAll(immortalEffects);
+                    }
+                }
             }
         }
 
@@ -57,24 +73,23 @@ public class RuneEffectResolver {
         return effectInstances;
     }
 
-    private static boolean isAttribute(Item rune, String attr) {
-        RuneStoneItem runeItem = (RuneStoneItem) rune;
-        return runeItem.getAttribute().equalsIgnoreCase(attr);
+    private static boolean isAttribute(ItemStack runeStack, String attr) {
+        return RuneStoneItem.getAttribute(runeStack).equalsIgnoreCase(attr.toLowerCase());
     }
-    private static boolean isBasicAttr(Item rune, RuneStoneAttributes.Basic attr) {
-        return isAttribute(rune, attr.name());
+    private static boolean isBasicAttr(ItemStack runeStack, RuneStoneAttributes.Basic attr) {
+        return isAttribute(runeStack, attr.name());
     }
-    private static boolean isLowAttr(Item rune, RuneStoneAttributes.Low attr) {
-        return isAttribute(rune, attr.name());
+    private static boolean isLowAttr(ItemStack runeStack, RuneStoneAttributes.Low attr) {
+        return isAttribute(runeStack, attr.name());
     }
-    private static boolean isMediumAttr(Item rune, RuneStoneAttributes.Medium attr) {
-        return isAttribute(rune, attr.name());
+    private static boolean isMediumAttr(ItemStack runeStack, RuneStoneAttributes.Medium attr) {
+        return isAttribute(runeStack, attr.name());
     }
-    private static boolean isHighAttr(Item rune, RuneStoneAttributes.High attr) {
-        return isAttribute(rune, attr.name());
+    private static boolean isHighAttr(ItemStack runeStack, RuneStoneAttributes.High attr) {
+        return isAttribute(runeStack, attr.name());
     }
-    private static boolean isImmortalAttr(Item rune, RuneStoneAttributes.Immortal attr) {
-        return isAttribute(rune, attr.name());
+    private static boolean isImmortalAttr(ItemStack runeStack, RuneStoneAttributes.Immortal attr) {
+        return isAttribute(runeStack, attr.name());
     }
 
     private static MobEffectInstance newEffectInstance(MobEffect effect, int duration, int amplifier) {
@@ -88,22 +103,24 @@ public class RuneEffectResolver {
         return new EffectObject(effect, levelInt * amplifier);
     }
 
-    private static List<EffectObject> getBasicEffects(Item basicRune, int levelInt) {
+    private static List<EffectObject> getBasicEffects(List<ItemStack> basicRunes, int levelInt) {
         List<EffectObject> effects = new ArrayList<>();
 
-        if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.ENERGY_GATHERING)) {
-            effects.add(newEffectObject(ModEffects.QI_ABSORPTION.get(), levelInt));
-        } else if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.HEALING)) {
-            effects.add(newEffectObject(MobEffects.REGENERATION, levelInt, 2));
-        } else if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.PROTECTION)) {
-            effects.add(newEffectObject(MobEffects.DAMAGE_RESISTANCE, levelInt));
-        } else if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.OFFENSE)) {
-            effects.add(newEffectObject(MobEffects.DAMAGE_BOOST, levelInt));
+        for (ItemStack basicRune : basicRunes) {
+            if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.ENERGY_GATHERING)) {
+                effects.add(newEffectObject(ModEffects.QI_ABSORPTION.get(), levelInt));
+            } else if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.HEALING)) {
+                effects.add(newEffectObject(MobEffects.REGENERATION, levelInt, 2));
+            } else if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.PROTECTION)) {
+                effects.add(newEffectObject(MobEffects.DAMAGE_RESISTANCE, levelInt));
+            } else if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.OFFENSE)) {
+                effects.add(newEffectObject(MobEffects.DAMAGE_BOOST, levelInt));
+            }
         }
 
         return effects;
     }
-    private static List<EffectObject> getLowEffects(Item runeItem, Item basicRune, int levelInt) {
+    private static List<EffectObject> getLowEffects(ItemStack runeItem, ItemStack basicRune, int levelInt) {
         List<EffectObject> effects = new ArrayList<>();
 
         if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.ENERGY_GATHERING)) {
@@ -198,7 +215,7 @@ public class RuneEffectResolver {
 
         return effects;
     }
-    private static List<EffectObject> getMediumEffects(Item runeItem, Item basicRune, int levelInt) {
+    private static List<EffectObject> getMediumEffects(ItemStack runeItem, ItemStack basicRune, int levelInt) {
         List<EffectObject> effects = new ArrayList<>();
 
         if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.ENERGY_GATHERING)) {
@@ -230,7 +247,7 @@ public class RuneEffectResolver {
 
         return effects;
     }
-    private static List<EffectObject> getHighEffects(Item runeItem, Item basicRune, int levelInt) {
+    private static List<EffectObject> getHighEffects(ItemStack runeItem, ItemStack basicRune, int levelInt) {
         List<EffectObject> effects = new ArrayList<>();
 
         if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.ENERGY_GATHERING)) {
@@ -262,7 +279,7 @@ public class RuneEffectResolver {
 
         return effects;
     }
-    private static List<EffectObject> getImmortalEffects(Item runeItem, Item basicRune, int levelInt) {
+    private static List<EffectObject> getImmortalEffects(ItemStack runeItem, ItemStack basicRune, int levelInt) {
         List<EffectObject> effects = new ArrayList<>();
 
         if (isBasicAttr(basicRune, RuneStoneAttributes.Basic.ENERGY_GATHERING)) {

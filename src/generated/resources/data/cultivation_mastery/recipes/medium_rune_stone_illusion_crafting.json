@@ -1,5 +1,6 @@
 {
   "type": "cultivation_mastery:rune_inscribing",
+  "attribute": "ILLUSION",
   "category": "misc",
   "ingredients": [
     {
