@@ -1,11 +1,15 @@
 package galaxygameryt.cultivation_mastery.recipe.custom;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -61,6 +65,11 @@ public class RuneInscribingRecipe implements Recipe<Container> {
     }
 
     @Override
+    public @NotNull NonNullList<Ingredient> getIngredients() {
+        return getInputItems();
+    }
+
+    @Override
     public @NotNull ResourceLocation getId() {
         return id;
     }
@@ -87,6 +96,7 @@ public class RuneInscribingRecipe implements Recipe<Container> {
         @Override
         public @NotNull RuneInscribingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject serializedRecipe) {
             JsonArray ingredients = GsonHelper.getAsJsonArray(serializedRecipe, "ingredients");
+            if (ingredients.size() != 2) throw new JsonParseException("RuneInscribingRecipe must have exactly 2 ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
@@ -100,25 +110,46 @@ public class RuneInscribingRecipe implements Recipe<Container> {
 
         @Override
         public @Nullable RuneInscribingRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(buffer.readInt(), Ingredient.EMPTY);
+            try {
+                int size = buffer.readInt();
+                NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(buffer));
+                Logger.info(String.valueOf(size));
+                for (int i = 0; i < size; i++) {
+                    try {
+                        inputs.set(i, Ingredient.fromNetwork(buffer));
+                    } catch (Exception e) {
+                        Logger.info("Failed to decode ingredient " + i + " in recipe: " + recipeId);
+                        throw e;
+                    }
+                }
+
+                ItemStack output = buffer.readItem();
+                return new RuneInscribingRecipe(inputs, output, recipeId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Error reading RuneInscribingRecipe from network!", e);
             }
 
-            ItemStack output = buffer.readItem();
-            return new RuneInscribingRecipe(inputs, output, recipeId);
         }
 
         @Override
         public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RuneInscribingRecipe recipe) {
             buffer.writeInt(recipe.inputItems.size());
 
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                ingredient.toNetwork(buffer);
+            for (Ingredient ingredient : recipe.getInputItems()) {
+                try {
+                    JsonElement json = ingredient.toJson();
+                    Logger.info("[RuneInscribingRecipe] Ingredient JSON: " + json);
+                    ingredient.toNetwork(buffer);
+                } catch (Exception e) {
+                    Logger.info("[RuneInscribingRecipe] Failed to write ingredient to network!");
+                    e.printStackTrace();
+                }
             }
 
-            buffer.writeItemStack(recipe.getResultItem(RegistryAccess.EMPTY), false);
+//            buffer.writeItemStack(recipe.getResultItem(RegistryAccess.EMPTY), false);
+            buffer.writeItemStack(recipe.result, false);
         }
     }
 }

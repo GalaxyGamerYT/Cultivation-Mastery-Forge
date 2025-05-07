@@ -4,7 +4,7 @@
   "package": "galaxygameryt.cultivation_mastery.mixin",
   "refmap": "mixins.cultivation_mastery.refmap.json",
   "mixins": [
-    "PlayerModelMixin"
+
   ],
   "client": [
     "PlayerModelMixin"

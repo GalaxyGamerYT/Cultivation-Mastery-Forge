@@ -24,20 +24,23 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
 
     public RuneStoneItem(Properties properties, String attribute) {
         super(properties);
-        this.attribute = attribute;
+        this.attribute = sanitize(attribute);
     }
 
     public void setAttribute(String attribute) {
-        RuneStoneItem.setAttribute(new ItemStack(this), attribute);
+        RuneStoneItem.setAttribute(new ItemStack(this), sanitize(attribute));
     }
 
     public String getAttribute() {
-        return attribute;
+        return RuneStoneItem.getAttribute(new ItemStack(this));
     }
 
     public static void setAttribute(ItemStack stack, String attribute) {
-        stack.getOrCreateTag().putString(ATTRIBUTE_KEY, attribute);
-        ((RuneStoneItem) stack.getItem()).attribute = attribute;
+        stack.getOrCreateTag().putString(ATTRIBUTE_KEY, sanitize(attribute));
+    }
+
+    private static String sanitize(String input) {
+        return input.replaceAll("[^\\x20-\\x7E]", "");
     }
 
     public static String getAttribute(ItemStack stack) {
