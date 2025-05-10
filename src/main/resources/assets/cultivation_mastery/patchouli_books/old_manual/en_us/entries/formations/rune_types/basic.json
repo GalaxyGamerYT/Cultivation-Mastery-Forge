@@ -1,0 +1,24 @@
+{
+  "name": "Basic Rune Stones",
+  "icon": "cultivation_mastery:basic_rune_stone",
+  "category": "cultivation_mastery:formations_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Basic Rune Stone",
+      "item": {
+        "item": "cultivation_mastery:basic_rune_stone"
+      },
+      "text": "These rune stones set the type the formations are set to."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Energy Gathering Basic Rune Stone",
+      "item": {
+        "item": "cultivation_mastery:basic_rune_stone",
+        "nbt": "{attribute:\"ENERGY_GATHERING\"}"
+      },
+      "text": "This rune makes the formation be an Energy Gathering formation."
+    }
+  ]
+}

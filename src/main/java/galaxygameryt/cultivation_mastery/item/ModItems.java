@@ -22,13 +22,6 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, CultivationMastery.MOD_ID);
 
-    public static final List<RegistryObject<Item>> BASIC_RUNE_STONES = new ArrayList<>();
-    public static final List<RegistryObject<Item>> LOW_RUNE_STONES = new ArrayList<>();
-    public static final List<RegistryObject<Item>> MEDIUM_RUNE_STONES = new ArrayList<>();
-    public static final List<RegistryObject<Item>> HIGH_RUNE_STONES = new ArrayList<>();
-    public static final List<RegistryObject<Item>> IMMORTAL_RUNE_STONES = new ArrayList<>();
-
-
     public static final RegistryObject<Item> SPIRITUAL_MIRROR = ITEMS.register("spiritual_mirror",
             () -> new SpiritualMirrorItem(new Item.Properties()));
 
@@ -66,60 +59,11 @@ public class ModItems {
 
     public static final RegistryObject<Item> YIN_YANG = ITEMS.register("yin_yang",
             () -> new Item(new Item.Properties()));
-
-    private static void registerBasicRuneStones() {
-        for (RuneStoneAttributes.Basic attr : RuneStoneAttributes.Basic.values()) {
-//            Logger.info("[RuneItem] Registering: basic rune stone "+attr.name());
-            RegistryObject<Item> rune = ITEMS.register("basic_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new BasicRuneStoneItem(new Item.Properties(), attr.name()));
-            BASIC_RUNE_STONES.add(rune);
-        }
-    }
-
-    private static void registerLowRuneStones() {
-        for (RuneStoneAttributes.Low attr : RuneStoneAttributes.Low.values()) {
-//            Logger.info("[RuneItem] Registering: low rune stone "+attr.name());
-            RegistryObject<Item> rune = ITEMS.register("low_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new LowRuneStoneItem(new Item.Properties(), attr.name()));
-            LOW_RUNE_STONES.add(rune);
-        }
-    }
-
-    private static void registerMediumRuneStones() {
-        for (RuneStoneAttributes.Medium attr : RuneStoneAttributes.Medium.values()) {
-//            Logger.info("[RuneItem] Registering: medium rune stone "+attr.name());
-            RegistryObject<Item> rune = ITEMS.register("medium_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new MediumRuneStoneItem(new Item.Properties(), attr.name()));
-            MEDIUM_RUNE_STONES.add(rune);
-        }
-    }
-
-    private static void registerHighRuneStones() {
-        for (RuneStoneAttributes.High attr : RuneStoneAttributes.High.values()) {
-//            Logger.info("[RuneItem] Registering: high rune stone "+attr.name());
-            RegistryObject<Item> rune = ITEMS.register("high_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new HighRuneStoneItem(new Item.Properties(), attr.name()));
-            HIGH_RUNE_STONES.add(rune);
-        }
-    }
-
-    private static void registerImmortalRuneStones() {
-        for (RuneStoneAttributes.Immortal attr : RuneStoneAttributes.Immortal.values()) {
-//            Logger.info("[RuneItem] Registering: immortal rune stone "+attr.name());
-            RegistryObject<Item> rune = ITEMS.register("immortal_rune_stone_" + attr.name().toLowerCase(),
-                    () -> new ImmortalRuneStoneItem(new Item.Properties(), attr.name()));
-            IMMORTAL_RUNE_STONES.add(rune);
-        }
-    }
+    public static final RegistryObject<Item> ARRAY = ITEMS.register("array",
+            () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         Logger.info("Registering Items");
-
-        registerBasicRuneStones();
-        registerLowRuneStones();
-        registerMediumRuneStones();
-        registerHighRuneStones();
-        registerImmortalRuneStones();
 
         ITEMS.register(eventBus);
     }

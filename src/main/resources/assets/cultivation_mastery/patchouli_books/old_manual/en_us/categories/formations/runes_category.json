@@ -1,0 +1,6 @@
+{
+  "name": "Rune Stones",
+  "description": "Explanation on rune stones.",
+  "icon": "cultivation_mastery:blank_rune_stone",
+  "parent": "cultivation_mastery:formations_category"
+}

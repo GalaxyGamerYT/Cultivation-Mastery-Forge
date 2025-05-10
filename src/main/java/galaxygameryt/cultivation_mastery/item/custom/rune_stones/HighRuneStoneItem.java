@@ -34,11 +34,4 @@ public class HighRuneStoneItem extends RuneStoneItem {
     public int getLevelColor() {
         return 0x0058c4;
     }
-
-    @Override
-    public void fillCreativeTabItems(List<ItemStack> items, int index) {
-        ItemStack stack = new ItemStack(this);
-        setAttribute(stack, RuneStoneAttributes.High.values()[index].name());
-        items.add(stack);
-    }
 }

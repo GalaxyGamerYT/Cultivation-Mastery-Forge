@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RuneStoneItem extends Item implements ICreativeRuneStone {
-    private static final String ATTRIBUTE_KEY = "RuneStoneAttribute";
+    private static final String ATTRIBUTE_KEY = "attribute";
     private String attribute = null;
 
     public RuneStoneItem(Properties properties) {
@@ -102,10 +102,6 @@ public class RuneStoneItem extends Item implements ICreativeRuneStone {
         return Arrays.stream(parts)
                 .map(part -> part.substring(0, 1).toUpperCase() + part.substring(1))
                 .collect(Collectors.joining(" "));
-    }
-
-    public void fillCreativeTabItems(List<ItemStack> items, int index) {
-
     }
 
     @Override

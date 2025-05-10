@@ -34,11 +34,4 @@ public class MediumRuneStoneItem extends RuneStoneItem {
     public int getLevelColor() {
         return 0xfecd28;
     }
-
-    @Override
-    public void fillCreativeTabItems(List<ItemStack> items, int index) {
-        ItemStack stack = new ItemStack(this);
-        setAttribute(stack, RuneStoneAttributes.Medium.values()[index].name());
-        items.add(stack);
-    }
 }

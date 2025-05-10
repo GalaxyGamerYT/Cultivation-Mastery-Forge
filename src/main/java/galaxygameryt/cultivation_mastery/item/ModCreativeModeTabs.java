@@ -7,6 +7,7 @@ import galaxygameryt.cultivation_mastery.block.custom.training_posts.TrainingPos
 import galaxygameryt.cultivation_mastery.item.custom.SpiritStoneItem;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
 import galaxygameryt.cultivation_mastery.util.Logger;
+import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -101,38 +102,28 @@ public class ModCreativeModeTabs {
         List<ItemStack> runeStoneStacks = new ArrayList<>();
 
         // BASIC RUNE STONES
-        for (RegistryObject<Item> itemObj : ModItems.BASIC_RUNE_STONES) {
-            int index = ModItems.BASIC_RUNE_STONES.indexOf(itemObj);
-            BasicRuneStoneItem item = (BasicRuneStoneItem) itemObj.get();
-            item.fillCreativeTabItems(runeStoneStacks, index);
+        for (RuneStoneAttributes.Basic attr : RuneStoneAttributes.Basic.values()) {
+            runeStoneStacks.add(RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.BASIC_RUNE_STONE.get(), attr.name()));
         }
 
         // LOW RUNE STONES
-        for (RegistryObject<Item> itemObj : ModItems.LOW_RUNE_STONES) {
-            int index = ModItems.LOW_RUNE_STONES.indexOf(itemObj);
-            LowRuneStoneItem item = (LowRuneStoneItem) itemObj.get();
-            item.fillCreativeTabItems(runeStoneStacks, index);
+        for (RuneStoneAttributes.Low attr : RuneStoneAttributes.Low.values()) {
+            runeStoneStacks.add(RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.LOW_RUNE_STONE.get(), attr.name()));
         }
 
         // MEDIUM RUNE STONES
-        for (RegistryObject<Item> itemObj : ModItems.MEDIUM_RUNE_STONES) {
-            int index = ModItems.MEDIUM_RUNE_STONES.indexOf(itemObj);
-            MediumRuneStoneItem item = (MediumRuneStoneItem) itemObj.get();
-            item.fillCreativeTabItems(runeStoneStacks, index);
+        for (RuneStoneAttributes.Medium attr : RuneStoneAttributes.Medium.values()) {
+            runeStoneStacks.add(RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.MEDIUM_RUNE_STONE.get(), attr.name()));
         }
 
         // HIGH RUNE STONES
-        for (RegistryObject<Item> itemObj : ModItems.HIGH_RUNE_STONES) {
-            int index = ModItems.HIGH_RUNE_STONES.indexOf(itemObj);
-            HighRuneStoneItem item = (HighRuneStoneItem) itemObj.get();
-            item.fillCreativeTabItems(runeStoneStacks, index);
+        for (RuneStoneAttributes.High attr : RuneStoneAttributes.High.values()) {
+            runeStoneStacks.add(RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.HIGH_RUNE_STONE.get(), attr.name()));
         }
 
         // IMMORTAL RUNE STONES
-        for (RegistryObject<Item> itemObj : ModItems.IMMORTAL_RUNE_STONES) {
-            int index = ModItems.IMMORTAL_RUNE_STONES.indexOf(itemObj);
-            ImmortalRuneStoneItem item = (ImmortalRuneStoneItem) itemObj.get();
-            item.fillCreativeTabItems(runeStoneStacks, index);
+        for (RuneStoneAttributes.Immortal attr : RuneStoneAttributes.Immortal.values()) {
+            runeStoneStacks.add(RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.IMMORTAL_RUNE_STONE.get(), attr.name()));
         }
 
         output.acceptAll(runeStoneStacks);

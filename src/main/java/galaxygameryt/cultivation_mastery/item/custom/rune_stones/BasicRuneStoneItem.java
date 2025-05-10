@@ -35,11 +35,4 @@ public class BasicRuneStoneItem extends RuneStoneItem {
     public int getLevelColor() {
         return 0xd5d5d5;
     }
-
-    @Override
-    public void fillCreativeTabItems(List<ItemStack> items, int index) {
-        ItemStack stack = new ItemStack(this);
-        setAttribute(stack, RuneStoneAttributes.Basic.values()[index].name());
-        items.add(stack);
-    }
 }

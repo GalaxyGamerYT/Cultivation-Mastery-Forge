@@ -1,0 +1,6 @@
+{
+  "name": "Energy Gathering",
+  "description": "Energy gathering formations",
+  "icon": "cultivation_mastery:textures/patchouli_books/old_manual/icons/formations/energy_gathering.png",
+  "parent": "cultivation_mastery:formations_category"
+}

@@ -247,3 +247,32 @@ publishing {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
+
+processResources {
+    doLast {
+        if (System.getenv("IDEA_FILE_WATCHER") != null) {
+            println "[Watcher] Resources processed ✔"
+
+            def os = System.properties['os.name'].toString().toLowerCase()
+            try {
+                if (os.contains('mac')) {
+                    ['osascript', '-e', 'display notification "Resource sync complete." with title "File Watcher"'].execute()
+                } else if (os.contains('win')) {
+                    ["powershell", "-command",
+                     "[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime];" +
+                             "$template = [Windows.UI.Notifications.ToastTemplateType]::ToastText01;" +
+                             "$xml = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent($template);" +
+                             "$textNodes = $xml.GetElementsByTagName('text');" +
+                             "$textNodes.Item(0).AppendChild($xml.CreateTextNode('Patchouli sync complete.'));" +
+                             "$toast = [Windows.UI.Notifications.ToastNotification]::new($xml);" +
+                             "[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('Gradle')::Show($toast);"
+                    ].execute()
+                } else {
+                    ["notifiy-send", "Resources sync complete."].execute()
+                }
+            } catch (Exception ignored) {
+                println "[Watcher] Notification failed to display"
+            }
+        }
+    }
+}

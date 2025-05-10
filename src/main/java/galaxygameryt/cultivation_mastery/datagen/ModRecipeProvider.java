@@ -3,15 +3,17 @@ package galaxygameryt.cultivation_mastery.datagen;
 import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.block.ModBlocks;
 import galaxygameryt.cultivation_mastery.item.ModItems;
-import galaxygameryt.cultivation_mastery.item.custom.rune_stones.*;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
 import galaxygameryt.cultivation_mastery.recipe.builders.RuneInscribingRecipeBuilder;
 import galaxygameryt.cultivation_mastery.util.Logger;
 import galaxygameryt.cultivation_mastery.util.ModTags;
+import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,8 +21,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.registries.RegistryObject;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -88,14 +88,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void buildTrainingPostRecipes(Consumer<FinishedRecipe> pWriter) {
-        basicTrainingPostRecipes(pWriter, ModBlocks.OAK_TRAINING_POST.get(), Blocks.OAK_PLANKS, Blocks.OAK_LOG);
-        basicTrainingPostRecipes(pWriter, ModBlocks.SPRUCE_TRAINING_POST.get(), Blocks.SPRUCE_PLANKS, Blocks.SPRUCE_LOG);
-        basicTrainingPostRecipes(pWriter, ModBlocks.BIRCH_TRAINING_POST.get(), Blocks.BIRCH_PLANKS, Blocks.BIRCH_LOG);
-        basicTrainingPostRecipes(pWriter, ModBlocks.CHERRY_TRAINING_POST.get(), Blocks.CHERRY_PLANKS, Blocks.CHERRY_LOG);
-        basicTrainingPostRecipes(pWriter, ModBlocks.ACACIA_TRAINING_POST.get(), Blocks.ACACIA_PLANKS, Blocks.ACACIA_LOG);
-        basicTrainingPostRecipes(pWriter, ModBlocks.DARK_OAK_TRAINING_POST.get(), Blocks.DARK_OAK_PLANKS, Blocks.DARK_OAK_LOG);
-        basicTrainingPostRecipes(pWriter, ModBlocks.MANGROVE_TRAINING_POST.get(), Blocks.MANGROVE_PLANKS, Blocks.MANGROVE_LOG);
-        basicTrainingPostRecipes(pWriter, ModBlocks.JUNGLE_TRAINING_POST.get(), Blocks.JUNGLE_PLANKS, Blocks.JUNGLE_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.OAK_TRAINING_POST.get(), Blocks.OAK_PLANKS, Blocks.OAK_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.SPRUCE_TRAINING_POST.get(), Blocks.SPRUCE_PLANKS, Blocks.SPRUCE_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.BIRCH_TRAINING_POST.get(), Blocks.BIRCH_PLANKS, Blocks.BIRCH_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.CHERRY_TRAINING_POST.get(), Blocks.CHERRY_PLANKS, Blocks.CHERRY_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.ACACIA_TRAINING_POST.get(), Blocks.ACACIA_PLANKS, Blocks.ACACIA_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.DARK_OAK_TRAINING_POST.get(), Blocks.DARK_OAK_PLANKS, Blocks.DARK_OAK_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.MANGROVE_TRAINING_POST.get(), Blocks.MANGROVE_PLANKS, Blocks.MANGROVE_LOG);
+        basicTrainingPostRecipe(pWriter, ModBlocks.JUNGLE_TRAINING_POST.get(), Blocks.JUNGLE_PLANKS, Blocks.JUNGLE_LOG);
 
         // Spiritual Iron Training Post
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModBlocks.SPIRITUAL_IRON_TRAINING_POST.get())
@@ -125,82 +125,78 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
                 .save(pWriter, ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, getItemName(ModItems.BLANK_RUNE_STONE.get())+"_multiple"));
 
-        runeInscribingRecipes(pWriter, ModItems.BASIC_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
-        runeInscribingRecipes(pWriter, ModItems.LOW_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
-        runeInscribingRecipes(pWriter, ModItems.MEDIUM_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
-        runeInscribingRecipes(pWriter, ModItems.HIGH_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
-        runeInscribingRecipes(pWriter, ModItems.IMMORTAL_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.IMMORTAL_SPIRIT_STONE.get());
+        runeInscribingRecipe(pWriter, ModItems.BASIC_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
+        runeInscribingRecipe(pWriter, ModItems.LOW_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
+        runeInscribingRecipe(pWriter, ModItems.MEDIUM_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
+        runeInscribingRecipe(pWriter, ModItems.HIGH_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
+        runeInscribingRecipe(pWriter, ModItems.IMMORTAL_RUNE_STONE.get(), ModItems.BLANK_RUNE_STONE.get(), ModItems.IMMORTAL_SPIRIT_STONE.get());
 
         // BASIC RUNE STONES
-        for (RegistryObject<Item> runeStoneObj : ModItems.BASIC_RUNE_STONES) {
-            Item runeStone = runeStoneObj.get();
-            if (runeStone instanceof RuneStoneItem rune) {
-                String attribute = rune.getAttribute();
-                if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), Items.REDSTONE);
-                }
-            }
+        for (RuneStoneAttributes.Basic attr : RuneStoneAttributes.Basic.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.BASIC_RUNE_STONE.get(), attr.name());
+            runeInscribingRecipe(pWriter,
+                    stack.getItem(),
+                    attr.name(),
+                    ModItems.BLANK_RUNE_STONE.get(),
+                    Items.REDSTONE);
         }
 
         // LOW RUNE STONES
-        for (RegistryObject<Item> runeStoneObj : ModItems.LOW_RUNE_STONES) {
-            Item runeStone = runeStoneObj.get();
-            if (runeStone instanceof RuneStoneItem rune) {
-                String attribute = rune.getAttribute();
-                if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.LOW_SPIRIT_STONE.get());
-                }
-            }
+        for (RuneStoneAttributes.Low attr : RuneStoneAttributes.Low.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.LOW_RUNE_STONE.get(), attr.name());
+            runeInscribingRecipe(pWriter,
+                    stack.getItem(),
+                    attr.name(),
+                    ModItems.BLANK_RUNE_STONE.get(),
+                    ModItems.LOW_SPIRIT_STONE.get());
         }
 
         // MEDIUM RUNE STONES
-        for (RegistryObject<Item> runeStoneObj : ModItems.MEDIUM_RUNE_STONES) {
-            Item runeStone = runeStoneObj.get();
-            if (runeStone instanceof RuneStoneItem rune) {
-                String attribute = rune.getAttribute();
-                if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.MEDIUM_SPIRIT_STONE.get());
-                }
-            }
+        for (RuneStoneAttributes.Medium attr : RuneStoneAttributes.Medium.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.MEDIUM_RUNE_STONE.get(), attr.name());
+            runeInscribingRecipe(pWriter,
+                    stack.getItem(),
+                    attr.name(),
+                    ModItems.BLANK_RUNE_STONE.get(),
+                    ModItems.MEDIUM_SPIRIT_STONE.get());
         }
 
         // HIGH RUNE STONES
-        for (RegistryObject<Item> runeStoneObj : ModItems.HIGH_RUNE_STONES) {
-            Item runeStone = runeStoneObj.get();
-            if (runeStone instanceof RuneStoneItem rune) {
-                String attribute = rune.getAttribute();
-                if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.HIGH_SPIRIT_STONE.get());
-                }
-            }
+        for (RuneStoneAttributes.High attr : RuneStoneAttributes.High.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.HIGH_RUNE_STONE.get(), attr.name());
+            runeInscribingRecipe(pWriter,
+                    stack.getItem(),
+                    attr.name(),
+                    ModItems.BLANK_RUNE_STONE.get(),
+                    ModItems.HIGH_SPIRIT_STONE.get());
         }
 
         // IMMORTAL RUNE STONES
-        for (RegistryObject<Item> runeStoneObj : ModItems.IMMORTAL_RUNE_STONES) {
-            Item runeStone = runeStoneObj.get();
-            if (runeStone instanceof RuneStoneItem rune) {
-                String attribute = rune.getAttribute();
-                if (attribute != null) {
-                    runeInscribingRecipes(pWriter, rune, attribute, ModItems.BLANK_RUNE_STONE.get(), ModItems.IMMORTAL_SPIRIT_STONE.get());
-                }
-            }
+        for (RuneStoneAttributes.Immortal attr : RuneStoneAttributes.Immortal.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.IMMORTAL_RUNE_STONE.get(), attr.name());
+            runeInscribingRecipe(pWriter,
+                    stack.getItem(),
+                    attr.name(),
+                    ModItems.BLANK_RUNE_STONE.get(),
+                    ModItems.IMMORTAL_SPIRIT_STONE.get());
         }
+
     }
 
-    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, String attribute, ItemLike baseItem, ItemLike inscribingItem) {
+    protected static void runeInscribingRecipe(Consumer<FinishedRecipe> writer, Item result, String attribute, ItemLike baseItem, ItemLike inscribingItem) {
         RuneInscribingRecipeBuilder.runeInscribing(RecipeCategory.MISC, result)
                 .base(baseItem)
                 .inscriber(inscribingItem)
                 .attribute(attribute)
                 .unlockedBy(getHasName(inscribingItem), has(inscribingItem))
-                .save(writer, ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, result.toString() + "_crafting"));
+                .save(writer);
     }
 
-    protected static void runeInscribingRecipes(Consumer<FinishedRecipe> writer, Item result, ItemLike baseItem, ItemLike inscribingItem) {
-        runeInscribingRecipes(writer, result, "", baseItem, inscribingItem);
+    protected static void runeInscribingRecipe(Consumer<FinishedRecipe> writer, Item result, ItemLike baseItem, ItemLike inscribingItem) {
+        runeInscribingRecipe(writer, result, "", baseItem, inscribingItem);
     }
 
-    protected static void basicTrainingPostRecipes(Consumer<FinishedRecipe> pWriter, ItemLike outputItem, ItemLike baseItem, ItemLike pillarItem) {
+    protected static void basicTrainingPostRecipe(Consumer<FinishedRecipe> pWriter, ItemLike outputItem, ItemLike baseItem, ItemLike pillarItem) {
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, outputItem)
                 .pattern(" P ")
                 .pattern(" P ")

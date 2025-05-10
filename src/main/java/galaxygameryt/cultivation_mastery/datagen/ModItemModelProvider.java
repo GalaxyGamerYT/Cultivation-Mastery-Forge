@@ -4,9 +4,12 @@ import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.item.ModItems;
 import galaxygameryt.cultivation_mastery.item.custom.SpiritStoneItem;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.BasicRuneStoneItem;
+import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
+import galaxygameryt.cultivation_mastery.util.enums.RuneStoneAttributes;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,23 +37,33 @@ public class ModItemModelProvider extends ItemModelProvider {
 //        simpleItem(ModItems.BACKPACK.get());
 
         simpleItem(ModItems.YIN_YANG.get());
+        simpleItem(ModItems.ARRAY.get());
 
         simpleItem(ModItems.BLANK_RUNE_STONE.get());
         simpleItem(ModItems.BASIC_RUNE_STONE.get());
-        registerRuneStones(ModItems.BASIC_RUNE_STONES, "basic_rune_stone");
+        for (RuneStoneAttributes.Basic attr : RuneStoneAttributes.Basic.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.BASIC_RUNE_STONE.get(), attr.name());
+            simpleRuneStone(stack.getItem(), "basic_rune_stone");
+        }
         simpleItem(ModItems.LOW_RUNE_STONE.get());
-        registerRuneStones(ModItems.LOW_RUNE_STONES, "low_rune_stone");
+        for (RuneStoneAttributes.Low attr : RuneStoneAttributes.Low.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.LOW_RUNE_STONE.get(), attr.name());
+            simpleRuneStone(stack.getItem(), "low_rune_stone");
+        }
         simpleItem(ModItems.MEDIUM_RUNE_STONE.get());
-        registerRuneStones(ModItems.MEDIUM_RUNE_STONES, "medium_rune_stone");
+        for (RuneStoneAttributes.Medium attr : RuneStoneAttributes.Medium.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.MEDIUM_RUNE_STONE.get(), attr.name());
+            simpleRuneStone(stack.getItem(), "medium_rune_stone");
+        }
         simpleItem(ModItems.HIGH_RUNE_STONE.get());
-        registerRuneStones(ModItems.HIGH_RUNE_STONES, "high_rune_stone");
+        for (RuneStoneAttributes.High attr : RuneStoneAttributes.High.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.HIGH_RUNE_STONE.get(), attr.name());
+            simpleRuneStone(stack.getItem(), "high_rune_stone");
+        }
         simpleItem(ModItems.IMMORTAL_RUNE_STONE.get());
-        registerRuneStones(ModItems.IMMORTAL_RUNE_STONES, "immortal_rune_stone");
-    }
-
-    private void registerRuneStones(List<RegistryObject<Item>> items, String texture) {
-        for (RegistryObject<Item> itemEntry : items.stream().toList()) {
-            simpleRuneStone(itemEntry.get(), texture);
+        for (RuneStoneAttributes.Immortal attr : RuneStoneAttributes.Immortal.values()) {
+            ItemStack stack = RuneStoneItem.createWithAttribute((RuneStoneItem) ModItems.IMMORTAL_RUNE_STONE.get(), attr.name());
+            simpleRuneStone(stack.getItem(), "immortal_rune_stone");
         }
     }
 

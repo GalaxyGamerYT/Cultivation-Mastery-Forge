@@ -4,8 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import galaxygameryt.cultivation_mastery.CultivationMastery;
 import galaxygameryt.cultivation_mastery.item.custom.rune_stones.RuneStoneItem;
 import galaxygameryt.cultivation_mastery.recipe.ModRecipes;
+import galaxygameryt.cultivation_mastery.util.Logger;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -101,8 +103,17 @@ public class RuneInscribingRecipeBuilder extends CraftingRecipeBuilder implement
         return this.result;
     }
 
+    public void save(@NotNull Consumer<FinishedRecipe> finishedRecipeConsumer) {
+        String id = result.toString();
+        if (!attribute.isBlank()) id = id.concat("_"+attribute.toLowerCase());
+        id = id.concat("_crafting");
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(CultivationMastery.MOD_ID, id);
+        save(finishedRecipeConsumer, recipeId);
+    }
+
     @Override
-    public void save(@NotNull Consumer<FinishedRecipe> finishedRecipeConsumer, @NotNull ResourceLocation recipeId) {
+    public void save(@NotNull Consumer<FinishedRecipe> finishedRecipeConsumer, ResourceLocation recipeId) {
+        Logger.info("[RuneInscribingRecipe] "+recipeId+" Attribute: "+attribute);
         this.ensureValid(recipeId);
         this.advancement.parent(ROOT_RECIPE_ADVANCEMENT)
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "cultivation_mastery:item/basic_rune_stone"
-  }
-}

@@ -34,11 +34,4 @@ public class ImmortalRuneStoneItem extends RuneStoneItem {
     public int getLevelColor() {
         return 0x8b00ff;
     }
-
-    @Override
-    public void fillCreativeTabItems(List<ItemStack> items, int index) {
-        ItemStack stack = new ItemStack(this);
-        setAttribute(stack, RuneStoneAttributes.Immortal.values()[index].name());
-        items.add(stack);
-    }
 }
